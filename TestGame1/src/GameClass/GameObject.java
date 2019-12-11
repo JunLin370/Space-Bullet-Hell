@@ -1,6 +1,6 @@
-/*Jun Lin
- * DESC: This 
- *DATE: 2019-12-11 */
+/* Jun Lin
+ * DESC: 
+ * DATE: 2019-12-11 */
 
 package GameClass;
 

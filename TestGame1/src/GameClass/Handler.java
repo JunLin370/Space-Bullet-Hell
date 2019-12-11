@@ -1,8 +1,6 @@
-/*Jun Lin
-/*DESC: This Class maintains Every Object in this game
- *This also processes the objects and makes sure they are the object is up to date, and render the object
- *DATE: 2019-12-11 */
-
+/* Jun Lin
+ * DESC: 
+ * DATE: 2019-12-11 */
 package GameClass;
 
 import java.awt.Graphics;
