@@ -11,8 +11,12 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;	
 	private boolean running = false; 
 	
+	private Handler handler;
+	
 	public Game() {		// This starts the windows which is called from main
 		new Window(WIDTH, HEIGHT, "my Game", this);
+		
+		handler = new Handler();
 	}
 	
 	public synchronized void start() {	// To start the game and tell program game is running
@@ -59,7 +63,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
-		
+		handler.tick();
 	}
 	
 	private void render() {		//Creates buffers in game to limit frames
@@ -72,6 +76,8 @@ public class Game extends Canvas implements Runnable{
 		
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		handler.render(g);
 		
 		g.dispose();
 		bs.show();
