@@ -1,5 +1,6 @@
 /* Jun Lin
- * DESC: 
+ * DESC: This is the superclass which holds many properties that an object may have such as x y cords, 
+ * x velocity and y velocity, and also the ID of the Object.
  * DATE: 2019-12-11 */ 
 
 package GameClass;

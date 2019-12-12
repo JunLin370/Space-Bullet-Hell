@@ -1,5 +1,7 @@
 /* Jun Lin
- * DESC: 
+ * DESC: This is the main class that contains the Main
+ * This class is also responsible for starting and stopping necessary components of the program such as:
+ * the thread, running, and handler.
  * DATE: 2019-12-11 */
 
 package GameClass;
@@ -9,10 +11,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-public class Game extends Canvas implements Runnable{
+
+public class Game extends Canvas implements Runnable{	
 	
 	public static final int  HEIGHT = 640, WIDTH = HEIGHT/12*9;	//WIDTH AND HEIGHT of window here
-	private Thread thread;	
+	private Thread thread;		
 	private boolean running = false; 
 	
 	private Handler handler;

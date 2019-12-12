@@ -1,5 +1,7 @@
 /* Jun Lin
- * DESC: 
+ * DESC: This class is responsible for setting the size of the window, as well other necessary implementation
+ * required for the window such as setting resize to false and visible to true. It also adds the game itself
+ * to the window
  * DATE: 2019-12-11 */
 
 package GameClass;

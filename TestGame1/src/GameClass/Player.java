@@ -1,3 +1,6 @@
+/* Jun Lin
+ * DESC: (WIP) This Class is the first object i am building. It is the labeled Player and does not work :(
+ * DATE: 2019-12-12 */
 package GameClass;
 
 import javax.swing.*;
