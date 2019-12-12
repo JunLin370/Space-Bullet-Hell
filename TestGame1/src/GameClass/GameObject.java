@@ -1,12 +1,14 @@
 /* Jun Lin
  * DESC: 
- * DATE: 2019-12-11 */
+ * DATE: 2019-12-11 */ 
 
 package GameClass;
 
 import java.awt.Graphics;
 
-public abstract class GameObject {
+import javax.swing.JFrame;
+
+public abstract class GameObject  {
 	
 	protected int x,y; // protected means this can only be used by this class and the class that inherit this class
 	protected ObjectID id;

@@ -11,7 +11,7 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable{
 	
-	public static final int WIDTH = 640, HEIGHT = WIDTH /12*9;	//WIDTH AND HEIGHT of window here
+	public static final int  HEIGHT = 640, WIDTH = HEIGHT/12*9;	//WIDTH AND HEIGHT of window here
 	private Thread thread;	
 	private boolean running = false; 
 	
@@ -21,6 +21,8 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "my Game", this);
 		
 		handler = new Handler();
+		
+		handler.addObject(new Player(20, 20, ObjectID.Player));
 	}
 	
 	public synchronized void start() {	// To start the game and tell program game is running
