@@ -8,7 +8,7 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-public abstract class GameObject  {
+public abstract class GameObject extends JFrame {
 	
 	protected int x,y; // protected means this can only be used by this class and the class that inherit this class
 	protected ObjectID id;
