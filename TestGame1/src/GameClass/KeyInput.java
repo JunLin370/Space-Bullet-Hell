@@ -19,13 +19,13 @@ public class KeyInput extends Object implements KeyListener {
 		for (int i = 0; i < handler.object.size();i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if (tempObject.getId() == ObjectID.Player1) {
+			if (tempObject.getId() == ObjectID.Player1) {	//if the temp object is equal to the Player1 object, then run below
 				if (key == KeyEvent.VK_W) tempObject.setVelY(-1 * vel);
 				if (key == KeyEvent.VK_A) tempObject.setVelX(-1 * vel);
 				if (key == KeyEvent.VK_S) tempObject.setVelY(1 * vel);
 				if (key == KeyEvent.VK_D) tempObject.setVelX(1 * vel);
 			}
-			if (tempObject.getId() == ObjectID.Player2) {
+			if (tempObject.getId() == ObjectID.Player2) {	//if the temp object is equal to Player2 object, then run below
 				if (key == KeyEvent.VK_UP) tempObject.setVelY(-1 * vel);
 				if (key == KeyEvent.VK_LEFT) tempObject.setVelX(-1 * vel);
 				if (key == KeyEvent.VK_DOWN) tempObject.setVelY(1 * vel);

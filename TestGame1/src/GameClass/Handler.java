@@ -13,7 +13,7 @@ public class Handler {
 	
 	LinkedList<GameObject> object = new LinkedList<GameObject>();
 	
-	public void tick() {
+	public void tick() {	//This runs tick on every object in the LinkedList
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
 			
@@ -22,7 +22,7 @@ public class Handler {
 	}
 	
 
-	public void render(Graphics g) {
+	public void render(Graphics g) {	//This runs render on every object in the LinkedList
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
 			

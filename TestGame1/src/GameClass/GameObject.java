@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 public abstract class GameObject extends JFrame {
 	
 	protected int x,y; // protected means this can only be used by this class and the class that inherit this class
-	protected ObjectID id;
+	protected ObjectID id;	
 	protected int velX, velY;
 	
 	public GameObject(int x, int y, ObjectID id) {
@@ -24,6 +24,7 @@ public abstract class GameObject extends JFrame {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	
+	//these are the accessor methods for this class
 	public void setX(int x) {
 		this.x = y;
 	}

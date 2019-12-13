@@ -7,5 +7,6 @@ package GameClass;
 public enum ObjectID {
 
 	Player1(),
-	Enemy(), Player2;
+	Player2(),
+	Enemy();
 }

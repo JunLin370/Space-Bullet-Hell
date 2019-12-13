@@ -16,12 +16,12 @@ public class Player extends GameObject  {
 		super(x, y, id);
 	}
 
-	public void tick() {
+	public void tick() {	//This updates the x and y coords of the object
 		x += velX;
 		y += velY;
 	}
 
-	public void render(Graphics g) {
+	public void render(Graphics g) {	//This checks if one orb is red, if yes make the others blue
 		if (g.getColor() != Color.WHITE)
 			g.setColor(Color.WHITE);
 		else

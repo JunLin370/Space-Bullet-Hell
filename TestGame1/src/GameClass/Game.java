@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public Game() {		// This starts the windows which is called from main
 
-		handler = new Handler();
+		handler = new Handler();	//This starts the handler class
 		
 		this.addKeyListener(new KeyInput(handler));
 		
