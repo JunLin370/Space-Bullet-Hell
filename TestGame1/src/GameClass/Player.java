@@ -10,7 +10,7 @@ import java.awt.event.*;
 
 public class Player extends GameObject  {
 
-	private int OVALWIDTH = 20;
+	private static int OVALWIDTH = 20;
 
 	public Player(int x, int y, ObjectID id) {
 		super(x, y, id);
@@ -22,7 +22,10 @@ public class Player extends GameObject  {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.WHITE);
+		if (g.getColor() != Color.WHITE)
+			g.setColor(Color.WHITE);
+		else
+			g.setColor(Color.BLUE);
 		g.fillOval(x, y, OVALWIDTH, OVALWIDTH);
 	}
 }

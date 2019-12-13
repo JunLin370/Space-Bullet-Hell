@@ -25,19 +25,19 @@ public class Game extends Canvas implements Runnable{
 
 		handler = new Handler();
 		
-		this.addKeyListener(new MouseInput(handler));
+		this.addKeyListener(new KeyInput(handler));
 		
 		new Window(WIDTH, HEIGHT, "my Game", this);
 
-		handler.addObject(new Player(20, 20, ObjectID.Player1));
-		handler.addObject(new Player(40, 20, ObjectID.Player1));
-		handler.addObject(new Player(60, 20, ObjectID.Player1));
-		handler.addObject(new Player(80, 20, ObjectID.Player1));
+		handler.addObject(new Player(HEIGHT/4, WIDTH/2, ObjectID.Player1));
+		handler.addObject(new Player(HEIGHT/2, WIDTH/2, ObjectID.Player2));
+		
+
 	}
 	
 	public synchronized void start() {	// To start the game and tell program game is running
 		thread = new Thread(this);
-		thread.start();
+		thread.start();		//This calls the behavior run and starts the game loop
 		running = true;
 	}
 	
@@ -57,16 +57,16 @@ public class Game extends Canvas implements Runnable{
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		int frames = 0;
-		while(running) {
+		while(running) {			// THIS IS THE MAIN LOOP OF THE GAME
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while(delta >= 1) {
-				tick();
+				tick();		//Runs tick below
 				delta--;
 			}
 			if (running)
-				render();
+				render();	//Runs render below
 			frames++;
 			
 			if (System.currentTimeMillis() - timer > 1000){
@@ -79,7 +79,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
-		handler.tick();
+		handler.tick();	//this goes to the Handler Class
 	}
 	
 	private void render() {		//Creates buffers in game to limit frames
@@ -93,7 +93,7 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		handler.render(g);
+		handler.render(g);		// This goes to the HandlerClass
 		
 		g.dispose();
 		bs.show();

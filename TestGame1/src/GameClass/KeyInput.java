@@ -4,12 +4,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.lang.Object;
 
-public class MouseInput extends Object implements KeyListener {
+public class KeyInput extends Object implements KeyListener {
 	
 	private int vel = 5;
 	private Handler handler;
 	
-	public MouseInput(Handler handler) {
+	public KeyInput(Handler handler) {
 		this.handler = handler;
 	}
 	
@@ -25,6 +25,12 @@ public class MouseInput extends Object implements KeyListener {
 				if (key == KeyEvent.VK_S) tempObject.setVelY(1 * vel);
 				if (key == KeyEvent.VK_D) tempObject.setVelX(1 * vel);
 			}
+			if (tempObject.getId() == ObjectID.Player2) {
+				if (key == KeyEvent.VK_UP) tempObject.setVelY(-1 * vel);
+				if (key == KeyEvent.VK_LEFT) tempObject.setVelX(-1 * vel);
+				if (key == KeyEvent.VK_DOWN) tempObject.setVelY(1 * vel);
+				if (key == KeyEvent.VK_RIGHT) tempObject.setVelX(1 * vel);
+			}
 		}
 	}
 	
@@ -39,6 +45,12 @@ public class MouseInput extends Object implements KeyListener {
 				if (key == KeyEvent.VK_A) tempObject.setVelX(0);
 				if (key == KeyEvent.VK_S) tempObject.setVelY(0);
 				if (key == KeyEvent.VK_D) tempObject.setVelX(0);
+			}
+			if (tempObject.getId() == ObjectID.Player2) {
+				if (key == KeyEvent.VK_UP) tempObject.setVelY(0);
+				if (key == KeyEvent.VK_LEFT) tempObject.setVelX(0);
+				if (key == KeyEvent.VK_DOWN) tempObject.setVelY(0);
+				if (key == KeyEvent.VK_RIGHT) tempObject.setVelX(0);
 			}
 		}
 	}
