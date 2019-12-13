@@ -14,6 +14,7 @@ public class Player extends GameObject  {
 
 	public Player(int x, int y, ObjectID id) {
 		super(x, y, id);
+		velY = 1;
 	}
 
 	public void tick() {

@@ -25,11 +25,14 @@ public class Game extends Canvas implements Runnable{
 
 		handler = new Handler();
 		
-		this.addKeyListener(new Input(handler));
+		this.addKeyListener(new MouseInput(handler));
 		
 		new Window(WIDTH, HEIGHT, "my Game", this);
 
-		handler.addObject(new Player(20, 20, ObjectID.Player));
+		handler.addObject(new Player(20, 20, ObjectID.Player1));
+		handler.addObject(new Player(40, 20, ObjectID.Player1));
+		handler.addObject(new Player(60, 20, ObjectID.Player1));
+		handler.addObject(new Player(80, 20, ObjectID.Player1));
 	}
 	
 	public synchronized void start() {	// To start the game and tell program game is running
