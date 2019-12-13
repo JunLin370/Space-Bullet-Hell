@@ -9,6 +9,7 @@ package GameClass;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 
 
@@ -21,10 +22,13 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	
 	public Game() {		// This starts the windows which is called from main
-		new Window(WIDTH, HEIGHT, "my Game", this);
-		
+
 		handler = new Handler();
 		
+		this.addKeyListener(new Input(handler));
+		
+		new Window(WIDTH, HEIGHT, "my Game", this);
+
 		handler.addObject(new Player(20, 20, ObjectID.Player));
 	}
 	
