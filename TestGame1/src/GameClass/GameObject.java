@@ -6,7 +6,7 @@
 package GameClass;
 
 import java.awt.Graphics;
-
+import java.awt.Rectangle;
 import javax.swing.JFrame;
 
 public abstract class GameObject extends JFrame {
@@ -15,6 +15,9 @@ public abstract class GameObject extends JFrame {
 	protected ObjectID id;	
 	protected int velX, velY;
 	
+	/* Des: Constructor class will set starting x and y position. It will also set the id for the Object
+	 * pre:
+	 * post: set x, y, and object id */
 	public GameObject(int x, int y, ObjectID id) {
 		this.x = x;
 		this.y = y;
@@ -23,10 +26,12 @@ public abstract class GameObject extends JFrame {
 	
 	public abstract void tick();
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
 	
-	//these are the accessor methods for this class
+	//these are the accessor methods for this class to change the X,Y,and ObjectID, velX, velX
+	//as well get X,Y, and ObjectID, velX, velX
 	public void setX(int x) {
-		this.x = y;
+		this.x = x;
 	}
 	
 	public void setY(int y) {

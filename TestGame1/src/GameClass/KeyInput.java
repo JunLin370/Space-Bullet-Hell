@@ -25,7 +25,7 @@ public class KeyInput extends Object implements KeyListener {
 				if (key == KeyEvent.VK_S) tempObject.setVelY(1 * vel);
 				if (key == KeyEvent.VK_D) tempObject.setVelX(1 * vel);
 			}
-			if (tempObject.getId() == ObjectID.Player2) {	//if the temp object is equal to Player2 object, then run below
+			if (tempObject.getId() == ObjectID.Player2) {	//if the temp object is equal to Pgvlayer2 object, then run below
 				if (key == KeyEvent.VK_UP) tempObject.setVelY(-1 * vel);
 				if (key == KeyEvent.VK_LEFT) tempObject.setVelX(-1 * vel);
 				if (key == KeyEvent.VK_DOWN) tempObject.setVelY(1 * vel);

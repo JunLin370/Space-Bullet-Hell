@@ -8,5 +8,6 @@ public enum ObjectID {
 
 	Player1(),
 	Player2(),
-	Enemy();
+	Enemy1(),
+	HUD();
 }

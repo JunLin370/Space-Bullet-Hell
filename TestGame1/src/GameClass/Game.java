@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 
 public class Game extends Canvas implements Runnable{	
@@ -20,7 +21,12 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false; 
 	
 	private Handler handler;
+	private Level1 level1;
 	
+	/* Des: Constructor method. It initializes the handler class, the keyListener, the window, and all the
+	 * objects in the game. This is also where most of the game will be put (WIP) 
+	 * pre:
+	 * post: Runs the game itself */
 	public Game() {		// This starts the windows which is called from main
 
 		handler = new Handler();	//This starts the handler class
@@ -28,19 +34,24 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		
 		new Window(WIDTH, HEIGHT, "my Game", this);
-
-		handler.addObject(new Player(HEIGHT/4, WIDTH/2, ObjectID.Player1));
-		handler.addObject(new Player(HEIGHT/2, WIDTH/2, ObjectID.Player2));
 		
-
+		level1 = new Level1(handler);	//This starts level 1 by calling the Level1 class
+		
 	}
 	
+	/* Des: This is synchronized meaning only one thread can be inside at a time. It makes a new thread and
+	 * starts it. It runs the "run" behavior. It also sets running to true
+	 * pre: 
+	 * post: This runs the "run" behavior and sets running to true */
 	public synchronized void start() {	// To start the game and tell program game is running
 		thread = new Thread(this);
 		thread.start();		//This calls the behavior run and starts the game loop
 		running = true;
 	}
 	
+	/* Des: (WIP) cause i dont really know what it does besides stop the run method by turing running to false
+	 * pre:
+	 * post: */
 	public synchronized void stop() {	// To stop the game and tell program game is not running
 		try {
 			thread.join();
@@ -50,7 +61,12 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	/* Des: This behaviour is holds the loop which the game will be placed in. It limits the amount of frames using
+	 * math. It will run forever untill running is set to false. It will repeatedly run tick and render(see below)
+	 * pre:
+	 * post: */
 	public void run() { // Popular game loop system, to stop flicking in Java and maintain tick rate, notch used it?
+		this.requestFocus();	//Auto Focus the game when launched
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
@@ -78,11 +94,20 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	
+	/* Des: This behavior will run tick from the handler class
+	 * pre:	
+	 * post: It runs tick from the handler class*/
 	private void tick() {
 		handler.tick();	//this goes to the Handler Class
+		level1.tick();
 	}
 	
-	private void render() {		//Creates buffers in game to limit frames
+	/* Des: This will uses bufferstrategy to limit the amount of frames the game will output. It will 
+	 * then output the background for the window. It will then run render inside the handler class.
+	 * (WIP)
+	 * pre:
+	 * post: disposes frames with bufferStrategy and g.dispose. Will show frames with bs.show */
+	private void render() {		//Creates buffers in game to limit frames the game will run
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
 			this.createBufferStrategy(3);
@@ -90,17 +115,27 @@ public class Game extends Canvas implements Runnable{
 		}
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.RED);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		
+
 		handler.render(g);		// This goes to the HandlerClass
+		level1.render(g);
 		
 		g.dispose();
 		bs.show();
 	}
 	
+	public static int border(int var, int min, int max) {
+		if (var >= max)
+			return var = max;
+		else if (var <= min)
+			return var = min;
+		else
+			return var;
+	}
+	
 	public static void main (String [] args) {
-		new Game();
+		new Game();	//Runs game :)
 	}
 
 }
