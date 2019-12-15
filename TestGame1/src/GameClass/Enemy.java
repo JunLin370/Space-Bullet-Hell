@@ -24,16 +24,7 @@ public class Enemy extends GameObject{
 	public void tick() {
 		x += velX;
 		y += velY;
-		if (y > Game.HEIGHT + 1000) 	//(WIP) !!! :( ( DOESNT WORK AND I DONT KNOW WHY :(
-			for (int i = 0; i < handler.object.size(); i++) {		//for number of objects in game
-				GameObject tempObject = handler.object.get(i);
-
-				if(tempObject.getId() == ObjectID.Enemy1) {		//if it is enemy1 which is the current object	
-					//handler.removeObject(tempObject);
-				}
-
-			}
-	}//end for
+	}
 
 
 	public void render(Graphics g) {
