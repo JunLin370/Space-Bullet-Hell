@@ -5,13 +5,12 @@
  * DATE: 2019-12-11 */
 package GameClass;
 
-
 import java.awt.Graphics;
 import java.util.LinkedList;
 
 public class Handler {
 	
-	LinkedList<GameObject> object = new LinkedList<GameObject>();
+	public LinkedList<GameObject> object = new LinkedList<GameObject>();
 	
 	/* Des: This runs the tick method inside every object in the linkedlist. It does this by going thought the
 	 * linkedlist with a for loop. It then puts the linked list into a temp object and then runs the tick

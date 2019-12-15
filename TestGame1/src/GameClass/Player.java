@@ -10,8 +10,8 @@ import java.awt.event.*;
 
 public class Player extends GameObject  {
 
-	private static int OVALWIDTH = 20;
-	Handler handler;
+	private static final int OVALWIDTH = 20;
+	private Handler handler;
 	private int health;
 
 	public Player(int x, int y, ObjectID id, Handler handler) {
@@ -21,7 +21,7 @@ public class Player extends GameObject  {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle (x,y,20,20);
+		return new Rectangle (x,y,OVALWIDTH,OVALWIDTH);
 	}
 	
 	public void tick() {	//This updates the x and y coords of the object

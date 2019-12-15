@@ -125,13 +125,13 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	
-	public static int border(int var, int min, int max) {
-		if (var >= max)
-			return var = max;
-		else if (var <= min)
-			return var = min;
+	public static int border(int pos, int min, int max) {
+		if (pos >= max)
+			return pos = max;
+		else if (pos <= min)
+			return pos = min;
 		else
-			return var;
+			return pos;
 	}
 	
 	public static void main (String [] args) {

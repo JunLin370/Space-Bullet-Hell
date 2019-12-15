@@ -13,7 +13,7 @@ import java.awt.Rectangle;
 
 public class Enemy extends GameObject{
 
-	Handler handler;
+	private Handler handler;
 	
 	public Enemy(int x, int y, ObjectID id, Handler handler) {
 		super(x, y, id);
