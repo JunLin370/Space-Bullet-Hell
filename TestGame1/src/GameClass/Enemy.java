@@ -15,7 +15,7 @@ public class Enemy extends GameObject{
 
 	private Handler handler;
 	
-	public Enemy(int x, int y, ObjectID id, Handler handler) {
+	public Enemy(float x, float y, ObjectID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		velY = 4;
@@ -29,7 +29,7 @@ public class Enemy extends GameObject{
 
 	public void render(Graphics g) {
 		g.setColor(Color.RED);
-		g.fillOval(x, y, 10, 10);
+		g.fillOval((int)x, (int)y, 10, 10);
 		
 		Graphics2D g2d = (Graphics2D) g;		
 		g.setColor(Color.WHITE);
@@ -37,7 +37,7 @@ public class Enemy extends GameObject{
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle (x,y,10,10);
+		return new Rectangle ((int)x,(int)y,10,10);
 	}
 	
 	

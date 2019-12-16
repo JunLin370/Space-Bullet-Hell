@@ -14,29 +14,29 @@ public class Player extends GameObject  {
 	private Handler handler;
 	private int health;
 
-	public Player(int x, int y, ObjectID id, Handler handler) {
+	public Player(float x, float y, ObjectID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		health = 100;
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle (x,y,OVALWIDTH,OVALWIDTH);
+		return new Rectangle ((int)x,(int)y,OVALWIDTH,OVALWIDTH);
 	}
 	
 	public void tick() {	//This updates the x and y coords of the object
 		x += velX;
 		y += velY;
 		
-		x = Game.border(x, 0, Game.WIDTH - 27);
-		y = Game.border(y, 0, Game.HEIGHT - 55);
+		x = Game.border((int)x, 0, Game.WIDTH - 27);
+		y = Game.border((int)y, 0, Game.HEIGHT - 55);
 		
 		collision();
 	}
 
 	public void render(Graphics g) {	//Makes the player Green and fills oval
 		g.setColor(Color.GREEN);
-		g.fillOval(x, y, OVALWIDTH, OVALWIDTH);
+		g.fillOval((int)x, (int)y, OVALWIDTH, OVALWIDTH);
 		
 		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.WHITE);
@@ -52,9 +52,17 @@ public class Player extends GameObject  {
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getId() == ObjectID.Enemy1) {
+			if(tempObject.getId() == ObjectID.Bullet1) {
 				if(getBounds().intersects(tempObject.getBounds())){
-					health -= 1;
+					health -= 5;
+					handler.removeObject(tempObject);
+				}
+				
+			}
+			
+			if(tempObject.getId() == ObjectID.Bullet2) {
+				if(getBounds().intersects(tempObject.getBounds())){
+					health -= 100;
 					handler.removeObject(tempObject);
 				}
 				

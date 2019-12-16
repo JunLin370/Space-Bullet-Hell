@@ -11,14 +11,14 @@ import javax.swing.JFrame;
 
 public abstract class GameObject extends JFrame {
 	
-	protected int x,y; // protected means this can only be used by this class and the class that inherit this class
+	protected float x,y; // protected means this can only be used by this class and the class that inherit this class
 	protected ObjectID id;	
-	protected int velX, velY;
+	protected float velX, velY;
 	
 	/* Des: Constructor class will set starting x and y position. It will also set the id for the Object
 	 * pre:
 	 * post: set x, y, and object id */
-	public GameObject(int x, int y, ObjectID id) {
+	public GameObject(float x, float y, ObjectID id) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
@@ -30,19 +30,19 @@ public abstract class GameObject extends JFrame {
 	
 	//these are the accessor methods for this class to change the X,Y,and ObjectID, velX, velX
 	//as well get X,Y, and ObjectID, velX, velX
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 	
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	
-	public int getX() {
+	public float getXs() {
 		return x;
 	}
 	
-	public int getY() {
+	public float getYs() {
 		return y;
 	}
 	
@@ -54,19 +54,19 @@ public abstract class GameObject extends JFrame {
 		return id;
 	}
 	
-	public void setVelX(int velX) {
+	public void setVelX(float velX) {
 		this.velX = velX;
 	}
 	
-	public void setVelY(int velY) {
+	public void setVelY(float velY) {
 		this.velY = velY;
 	}
 	
-	public int getVelX() {
+	public float getVelX() {
 		return velX;
 	}
 	
-	public int getVelY() {
+	public float getVelY() {
 		return velY;
 	}
 	

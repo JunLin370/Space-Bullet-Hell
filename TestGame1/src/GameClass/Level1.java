@@ -24,24 +24,30 @@ public class Level1 {
 		r = new Random();	//Initialize Random
 		handler.addObject(new Player(Game.HEIGHT/4, Game.WIDTH/2, ObjectID.Player1, handler));
 	}
-	
+
 	public void tick() {		
 		if (timer == RESPAWN) {		
-			handler.addObject(new Enemy(r.nextInt(Game.WIDTH), -5, ObjectID.Enemy1, handler));	//make new enemy object and add it to handler linked list
+			handler.addObject(new Enemy(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet1, handler));	//make new enemy object and add it to handler linked list
 			timer = 0;		//and reset timer
 			adder += 1;
 			if (adder == 3) {
-				handler.addObject(new Enemy2(r.nextInt(Game.WIDTH), -5, ObjectID.Enemy1, handler));
+				handler.addObject(new Enemy2(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet2, handler));
 				adder = 0;
 			}
 		}
-			for (int i = 0; i < handler.object.size(); i++) {		//for number of objects in game
-				GameObject tempObject = handler.object.get(i);
-				if (tempObject.y > Game.HEIGHT - 100 ) { 	//(WIP) !!! :( ( DOESNT WORK AND I DONT KNOW WHY :(
-				if(tempObject.getId() == ObjectID.Enemy1) {		//if it is enemy1 which is the current object	
-					handler.removeObject(tempObject);
+		
+		//This removes enemies from the screen when the exit down the bottom of it
+		for (int i = 0; i < handler.object.size(); i++) {		//for number of objects in game
+			GameObject tempObject = handler.object.get(i);
+			if(tempObject.getId() == ObjectID.Bullet1) {		//if the object is id as enemy1,
+				if (tempObject.y > Game.HEIGHT - 100 ) {	//and if the object is out of the screen, 
+					handler.removeObject(tempObject);	//remove it from the list
 				}
-
+			}
+			if(tempObject.getId() == ObjectID.Bullet2) {		//if the object is id as enemy1,
+				if (tempObject.y > Game.HEIGHT - 100 ) {	//and if the object is out of the screen, 
+					handler.removeObject(tempObject);	//remove it from the list
+				}
 			}
 		}
 		timer ++;	//add one to timer

@@ -34,7 +34,7 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		
 		new Window(WIDTH, HEIGHT, "my Game", this);
-		
+	
 		level1 = new Level1(handler);	//This starts level 1 by calling the Level1 class
 		
 	}
@@ -125,7 +125,7 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	
-	public static int border(int pos, int min, int max) {
+	public static float border(float pos, float min, float max) {
 		if (pos >= max)
 			return pos = max;
 		else if (pos <= min)

@@ -6,8 +6,11 @@ package GameClass;
 
 public enum ObjectID {
 
+	//Players
 	Player1(),
 	Player2(),
-	Enemy1(),
-	HUD();
+	//Bullet Types
+	Bullet1(),
+	Bullet2(),
+	Bullet3(),
 }
