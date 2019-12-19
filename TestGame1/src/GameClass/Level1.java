@@ -16,7 +16,7 @@ public class Level1 {
 	private Handler handler;
 	private Random r;
 	
-	private static final int RESPAWN = 5;
+	private static final int RESPAWN = 10;
 	
 	private int score, timer, adder;
 	
@@ -32,9 +32,9 @@ public class Level1 {
 			//handler.addObject(new Enemy(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet1, handler));	//make new enemy object and add it to handler linked list
 			timer = 0;		//and reset timer
 			adder += 1;
-			if (adder >= 3) {
+			if (adder % 3 == 0) {
 			//	handler.addObject(new Enemy2(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet2, handler));
-			}if (adder == 50) {
+			}if (adder == 10) {
 				handler.addObject(new BasicEnemyShip(r.nextInt(Game.WIDTH), -5, ObjectID.BasicEnemy, handler));
 				adder = 0;
 			}
@@ -55,9 +55,15 @@ public class Level1 {
 				}
 			}
 			
-			if(tempObject.getId() == ObjectID.BasicEnemy) {		//if the object is id as BasicEnemy,
-				if (tempObject.y > Game.HEIGHT - 100 ) {	//and if the object is out of the screen, 
-					handler.removeObject(tempObject);	//remove it from the list
+			if(tempObject.getId() == ObjectID.Bullet3) {
+				if(Game.inBorder(tempObject.x, 100, Game.WIDTH - 100)|| Game.inBorder(tempObject.y,  -100, Game.HEIGHT - 100)) {
+					handler.removeObject(tempObject);
+				}
+			}
+			if(tempObject.getId() == ObjectID.BasicEnemy) {
+				// If the object is 
+				if(Game.inBorder(tempObject.x, 100, Game.WIDTH - 100)|| Game.inBorder(tempObject.y,  -100, Game.HEIGHT - 100)) {
+					handler.removeObject(tempObject);
 				}
 			}
 		}

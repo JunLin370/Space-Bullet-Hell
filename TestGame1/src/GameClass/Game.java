@@ -125,13 +125,28 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	
-	public static float border(float pos, float min, float max) {
+	/* Des: This checks if a value is between two values. If it is, return True, if its not, return false
+	 * pre:	float pos, float min, float max
+	 * post: returns the value of min or max depending on which the pos is equal or greater then*/
+	public static float fborder(float pos, float min, float max) {
 		if (pos >= max)
 			return pos = max;
 		else if (pos <= min)
 			return pos = min;
 		else
 			return pos;
+	}
+	
+	/* Des: This checks if a value is between two values. If it is, return True, if its not, return false
+	 * pre:	float pos, float min, float max
+	 * post: boolean determining whether its in whiten parameters or not*/
+	public static boolean inBorder(float pos, float min, float max) {
+		if (pos >= max)
+			return true;
+		else if (pos <= min)
+			return true;
+		else
+			return false;
 	}
 	
 	public static void main (String [] args) {

@@ -28,15 +28,19 @@ public class HomingBullet extends GameObject{
 			}
 		}
 
-		float distance = (float) Math.sqrt((x-player.getX())*(x-player.getX()) + (y-player.getY())*(y-player.getY()));
+		//float distance = (float) Math.sqrt((x-player.getX())*(x-player.getX()) + (y-player.getY())*(y-player.getY()));
 
-		velX = (float) ((-1.0/distance)*(x - player.getXs() - 20) * 10);
-		velY = (float) ((-1.0/distance)*(y - player.getYs() - 20) * 10);
+		//velX =  ((-1/distance)*(x - player.getXs() - 20) * 10);
+		//velY =  ((-1/distance)*(y - player.getYs() - 20) * 10);
 
-		//if (y <= 0 || y >= Game.HEIGHT - 32) velY *= -1;
-		//if (x <= 0 || x >= Game.WIDTH - 16) velX *= -1;
+		float deltaX = player.getXs() - x;
+		float deltaY = player.getYs() - y;
+		float angle = (float) Math.atan2( deltaY, deltaX );
 
-
+		float vel = 5;
+		
+		velX = (float) (vel * Math.cos( angle ));
+		velY = (float) (vel * Math.sin( angle ));
 	}
 
 	public void tick() {
@@ -46,7 +50,7 @@ public class HomingBullet extends GameObject{
 
 
 	public void render(Graphics g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.ORANGE);
 		g.fillOval((int)x, (int)y, 10, 10);
 		if (timer <= 200) {
 			g.drawString("Bang", (int)x, (int)y);

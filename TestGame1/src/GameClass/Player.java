@@ -28,8 +28,8 @@ public class Player extends GameObject  {
 		x += velX;
 		y += velY;
 		
-		x = Game.border((int)x, 0, Game.WIDTH - 27);
-		y = Game.border((int)y, 0, Game.HEIGHT - 55);
+		x = Game.fborder((int)x, 0, Game.WIDTH - 27);
+		y = Game.fborder((int)y, 0, Game.HEIGHT - 55);
 		
 		collision();
 	}
@@ -69,6 +69,13 @@ public class Player extends GameObject  {
 			if(tempObject.getId() == ObjectID.BasicEnemy) {
 				if(getBounds().intersects(tempObject.getBounds())){
 					health -= 50;
+					handler.removeObject(tempObject);
+				}
+			}
+			
+			if(tempObject.getId() == ObjectID.Bullet3) {
+				if(getBounds().intersects(tempObject.getBounds())){
+					health -= 20;
 					handler.removeObject(tempObject);
 				}
 			}
