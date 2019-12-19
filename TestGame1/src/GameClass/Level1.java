@@ -7,6 +7,7 @@
  * DATE: 2019-12-11 */
 package GameClass;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
@@ -25,26 +26,36 @@ public class Level1 {
 		handler.addObject(new Player(Game.HEIGHT/4, Game.WIDTH/2, ObjectID.Player1, handler));
 	}
 
-	public void tick() {		
-		if (timer == RESPAWN) {		
-			handler.addObject(new Enemy(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet1, handler));	//make new enemy object and add it to handler linked list
+	public void tick() {
+		
+		if (timer == RESPAWN) {	
+			//handler.addObject(new Enemy(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet1, handler));	//make new enemy object and add it to handler linked list
 			timer = 0;		//and reset timer
 			adder += 1;
-			if (adder == 3) {
-				handler.addObject(new Enemy2(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet2, handler));
+			if (adder >= 3) {
+			//	handler.addObject(new Enemy2(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet2, handler));
+			}if (adder == 50) {
+				handler.addObject(new BasicEnemyShip(r.nextInt(Game.WIDTH), -5, ObjectID.BasicEnemy, handler));
 				adder = 0;
 			}
+
 		}
-		
+
 		//This removes enemies from the screen when the exit down the bottom of it
 		for (int i = 0; i < handler.object.size(); i++) {		//for number of objects in game
 			GameObject tempObject = handler.object.get(i);
-			if(tempObject.getId() == ObjectID.Bullet1) {		//if the object is id as enemy1,
-				if (tempObject.y > Game.HEIGHT - 100 ) {	//and if the object is out of the screen, 
+			if(tempObject.getId() == ObjectID.Bullet1) {		//if the object is id as Bullet1,
+				if (tempObject.y > Game.HEIGHT - 100) {	//and if the object is out of the screen, 
 					handler.removeObject(tempObject);	//remove it from the list
 				}
 			}
-			if(tempObject.getId() == ObjectID.Bullet2) {		//if the object is id as enemy1,
+			if(tempObject.getId() == ObjectID.Bullet2) {		//if the object is id as Bullet2,
+				if (tempObject.y > Game.HEIGHT - 100) {	//and if the object is out of the screen, 
+					handler.removeObject(tempObject);	//remove it from the list
+				}
+			}
+			
+			if(tempObject.getId() == ObjectID.BasicEnemy) {		//if the object is id as BasicEnemy,
 				if (tempObject.y > Game.HEIGHT - 100 ) {	//and if the object is out of the screen, 
 					handler.removeObject(tempObject);	//remove it from the list
 				}
@@ -55,6 +66,7 @@ public class Level1 {
 	}
 	
 	public void render(Graphics g) {
+		g.setColor(Color.WHITE);
 		g.drawString("Timer: " + timer, 15, 40);		//display timer (kinda useless tbh)
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
 	}

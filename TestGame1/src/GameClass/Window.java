@@ -19,10 +19,9 @@ public class Window extends Canvas{
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMaximumSize(new Dimension(width, height));
 		frame.setMinimumSize(new Dimension(width, height));
-
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);		//stop user from resizing program
-		frame.setLocationRelativeTo(null);	//puts window in the center of the screen
+		frame.setLocationRelativeTo(null);	//puts window in the center of the screen	
 		frame.add(game);	//adds the game to the window
 		frame.setVisible(true);		
 		game.start();

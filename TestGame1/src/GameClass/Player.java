@@ -57,15 +57,20 @@ public class Player extends GameObject  {
 					health -= 5;
 					handler.removeObject(tempObject);
 				}
-				
 			}
 			
 			if(tempObject.getId() == ObjectID.Bullet2) {
 				if(getBounds().intersects(tempObject.getBounds())){
-					health -= 100;
+					health -= 10;
 					handler.removeObject(tempObject);
 				}
-				
+			}
+			
+			if(tempObject.getId() == ObjectID.BasicEnemy) {
+				if(getBounds().intersects(tempObject.getBounds())){
+					health -= 50;
+					handler.removeObject(tempObject);
+				}
 			}
 		}//end for
 	}
