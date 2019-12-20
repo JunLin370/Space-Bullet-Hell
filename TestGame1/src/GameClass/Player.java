@@ -13,11 +13,13 @@ public class Player extends GameObject  {
 	private static final int OVALWIDTH = 20;
 	private Handler handler;
 	private int health;
+	private boolean firing;
 
 	public Player(float x, float y, ObjectID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		health = 100;
+		shooting = false;
 	}
 
 	public Rectangle getBounds() {
@@ -25,6 +27,13 @@ public class Player extends GameObject  {
 	}
 	
 	public void tick() {	//This updates the x and y coords of the object
+		if (health <= 0)
+			handler.object.remove(this);
+		
+		if (shooting = true) {
+			handler.addObject(new Rifle(x,y,ObjectID.Gun1));
+		}
+		
 		x += velX;
 		y += velY;
 		
@@ -44,8 +53,6 @@ public class Player extends GameObject  {
 		
 		g.setColor(Color.RED);
 		g.fillRect(10, 10, health*3, 15);
-		g.setColor(Color.WHITE);
-		g.drawRect(10, 10, 300, 15);
 	}
 	
 	private void collision() {
@@ -80,6 +87,10 @@ public class Player extends GameObject  {
 				}
 			}
 		}//end for
+	}
+	
+	public void getFire(boolean newFire) {
+		this.firing = newFire;
 	}
 	
 }

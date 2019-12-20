@@ -66,12 +66,19 @@ public class Level1 {
 					handler.removeObject(tempObject);
 				}
 			}
+			if(tempObject.getId() == ObjectID.Gun1) {
+				if(Game.inBorder(tempObject.x, 100, Game.WIDTH - 100)|| Game.inBorder(tempObject.y,  -100, Game.HEIGHT - 100)) {
+					handler.removeObject(tempObject);
+				}
+			}
 		}
 		timer ++;	//add one to timer
 		score ++;	//add one to score
 	}
 	
 	public void render(Graphics g) {
+		g.setColor(Color.WHITE);
+		g.drawRect(10, 10, 300, 15);
 		g.setColor(Color.WHITE);
 		g.drawString("Timer: " + timer, 15, 40);		//display timer (kinda useless tbh)
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)

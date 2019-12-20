@@ -20,7 +20,7 @@ public class KeyInput extends Object implements KeyListener {
 			GameObject tempObject = handler.object.get(i);
 			
 			if (tempObject.getId() == ObjectID.Player1) {	//if the temp object is equal to the Player1 object, then run below
-				if (key == KeyEvent.VK_W) tempObject.setVelY(-1 * vel);
+				if (key == KeyEvent.VK_W) { tempObject.setVelY(-1 * vel);}
 				if (key == KeyEvent.VK_A) tempObject.setVelX(-1 * vel);
 				if (key == KeyEvent.VK_S) tempObject.setVelY(1 * vel);
 				if (key == KeyEvent.VK_D) tempObject.setVelX(1 * vel);
@@ -41,7 +41,7 @@ public class KeyInput extends Object implements KeyListener {
 			GameObject tempObject = handler.object.get(i);
 			
 			if (tempObject.getId() == ObjectID.Player1) {
-				if (key == KeyEvent.VK_W) tempObject.setVelY(0);
+				if (key == KeyEvent.VK_W) {tempObject.setVelY(0);}
 				if (key == KeyEvent.VK_A) tempObject.setVelX(0);
 				if (key == KeyEvent.VK_S) tempObject.setVelY(0);
 				if (key == KeyEvent.VK_D) tempObject.setVelX(0);

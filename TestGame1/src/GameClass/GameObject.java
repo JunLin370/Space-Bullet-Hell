@@ -14,6 +14,7 @@ public abstract class GameObject extends JFrame {
 	protected float x,y; // protected means this can only be used by this class and the class that inherit this class
 	protected ObjectID id;	
 	protected float velX, velY;
+	protected boolean shooting;
 	
 	/* Des: Constructor class will set starting x and y position. It will also set the id for the Object
 	 * pre:
@@ -30,6 +31,12 @@ public abstract class GameObject extends JFrame {
 	
 	//these are the accessor methods for this class to change the X,Y,and ObjectID, velX, velX
 	//as well get X,Y, and ObjectID, velX, velX
+	
+	//-- Temp setter to allow player to shoot
+	public void setShot(boolean shoots) {
+		shooting = shoots;
+	}
+	
 	public void setX(float x) {
 		this.x = x;
 	}
