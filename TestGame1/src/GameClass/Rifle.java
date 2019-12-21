@@ -15,10 +15,9 @@ public class Rifle extends GameObject{
 	private Handler handler;
 	private int vel;
 	private boolean bang;
-	private float angle;
 	private int timer;
 	
-	public Rifle(float x, float y, ObjectID id) {
+	public Rifle(float x, float y, ObjectID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		
@@ -28,6 +27,10 @@ public class Rifle extends GameObject{
 	public void tick() {
 		x += velX;
 		y += velY;
+		
+		if(Game.inBorder(x, 0, Game.WIDTH )|| Game.inBorder(y,  -100, Game.HEIGHT )) {
+			handler.removeObject(this);
+		}
 	}
 
 

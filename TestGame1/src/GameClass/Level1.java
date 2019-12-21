@@ -16,9 +16,8 @@ public class Level1 {
 	private Handler handler;
 	private Random r;
 	
-	private static final int RESPAWN = 10;
-	
-	private int score, timer, adder;
+	private int timer, adder;
+	public static int score;
 	
 	public Level1(Handler handler) {	//Constructor takes handler and adds new player to handler linked list
 		this.handler = handler;		//Initializes handler
@@ -27,60 +26,16 @@ public class Level1 {
 	}
 
 	public void tick() {
-		
-		if (timer == RESPAWN) {	
-			//handler.addObject(new Enemy(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet1, handler));	//make new enemy object and add it to handler linked list
-			timer = 0;		//and reset timer
-			adder += 1;
-			if (adder % 3 == 0) {
-			//	handler.addObject(new Enemy2(r.nextInt(Game.WIDTH), -5, ObjectID.Bullet2, handler));
-			}if (adder == 10) {
-				handler.addObject(new BasicEnemyShip(r.nextInt(Game.WIDTH), -5, ObjectID.BasicEnemy, handler));
-				adder = 0;
-			}
 
-		}
+		if(timer )
 
-		//This removes enemies from the screen when the exit down the bottom of it
-		for (int i = 0; i < handler.object.size(); i++) {		//for number of objects in game
-			GameObject tempObject = handler.object.get(i);
-			if(tempObject.getId() == ObjectID.Bullet1) {		//if the object is id as Bullet1,
-				if (tempObject.y > Game.HEIGHT - 100) {	//and if the object is out of the screen, 
-					handler.removeObject(tempObject);	//remove it from the list
-				}
-			}
-			if(tempObject.getId() == ObjectID.Bullet2) {		//if the object is id as Bullet2,
-				if (tempObject.y > Game.HEIGHT - 100) {	//and if the object is out of the screen, 
-					handler.removeObject(tempObject);	//remove it from the list
-				}
-			}
-			
-			if(tempObject.getId() == ObjectID.Bullet3) {
-				if(Game.inBorder(tempObject.x, 100, Game.WIDTH - 100)|| Game.inBorder(tempObject.y,  -100, Game.HEIGHT - 100)) {
-					handler.removeObject(tempObject);
-				}
-			}
-			if(tempObject.getId() == ObjectID.BasicEnemy) {
-				// If the object is 
-				if(Game.inBorder(tempObject.x, 100, Game.WIDTH - 100)|| Game.inBorder(tempObject.y,  -100, Game.HEIGHT - 100)) {
-					handler.removeObject(tempObject);
-				}
-			}
-			if(tempObject.getId() == ObjectID.Gun1) {
-				if(Game.inBorder(tempObject.x, 100, Game.WIDTH - 100)|| Game.inBorder(tempObject.y,  -100, Game.HEIGHT - 100)) {
-					handler.removeObject(tempObject);
-				}
-			}
-		}
 		timer ++;	//add one to timer
-		score ++;	//add one to score
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(Color.WHITE);
 		g.drawRect(10, 10, 300, 15);
 		g.setColor(Color.WHITE);
-		g.drawString("Timer: " + timer, 15, 40);		//display timer (kinda useless tbh)
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
 	}
 	

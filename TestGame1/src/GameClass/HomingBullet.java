@@ -44,6 +44,10 @@ public class HomingBullet extends GameObject{
 	public void tick() {
 		x += velX;
 		y += velY;
+		
+		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  -100, Game.HEIGHT - 100)) {
+			handler.removeObject(this);
+		}
 	}
 
 

@@ -8,18 +8,13 @@ import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Player extends GameObject  {
+public class Player extends Ship  {
 
 	private static final int OVALWIDTH = 20;
-	private Handler handler;
-	private int health;
 	private boolean firing;
-	private int temp;
 
 	public Player(float x, float y, ObjectID id, Handler handler) {
-		super(x, y, id);
-		this.handler = handler;
-		health = 100;
+		super(x, y, id,handler, 100);
 		shooting = false;
 	}
 
@@ -28,13 +23,13 @@ public class Player extends GameObject  {
 	}
 	
 	public void tick() {	//This updates the x and y coords of the object
-		temp ++;
+		timer ++;
 		if (health <= 0)
 			handler.object.remove(this);
 		
-		if (temp >= 20) {
-			handler.addObject(new Rifle(x,y,ObjectID.Gun1));
-			temp = 0;
+		if (timer >= 20) {
+			handler.addObject(new Rifle(x,y,ObjectID.Gun1, handler));
+			timer = 0;
 		}
 		
 		x += velX;
@@ -43,7 +38,7 @@ public class Player extends GameObject  {
 		x = Game.fborder((int)x, 0, Game.WIDTH - 27);
 		y = Game.fborder((int)y, 0, Game.HEIGHT - 55);
 		
-		collision();
+		collisions();
 	}
 
 	public void render(Graphics g) {	//Makes the player Green and fills oval
@@ -58,7 +53,7 @@ public class Player extends GameObject  {
 		g.fillRect(10, 10, health*3, 15);
 	}
 	
-	private void collision() {
+	protected void collisions() {
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			

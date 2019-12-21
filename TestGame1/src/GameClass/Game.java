@@ -1,8 +1,7 @@
  /* Jun Lin
  * DESC: This is the main class that contains the Main
  * This class is also responsible for starting and stopping necessary components of the program such as:
- * the thread, running, and handler.
- * DATE: 2019-12-11 */
+ * the thread, running, and handler.*/
 
 package GameClass;
 
@@ -11,6 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 
@@ -22,6 +22,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private Handler handler;
 	private Level1 level1;
+	
+	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	
 	/* Des: Constructor method. It initializes the handler class, the keyListener, the window, and all the
 	 * objects in the game. This is also where most of the game will be put (WIP) 
@@ -71,7 +73,7 @@ public class Game extends Canvas implements Runnable{
 	 * math. It will run forever untill running is set to false. It will repeatedly run tick and render(see below)
 	 * pre:
 	 * post: */
-	public void run() { // Popular game loop system, to stop flicking in Java and maintain tick rate, notch used it?
+	public void run() { // Popular game loop system, to stop flicking in Java and maintain tick rate
 		this.requestFocus();	//Auto Focus the game when launched
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
