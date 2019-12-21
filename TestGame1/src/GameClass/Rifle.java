@@ -28,7 +28,7 @@ public class Rifle extends GameObject{
 		x += velX;
 		y += velY;
 		
-		if(Game.inBorder(x, 0, Game.WIDTH )|| Game.inBorder(y,  -100, Game.HEIGHT )) {
+		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100))  {
 			handler.removeObject(this);
 		}
 	}

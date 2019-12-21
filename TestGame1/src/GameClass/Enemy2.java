@@ -20,7 +20,7 @@ private int oval = 7;
 		x += velX;
 		y += velY;
 		
-		if (y > Game.HEIGHT - 100) {	//and if the object is out of the screen, 
+		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100)) {	//and if the object is out of the screen, 
 			handler.removeObject(this);	//remove it from the list
 		}
 	}
