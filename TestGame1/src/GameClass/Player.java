@@ -14,6 +14,7 @@ public class Player extends GameObject  {
 	private Handler handler;
 	private int health;
 	private boolean firing;
+	private int temp;
 
 	public Player(float x, float y, ObjectID id, Handler handler) {
 		super(x, y, id);
@@ -27,11 +28,13 @@ public class Player extends GameObject  {
 	}
 	
 	public void tick() {	//This updates the x and y coords of the object
+		temp ++;
 		if (health <= 0)
 			handler.object.remove(this);
 		
-		if (shooting = true) {
+		if (temp >= 20) {
 			handler.addObject(new Rifle(x,y,ObjectID.Gun1));
+			temp = 0;
 		}
 		
 		x += velX;

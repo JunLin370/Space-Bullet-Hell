@@ -47,6 +47,7 @@ public class BasicEnemyShip extends GameObject{
 			if(tempObject.getId() == ObjectID.Gun1) {
 				if(getBounds().intersects(tempObject.getBounds())){
 					health -= 5;
+					handler.removeObject(tempObject);
 				}
 			}
 		}//End for

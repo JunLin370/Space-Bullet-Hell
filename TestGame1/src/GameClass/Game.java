@@ -1,4 +1,4 @@
-/* Jun Lin
+ /* Jun Lin
  * DESC: This is the main class that contains the Main
  * This class is also responsible for starting and stopping necessary components of the program such as:
  * the thread, running, and handler.
@@ -44,6 +44,9 @@ public class Game extends Canvas implements Runnable{
 	 * pre: 
 	 * post: This runs the "run" behavior and sets running to true */
 	public synchronized void start() {	// To start the game and tell program game is running
+		if (running)	//if the game is already running, just return out of method
+			return;
+		
 		thread = new Thread(this);
 		thread.start();		//This calls the behavior run and starts the game loop
 		running = true;
@@ -53,6 +56,9 @@ public class Game extends Canvas implements Runnable{
 	 * pre:
 	 * post: */
 	public synchronized void stop() {	// To stop the game and tell program game is not running
+		if (!running)	//if the game is not running, leave method cause there is nothing to stop
+			return;
+		
 		try {
 			thread.join();
 			running = false;
