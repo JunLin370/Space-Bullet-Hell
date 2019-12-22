@@ -16,5 +16,6 @@ public enum ObjectID {
 	Bullet2(),
 	Bullet3(),
 	//Enemy Ship Types
-	BasicEnemy();
+	BasicEnemy(),
+	ShotEnemy();
 }

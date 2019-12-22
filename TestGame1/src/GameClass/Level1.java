@@ -30,10 +30,17 @@ public class Level1 {
 	}
 
 	public void tick() {
-		if (timer == 500) {
-			FormationTri();
-			timer = 0;
+		if (timer % 240 == 0) {
+			adder ++;
+			if (adder <= 2) {
+				FormationTri(Game.WIDTH/8);
+				FormationTri(Game.WIDTH/2 + Game.WIDTH/4);
+			}
+			if (adder == 3) {
+				handler.addObject(new ShotGunEnemyShip(Game.WIDTH/2, (-1)* (Game.HEIGHT/2),  ObjectID.ShotEnemy, handler, adder));
+			}
 		}
+
 		timer ++;
 	}
 
@@ -43,15 +50,16 @@ public class Level1 {
 		g.setColor(Color.WHITE);
 		g.drawString("timer: " + timer, 15, 40);
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
+		g.drawString("Adder: " + adder, 15, 80);
 	}
 	
-	private void FormationTri() {
-		handler.addObject(new BasicEnemyShip( 100, -200, ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( 150, -200, ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( 200, -200, ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( 125, -150, ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( 175, -150, ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( 150, -100, ObjectID.BasicEnemy, handler));
+	private void FormationTri(int placement) {
+		handler.addObject(new BasicEnemyShip( placement, (-1)* ((Game.HEIGHT/2) + 100), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 50, (-1)* ((Game.HEIGHT/2) + 100), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 100, (-1)* ((Game.HEIGHT/2) + 100), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 25, (-1)* ((Game.HEIGHT/2) + 50), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 75, (-1)* ((Game.HEIGHT/2) + 50), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 50, (-1)* ((Game.HEIGHT/2)), ObjectID.BasicEnemy, handler));
 
 	}
 	

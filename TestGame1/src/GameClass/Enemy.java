@@ -15,17 +15,18 @@ public class Enemy extends GameObject{
 
 	private Handler handler;
 	
-	public Enemy(float x, float y, ObjectID id, Handler handler) {
+	public Enemy(float x, float y, ObjectID id, Handler handler, int velX, int velY) {
 		super(x, y, id);
 		this.handler = handler;
-		velY = 4;
+		this.velX = velX;
+		this.velY = velY;
 	}
 
 	public void tick() {
 		x += velX;
 		y += velY;
 
-		if (y > Game.HEIGHT - 100) {	//and if the object is out of the screen, 
+		if (Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100)) {	//and if the object is out of the screen, 
 			handler.removeObject(this);	//remove it from the list
 		}
 	}

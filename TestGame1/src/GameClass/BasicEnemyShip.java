@@ -27,25 +27,23 @@ public class BasicEnemyShip extends Ship{
 			handler.removeObject(this);
 			Level1.score += 100;
 		}
-		
-		x += velX;
-		y += velY;
-		
-		timer ++;
-		
 		for (int i = 0; i < handler.object.size(); i++) {	//Gets the player object
 			GameObject tempObject = handler.object.get(i);
 			if(tempObject.getId() == ObjectID.Player1) {	//If player object exists
-				if (timer == 200) {		//and a certain amount of ticks have passed,
+				//// ACTION GOES HERE
+				x += velX;
+				y += velY;
+
+				if (y == Game.HEIGHT / 4) {		
 					handler.addObject(new HomingBullet(x, y, ObjectID.Bullet3, handler));	//make a new homing bullet object
-					timer = 0;	//and reset timer to shoot again
 				}
+				////
 			}
 		}//end for
 		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100)) {	// if object is outside screen of game
 			handler.removeObject(this); //remove object
 		}
-		
+
 		collisions();
 	}
 	
