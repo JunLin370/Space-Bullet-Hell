@@ -1,3 +1,8 @@
+/* Jun Lin	
+ * DESC: This class is the code responsible for creating a bullet which moves in the direction of the player object. This class will detect
+ * and set the appropriated velocities
+ */
+
 package GameClass;
 
 import java.awt.Color;
@@ -8,13 +13,18 @@ import java.awt.Rectangle;
 public class HomingBullet extends GameObject{
 	
 	
-	private Handler handler;
-	private int vel;
+	private Handler handler;	
+	private float vel;
 	private boolean bang;
 	private float angle;
 	private int timer;
 	
-	public HomingBullet(float x, float y, ObjectID id, Handler handler) {
+	/*Handler is responsible for setting velX and velY. Thus the constructor also contains the code that gets the players location, and then
+	 * using it to to set the velX and velY appropriately
+	 * pre: float x, float y (Location of origin), ObjectID, Handler, float (speed of bullet)
+	 * post: this sets the velX and velY to make the object move towards the player at the desired speed (dictated by vel)
+	 */
+	public HomingBullet(float x, float y, ObjectID id, Handler handler, float vel) {
 		super(x, y, id);
 		this.handler = handler;
 		bang = true;
@@ -25,7 +35,6 @@ public class HomingBullet extends GameObject{
 		//velX =  ((-1/distance)*(x - player.getXs() - 20) * 10);
 		//velY =  ((-1/distance)*(y - player.getYs() - 20) * 10);
 
-		
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			if(tempObject.getId() == ObjectID.Player1) {
@@ -33,14 +42,16 @@ public class HomingBullet extends GameObject{
 				float deltaY = tempObject.getYs() - y;
 				float angle = (float) Math.atan2( deltaY, deltaX );
 
-				float vel = 5;
-
 				velX = (float) (vel * Math.cos( angle ));
 				velY = (float) (vel * Math.sin( angle ));
 			}
 		}
 	}
 
+	/* tick is moves the object by the velocity. It also checks if the object is withen the screen. If yes remove the object
+	 * pre:
+	 * post: add velX to x and velY to y. Removes object if it reaches bounds of window.
+	 */
 	public void tick() {
 		x += velX;
 		y += velY;
@@ -50,7 +61,10 @@ public class HomingBullet extends GameObject{
 		}
 	}
 
-
+	/* This draws the object. It is an orange oval which is 10 by 10. (WIP)
+	 * pre:
+	 * post: Draws object on screen
+	 */
 	public void render(Graphics g) {
 		g.setColor(Color.ORANGE);
 		g.fillOval((int)x, (int)y, 10, 10);
@@ -65,6 +79,10 @@ public class HomingBullet extends GameObject{
 		g2d.draw(getBounds());
 	}
 
+	/* returns a rectangle which is approximate the size of the object in question
+	 * pre:
+	 * post: Rectangle with x y positions, and size, both width and height
+	 */
 	public Rectangle getBounds() {
 		return new Rectangle ((int)x,(int)y,10,10);
 	}

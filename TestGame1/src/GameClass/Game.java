@@ -1,7 +1,7 @@
  /* Jun Lin
  * DESC: This is the main class that contains the Main
  * This class is also responsible for starting and stopping necessary components of the program such as:
- * the thread, running, and handler.*/
+ * the thread, running(the main loop of the game), and handler, This place will also contain the main menu.*/
 
 package GameClass;
 

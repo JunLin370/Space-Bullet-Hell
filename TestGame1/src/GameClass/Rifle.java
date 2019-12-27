@@ -36,7 +36,7 @@ public class Rifle extends GameObject{
 
 	public void render(Graphics g) {
 		g.setColor(Color.ORANGE);
-		g.fillOval((int)x, (int)y, 30, 10);
+		g.fillOval((int)x, (int)y, 10, 30);
 		if (timer <= 200) {
 			g.drawString("Bang", (int)x, (int)y);
 			bang = false;
@@ -49,6 +49,6 @@ public class Rifle extends GameObject{
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle ((int)x,(int)y,30,10);
+		return new Rectangle ((int)x,(int)y,10,30);
 	}
 }

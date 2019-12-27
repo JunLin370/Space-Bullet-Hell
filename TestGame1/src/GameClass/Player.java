@@ -27,8 +27,9 @@ public class Player extends Ship  {
 		if (health <= 0)
 			handler.object.remove(this);
 		
-		if (timer >= 20) {
+		if (timer >= 30) {
 			handler.addObject(new Rifle(x,y,ObjectID.Gun1, handler));
+			handler.addObject(new Rifle(x + 20,y, ObjectID.Gun1, handler));
 			timer = 0;
 		}
 		

@@ -27,21 +27,44 @@ public class Level1 {
 		handler.addObject(new Player(Game.HEIGHT/4, Game.WIDTH/2, ObjectID.Player1, handler));
 		stagelength = 40000;
 
+		
+		// Spawn new ships here for testing
+		//
 	}
 
 	public void tick() {
-		if (timer % 240 == 0) {
+		timer ++;                                                                                                                                                
+		if (timer % 60 == 1) {
 			adder ++;
-			if (adder <= 2) {
+			if (adder == 5 || adder == 10) {
 				FormationTri(Game.WIDTH/8);
 				FormationTri(Game.WIDTH/2 + Game.WIDTH/4);
 			}
-			if (adder == 3) {
-				handler.addObject(new ShotGunEnemyShip(Game.WIDTH/2, (-1)* (Game.HEIGHT/2),  ObjectID.ShotEnemy, handler, adder));
+			if (adder == 15) {
+				FormationXLine(5, 500);
+				FormationXLine(5, 70);
+			}
+			if (adder == 20) {
+				FormationTri(Game.WIDTH/8);
+				FormationTri(Game.WIDTH/2 + Game.WIDTH/4);
+			}
+			if (adder == 25) {
+				FormationYLine(5, Game.WIDTH/2);
+			}
+			if (adder == 32) {
+				FormationYLine(13, Game.WIDTH/4 + 70);
+			}
+			if (adder == 34) {
+				FormationYLine(7, Game.WIDTH/4 + 55);
+			}
+			if (adder == 35 ) {
+				FormationYLine(10, Game.WIDTH/4);
+				FormationYLine(10, Game.WIDTH/4 + 75);
+			}
+			if (adder == 36) {
+				FormationYLine(10, Game.WIDTH/4 -30);
 			}
 		}
-
-		timer ++;
 	}
 
 	public void render(Graphics g) {
@@ -52,14 +75,25 @@ public class Level1 {
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
 		g.drawString("Adder: " + adder, 15, 80);
 	}
+	private void FormationXLine(int number, int placement) {
+		for (int i = 0; i < number; i++) {
+			handler.addObject(new BasicEnemyShip( (placement + (i*30) - 10), -1 * (Game.HEIGHT/4), ObjectID.BasicEnemy, handler));
+		}
+	}
+	
+	private void FormationYLine(int number, int placement) {
+		for (int i = 0; i < number; i++) {
+			handler.addObject(new BasicEnemyShip( placement - 10, -1 * (Game.HEIGHT/4) - (i*40), ObjectID.BasicEnemy, handler));
+		}
+	}
 	
 	private void FormationTri(int placement) {
-		handler.addObject(new BasicEnemyShip( placement, (-1)* ((Game.HEIGHT/2) + 100), ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( placement + 50, (-1)* ((Game.HEIGHT/2) + 100), ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( placement + 100, (-1)* ((Game.HEIGHT/2) + 100), ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( placement + 25, (-1)* ((Game.HEIGHT/2) + 50), ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( placement + 75, (-1)* ((Game.HEIGHT/2) + 50), ObjectID.BasicEnemy, handler));
-		handler.addObject(new BasicEnemyShip( placement + 50, (-1)* ((Game.HEIGHT/2)), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement - 10, (-1)* ((Game.HEIGHT/4) + 100), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 50  - 10, (-1)* ((Game.HEIGHT/4) + 100), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 100  - 10, (-1)* ((Game.HEIGHT/4) + 100), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 25  - 10, (-1)* ((Game.HEIGHT/4) + 50), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 75  - 10, (-1)* ((Game.HEIGHT/4) + 50), ObjectID.BasicEnemy, handler));
+		handler.addObject(new BasicEnemyShip( placement + 50  - 10, (-1)* ((Game.HEIGHT/4)), ObjectID.BasicEnemy, handler));
 
 	}
 	

@@ -14,4 +14,7 @@ public abstract class Ship extends GameObject{
 	
 	protected abstract void collisions();
 
+	public void basicBullet(int x, int y, float angle, int vel) {
+		handler.addObject(new Enemy(x, y, ObjectID.Bullet1, handler, angle, vel));
+	}
 }

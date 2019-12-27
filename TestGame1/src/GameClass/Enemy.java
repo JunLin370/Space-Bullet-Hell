@@ -15,11 +15,11 @@ public class Enemy extends GameObject{
 
 	private Handler handler;
 	
-	public Enemy(float x, float y, ObjectID id, Handler handler, int velX, int velY) {
+	public Enemy(float x, float y, ObjectID id, Handler handler, float angle, int vel) {
 		super(x, y, id);
 		this.handler = handler;
-		this.velX = velX;
-		this.velY = velY;
+		velX = (float) (vel * Math.cos(Math.toRadians( angle )));
+		velY = (float) (vel * Math.sin(Math.toRadians( angle )));
 	}
 
 	public void tick() {

@@ -8,12 +8,12 @@ public class ShotGunEnemyShip extends Ship{
 	
 	private int rectangleWidth;
 	private int rectangleHeight;
-	private int shots, j;
+	private int shots, j, vel;
 
 	public ShotGunEnemyShip(float x, float y, ObjectID id, Handler handler, int newHealth) {
 		super(x, y, id, handler, 20);
 		velY = 1;
-		
+		vel = 2;
 		rectangleWidth = 40;
 		rectangleHeight = 40;
 	}
@@ -42,23 +42,24 @@ public class ShotGunEnemyShip extends Ship{
 				////ACTION GOES HERE
 				x += velX;
 				y += velY;
-				if (y == Game.HEIGHT/8) {
-					timer ++;
+				if (y == Game.HEIGHT/4 && timer != 5*60) {
+					timer++;
 					if (velY != 0)
 						velY = 0;
-					if (timer == 30 && shots < 8) {
-						handler.addObject(new Enemy(x, y, ObjectID.Bullet1, handler, j, 1));
-						handler.addObject(new Enemy(x, y, ObjectID.Bullet1, handler, -1*j, 1));
-						shots ++;
-						j++;
-						timer = 0;
+					if (timer == 60) {
+						basicBullet((int)x,(int)y,90,5);
+						basicBullet((int)x,(int)y,80,5);
+						basicBullet((int)x,(int)y,100,5);
+						basicBullet((int)x,(int)y,70,5);
+						basicBullet((int)x,(int)y,110,5);
 					}
-				}
-
+				} 
+				else
+					velY = 1;
 				////
 			}
 		}
-
+		collisions();
 	}
 
 	public void render(Graphics g) {
