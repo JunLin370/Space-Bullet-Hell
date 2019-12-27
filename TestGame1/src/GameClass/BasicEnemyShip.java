@@ -14,9 +14,9 @@ public class BasicEnemyShip extends Ship{
 	private int rectangleWidth;
 	private int rectangleHeight;
 	
-	public BasicEnemyShip(float x, float y, ObjectID id, Handler handler) {
-		super(x, y, id, handler, 10);
-		velY = 1;
+	public BasicEnemyShip(float x, float y, ObjectID id, Handler handler, int health) {
+		super(x, y, id, handler, health);
+		velY = 2;
 		
 		rectangleWidth = 20;
 		rectangleHeight = 30;

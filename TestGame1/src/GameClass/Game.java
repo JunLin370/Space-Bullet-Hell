@@ -22,8 +22,17 @@ public class Game extends Canvas implements Runnable{
 	
 	private Handler handler;
 	private Level1 level1;
+	private Menu menu;
 	
-	//private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	public enum STATE {
+		Menu,
+		Game,
+		thing,
+		help,
+	};
+	
+	public STATE gameState = STATE.Menu;
+	
 	
 	/* Des: Constructor method. It initializes the handler class, the keyListener, the window, and all the
 	 * objects in the game. This is also where most of the game will be put (WIP) 
@@ -32,15 +41,17 @@ public class Game extends Canvas implements Runnable{
 	public Game() {		// This starts the windows which is called from main
 
 		handler = new Handler();	//This starts the handler class
-		
+		menu = new Menu(this, handler);
+
 		this.addKeyListener(new KeyInput(handler));
-		
+		this.addMouseListener(menu);
+
 		new Window(WIDTH, HEIGHT, "my Game", this);
-		
+
 		level1 = new Level1(handler);	//This starts level 1 by calling the Level1 class
-		
+
 	}
-	
+
 	/* Des: This is synchronized meaning only one thread can be inside at a time. It makes a new thread and
 	 * starts it. It runs the "run" behavior. It also sets running to true
 	 * pre: 
@@ -107,7 +118,13 @@ public class Game extends Canvas implements Runnable{
 	 * post: It runs tick from the handler class*/
 	private void tick() {
 		handler.tick();	//this goes to the Handler Class
-		level1.tick();
+
+		if (gameState == STATE.Game) { //if gameState is game, then
+			level1.tick(); // run game
+		}
+		else if (gameState == STATE.Menu) {
+			menu.tick();
+		}
 	}
 	
 	/* Des: This will uses bufferstrategy to limit the amount of frames the game will output. It will 
@@ -127,8 +144,13 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		handler.render(g);		// This goes to the HandlerClass
-		level1.render(g);
-		
+
+		if (gameState == STATE.Game) { // If the state of the game is in Game State, render level1
+			level1.render(g);
+		}
+		else if (gameState == STATE.Menu) {
+			menu.render(g);
+		}
 		g.dispose();
 		bs.show();
 	}
