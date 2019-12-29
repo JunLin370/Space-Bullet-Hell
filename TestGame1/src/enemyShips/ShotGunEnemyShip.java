@@ -1,8 +1,15 @@
-package GameClass;
+package enemyShips;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import GameClass.Game;
+import GameClass.GameObject;
+import GameClass.Handler;
+import GameClass.Level1;
+import GameClass.ObjectID;
+import GameClass.Ship;
 
 public class ShotGunEnemyShip extends Ship{
 	
@@ -26,6 +33,12 @@ public class ShotGunEnemyShip extends Ship{
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
 					health -= 5;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
+				}
+			}
+			if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
+				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
+					Ship tempShip = (Ship) tempObject;
+					tempShip.setHealth(tempShip.getHealth() - 50);
 				}
 			}
 		}//End for

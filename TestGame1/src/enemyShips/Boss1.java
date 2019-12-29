@@ -3,12 +3,20 @@
  * and also display a new healthbar on the screen
  * Currently is just a test model
  */
-package GameClass;
+package enemyShips;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.Random;
+
+import GameClass.Game;
+import GameClass.GameObject;
+import GameClass.Handler;
+import GameClass.Level1;
+import GameClass.ObjectID;
+import GameClass.Ship;
 
 public class Boss1 extends Ship{
 	
@@ -36,6 +44,13 @@ public class Boss1 extends Ship{
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
 					health -= 5;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
+				}
+			}
+
+			if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
+				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
+					Ship tempShip = (Ship) tempObject;
+					tempShip.setHealth(0);
 				}
 			}
 		}//End for
@@ -78,43 +93,10 @@ public class Boss1 extends Ship{
 
 					switch (attack) {
 					case 1:
-						//attack 1
-						timer2 ++;
-						if(timer == 15) {
-							if (angle >= 90)
-								angle = 0;
-							angle += 15;
-							basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle, 2);
-							basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+90, 2);
-							basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+180, 2);
-							basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+270, 2);
-							timer = 0;
-						}
-						if (timer2 % 60 * 3 == 0) {
-							trackBullet((int)x + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
-							trackBullet((int)x + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
-							trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
-							trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
-						}
-						if (timer2 == 60 * 7) {
-							buffer = true;
-							timer2 = 0;
-						}
+						spinAttack();
 						break;
 					case 2:
-						// attack 2
-						timer2 ++;
-						if (timer == 15) {
-							trackBullet((int)x + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
-							trackBullet((int)x + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
-							trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
-							trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
-							timer = 0;
-						}
-						if (timer2 == 60 * 5) {
-							buffer = true;
-							timer2 = 0;
-						}
+						miniGunAttack();
 						break;
 					case 3: 
 						// attack 3
@@ -147,6 +129,10 @@ public class Boss1 extends Ship{
 		g.setColor(Color.RED);
 		g.fillRect(90, Game.HEIGHT - 79, health/5, 34);
 		
+		Graphics2D g2d = (Graphics2D) g;		
+		g.setColor(Color.WHITE);
+		g2d.draw(getBounds());
+		
 		g.drawString("Timer2: " + timer2, 15, 100);
 		g.drawString("Timer: " + timer, 15, 120);
 		g.drawString("attack type: " + attack, 15, 140);
@@ -156,4 +142,43 @@ public class Boss1 extends Ship{
 		return new Rectangle ((int)x,(int)y,RECTANGLEWIDTH,RECTANGLEHEIGHT);
 	}
 
+	public void spinAttack() {
+		//attack 1
+		timer2 ++;
+		if(timer == 15) {
+			if (angle >= 90)
+				angle = 0;
+			angle += 15;
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle, 2);
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+90, 2);
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+180, 2);
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+270, 2);
+			timer = 0;
+		}
+		if (timer2 % 60 * 3 == 0) {
+			trackBullet((int)x + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
+			trackBullet((int)x + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
+			trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
+			trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
+		}
+		if (timer2 == 60 * 7) {
+			buffer = true;
+			timer2 = 0;
+		}
+	}
+	
+	public void miniGunAttack() {
+		timer2 ++;
+		if (timer == 15) {
+			trackBullet((int)x + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
+			trackBullet((int)x + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
+			trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
+			trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
+			timer = 0;
+		}
+		if (timer2 == 60 * 5) {
+			buffer = true;
+			timer2 = 0;
+		}
+	}
 }

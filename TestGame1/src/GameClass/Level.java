@@ -1,5 +1,9 @@
 package GameClass;
 
+import enemyShips.BasicEnemyShip;
+import enemyShips.Boss1;
+import enemyShips.ShotGunEnemyShip;
+
 public abstract class Level {
 	protected Handler handler;
 	
@@ -47,4 +51,5 @@ public abstract class Level {
 	protected void newBoss(int x, int y, int health) {
 		handler.addObject(new Boss1(x, y, ObjectID.Boss1, handler, health));
 	}
+	
 }

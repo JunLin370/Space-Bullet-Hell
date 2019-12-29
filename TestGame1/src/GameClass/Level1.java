@@ -13,6 +13,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import playerItems.Player;
+
 public class Level1 extends Level {
 
 	private int timer, adder;
@@ -22,7 +24,7 @@ public class Level1 extends Level {
 		super(handler);
 
 		
-		//
+		//Add test objects here to spawn them in main menu
 		//
 	}
 

@@ -4,12 +4,17 @@
  * this object from handler
  * DATE: 2019-12-11 */
 
-package GameClass;
+package enemyShips;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+
+import GameClass.Game;
+import GameClass.GameObject;
+import GameClass.Handler;
+import GameClass.ObjectID;
 
 public class Enemy extends GameObject{
 

@@ -1,5 +1,9 @@
 package GameClass;
 
+import enemyShips.BombBullet;
+import enemyShips.Enemy;
+import enemyShips.HomingBullet;
+
 public abstract class Ship extends GameObject{
 
 	protected Handler handler;
@@ -22,6 +26,9 @@ public abstract class Ship extends GameObject{
 		handler.addObject(new HomingBullet(x, y, ObjectID.Bullet3, handler, vel));
 	}
 	
+	protected void newBomb(int x, int y, int angle, int vel, int time) {
+		handler.addObject(new BombBullet(x, y, ObjectID.Bullet4, handler, angle, vel, time));
+	}
 	
 	public void setHealth(int newHealth) {
 		health = newHealth;

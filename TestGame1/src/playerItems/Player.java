@@ -1,10 +1,17 @@
 /* Jun Lin
  * DESC: (WIP) This Class is the first object i am building. It is the labeled Player and does not work :(
  * DATE: 2019-12-12 */
-package GameClass;
+package playerItems;
 
 import javax.swing.*;
 import javax.swing.Timer;
+
+import GameClass.Game;
+import GameClass.GameObject;
+import GameClass.Handler;
+import GameClass.ObjectID;
+import GameClass.Ship;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -75,19 +82,13 @@ public class Player extends Ship  {
 				}
 			}
 			
-			if(tempObject.getId() == ObjectID.BasicEnemy) {
-				if(getBounds().intersects(tempObject.getBounds())){
-					health -= 50;
-					handler.removeObject(tempObject);
-				}
-			}
-			
 			if(tempObject.getId() == ObjectID.Bullet3) {
 				if(getBounds().intersects(tempObject.getBounds())){
 					health -= 20;
 					handler.removeObject(tempObject);
 				}
 			}
+			
 		}//end for
 	}
 	
