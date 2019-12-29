@@ -35,7 +35,7 @@ public class BasicEnemyShip extends Ship{
 				y += velY;
 
 				if (y == Game.HEIGHT / 4) {		
-					handler.addObject(new HomingBullet(x, y, ObjectID.Bullet3, handler, 10));	//make a new homing bullet object
+					trackBullet((int) x,(int) y,15);	//make a new homing bullet object
 				}
 				////
 			}

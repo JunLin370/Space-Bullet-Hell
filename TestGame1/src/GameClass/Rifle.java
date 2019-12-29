@@ -17,18 +17,19 @@ public class Rifle extends GameObject{
 	private boolean bang;
 	private int timer;
 	
-	public Rifle(float x, float y, ObjectID id, Handler handler) {
+	public Rifle(float x, float y, ObjectID id, Handler handler, float angle, float vel) {
 		super(x, y, id);
 		this.handler = handler;
 		
-		velY = -20;
+		velX = (float) (vel * Math.cos(Math.toRadians( angle )));
+		velY = (float) (vel * Math.sin(Math.toRadians( angle )));
 	}
 
 	public void tick() {
 		x += velX;
 		y += velY;
 		
-		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100))  {
+		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  0, Game.HEIGHT ))  {
 			handler.removeObject(this);
 		}
 	}

@@ -28,8 +28,11 @@ public class Player extends Ship  {
 			handler.object.remove(this);
 		
 		if (timer >= 30) {
-			handler.addObject(new Rifle(x,y,ObjectID.Gun1, handler));
-			handler.addObject(new Rifle(x + 20,y, ObjectID.Gun1, handler));
+			Fire(270, 21);
+			Fire(265, 20);
+			Fire(275, 20);
+			Fire(280, 20);
+			Fire(260, 20);
 			timer = 0;
 		}
 		
@@ -88,8 +91,8 @@ public class Player extends Ship  {
 		}//end for
 	}
 	
-	public void getFire(boolean newFire) {
-		this.firing = newFire;
+	public void Fire(float angle, float vel) {
+		handler.addObject(new Rifle(x,y,ObjectID.Gun1, handler, angle, vel));
 	}
 	
 }

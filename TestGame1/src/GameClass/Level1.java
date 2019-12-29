@@ -31,20 +31,21 @@ public class Level1 extends Level {
 		if (timer % 60 == 0) {
 			adder ++;
 			if (adder == 5 ) {
-				handler.addObject(new Player(Game.HEIGHT/4, Game.WIDTH/2, ObjectID.Player1, handler));
+				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler));
+				newBoss(Game.WIDTH/2 - 150 , -1*Game.HEIGHT/2, 2500);
 			}
 			if (adder == 10 || adder == 15) {
-				formationTri(Game.WIDTH/8, 10);
-				formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
+			//	formationTri(Game.WIDTH/8, 10);
+			//	formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
 			}
 			if (adder == 20) {
-				shotGunEnemy(Game.WIDTH/2, 30);
-				formationXLine(5, 500);
-				formationXLine(5, 70);
+			//	shotGunEnemy(Game.WIDTH/2, 30);
+			//	formationXLine(5, 500);
+			//	formationXLine(5, 70);
 			}
 			if (adder == 25) {
-				formationTri(Game.WIDTH/8, 10);
-				formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
+			//	formationTri(Game.WIDTH/8, 10);
+			//	formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
 			}
 		}
 	}

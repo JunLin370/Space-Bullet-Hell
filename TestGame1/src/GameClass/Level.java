@@ -43,4 +43,8 @@ public abstract class Level {
 	protected void shotGunEnemy(int x, int y, int health) {
 		handler.addObject(new ShotGunEnemyShip(x, y, ObjectID.BasicEnemy, handler, health));
 	}
+	
+	protected void newBoss(int x, int y, int health) {
+		handler.addObject(new Boss1(x, y, ObjectID.Boss1, handler, health));
+	}
 }
