@@ -20,11 +20,16 @@ import GameClass.Ship;
 
 public class Boss1 extends Ship{
 	
-	private final int  RECTANGLEWIDTH = 300, RECTANGLEHEIGHT = 150;
-	private int attack, angle, timer2;
-	private boolean on, buffer;
-	private Random r;
+	private final int  RECTANGLEWIDTH = 300, RECTANGLEHEIGHT = 150;		//size of the boss
+	private int attack, angle, timer2;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
+	private boolean on, buffer;	
+	private Random r;	
 
+	/* constructor takes in the pre-requisite x and y starting location of the object, and object id, the
+	 * handler, and health of the ship. It also initialize many variables used in the tick method.   
+	 * pre: float x, float y, ObjectID (Ship1), handler, health of the ship
+	 * post: supers all the pre variables. sets on and buffer to false. Make a new random object. set velY to 1
+	 */
 	public Boss1(float x, float y, ObjectID id, Handler handler, int newHealth) {
 		super(x, y, id, handler, newHealth);
 		
@@ -36,6 +41,11 @@ public class Boss1 extends Ship{
 
 	}
 	
+	/* This is the collision detection for this Boss1 class. It checks every object in the game and if its a gun object, remove health from this object. If it is the player
+	 * destroy the player object, cause its touching a boss ffs
+	 * pre:
+	 * post: if touch bullet, remove health from boss. if touch player, kill player
+	 */
 	protected void collisions() {
 		for (int i = 0; i < handler.object.size(); i++) {	//check all objects
 			GameObject tempObject = handler.object.get(i);
@@ -56,13 +66,16 @@ public class Boss1 extends Ship{
 		}//End for
 	}
 
+	/*
+	 * 
+	 */
 	public void tick() {
 		if (health <= 0) {
 			handler.removeObject(this);
 			Level1.score += 1000;
 		}
-		for (int i = 0; i < handler.object.size(); i++) {	//Gets the player object
-			GameObject tempObject = handler.object.get(i);
+		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
+			GameObject tempObject = handler.object.get(i);	
 			if(tempObject.getId() == ObjectID.Player1) {	//If player object exists
 				////ACTION GOES HERE
 				x += velX;

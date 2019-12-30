@@ -39,6 +39,7 @@ public class ShotGunEnemyShip extends Ship{
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
 					Ship tempShip = (Ship) tempObject;
 					tempShip.setHealth(tempShip.getHealth() - 50);
+					handler.removeObject(this);
 				}
 			}
 		}//End for
@@ -49,8 +50,8 @@ public class ShotGunEnemyShip extends Ship{
 			handler.removeObject(this);
 			Level1.score += 200;
 		}
-		for (int i = 0; i < handler.object.size(); i++) {	//Gets the player object
-			GameObject tempObject = handler.object.get(i);
+		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
+			GameObject tempObject = handler.object.get(i);	
 			if(tempObject.getId() == ObjectID.Player1) {	//If player object exists
 				////ACTION GOES HERE
 				x += velX;

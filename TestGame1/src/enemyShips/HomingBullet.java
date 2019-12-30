@@ -40,9 +40,9 @@ public class HomingBullet extends GameObject{
 		//velX =  ((-1/distance)*(x - player.getXs() - 20) * 10);
 		//velY =  ((-1/distance)*(y - player.getYs() - 20) * 10);
 
-		for (int i = 0; i < handler.object.size(); i++) {
-			GameObject tempObject = handler.object.get(i);
-			if(tempObject.getId() == ObjectID.Player1) {
+		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
+			GameObject tempObject = handler.object.get(i);	
+			if(tempObject.getId() == ObjectID.Player1) {	//If player object exists
 				float deltaX = tempObject.getXs() - x;
 				float deltaY = tempObject.getYs() - y;
 				float angle = (float) Math.atan2( deltaY, deltaX );
