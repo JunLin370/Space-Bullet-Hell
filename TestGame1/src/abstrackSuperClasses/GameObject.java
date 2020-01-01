@@ -3,11 +3,13 @@
  * x velocity and y velocity, and also the ID of the Object.
  * DATE: 2019-12-11 */ 
 
-package GameClass;
+package abstrackSuperClasses;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import javax.swing.JFrame;
+
+import GameClass.ObjectID;
 
 public abstract class GameObject extends JFrame {
 	

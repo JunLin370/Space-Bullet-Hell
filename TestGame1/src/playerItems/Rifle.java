@@ -10,9 +10,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import GameClass.Game;
-import GameClass.GameObject;
 import GameClass.Handler;
 import GameClass.ObjectID;
+import abstrackSuperClasses.GameObject;
 
 public class Rifle extends GameObject{
 	
@@ -21,6 +21,7 @@ public class Rifle extends GameObject{
 	private int vel;
 	private boolean bang;
 	private int timer;
+	public static int damage;
 	
 	public Rifle(float x, float y, ObjectID id, Handler handler, float angle, float vel) {
 		super(x, y, id);
@@ -28,6 +29,8 @@ public class Rifle extends GameObject{
 		
 		velX = (float) (vel * Math.cos(Math.toRadians( angle )));
 		velY = (float) (vel * Math.sin(Math.toRadians( angle )));
+		
+		damage = 5;
 	}
 
 	public void tick() {

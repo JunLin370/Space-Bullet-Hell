@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.lang.Object;
 
+import abstrackSuperClasses.GameObject;
+
 public class KeyInput extends Object implements KeyListener {
 	
 	private int vel = 5;

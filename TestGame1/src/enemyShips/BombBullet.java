@@ -9,16 +9,17 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import GameClass.Game;
-import GameClass.GameObject;
 import GameClass.Handler;
 import GameClass.ObjectID;
-import GameClass.Ship;
+import abstrackSuperClasses.GameObject;
+import abstrackSuperClasses.Ship;
 
 public class BombBullet extends GameObject{
 	
 	private final int bombWidth = 30;	//size of the bomb (oval)
 	private Handler handler;	//new handler instance
 	private int timer, ticker;	//variables used in the timing of the bomb
+	public static int damage;
 	
 	/* This will get the starting location of the bomb bullet, the id, an instance of handler, the angle it will travel, velocity it will travel at, and a timer
 	 * in seconds of when the bomb will explode
@@ -30,6 +31,7 @@ public class BombBullet extends GameObject{
 		velX = (float) (vel * Math.cos(Math.toRadians( angle )));	//these two will set the velocity of the bullet according the angle its wanter to move and speed
 		velY = (float) (vel * Math.sin(Math.toRadians( angle )));
 		this.timer = timer;		
+		damage = 50;
 	}
 	
 	/* This is the tick method that runs 60 times a second from the handler class for the bomb bullet class. 
@@ -77,7 +79,7 @@ public class BombBullet extends GameObject{
 	 */
 	private void explode() {
 		int angle = 0;
-		for (int i = 0; i <= 6; i++) {
+		for (int i = 0; i <= 7; i++) {
 			angle += 45;
 			handler.addObject(new Enemy(x, y, ObjectID.Bullet1, handler, angle, 5));
 		}

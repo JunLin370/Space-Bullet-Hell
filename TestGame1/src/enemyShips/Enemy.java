@@ -12,19 +12,21 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import GameClass.Game;
-import GameClass.GameObject;
 import GameClass.Handler;
 import GameClass.ObjectID;
+import abstrackSuperClasses.GameObject;
 
 public class Enemy extends GameObject{
 
 	private Handler handler;
+	public static int damage;
 	
 	public Enemy(float x, float y, ObjectID id, Handler handler, float angle, int vel) {
 		super(x, y, id);
 		this.handler = handler;
 		velX = (float) (vel * Math.cos(Math.toRadians( angle )));
 		velY = (float) (vel * Math.sin(Math.toRadians( angle )));
+		damage = 10;
 	}
 
 	public void tick() {

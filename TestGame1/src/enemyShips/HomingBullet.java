@@ -11,9 +11,10 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import GameClass.Game;
-import GameClass.GameObject;
 import GameClass.Handler;
 import GameClass.ObjectID;
+import abstrackSuperClasses.GameObject;
+import abstrackSuperClasses.Ship;
 
 public class HomingBullet extends GameObject{
 	
@@ -23,6 +24,7 @@ public class HomingBullet extends GameObject{
 	private boolean bang;
 	private float angle;
 	private int timer;
+	public static int damage;
 	
 	/*Handler is responsible for setting velX and velY. Thus the constructor also contains the code that gets the players location, and then
 	 * using it to to set the velX and velY appropriately
@@ -34,6 +36,8 @@ public class HomingBullet extends GameObject{
 		this.handler = handler;
 		bang = true;
 		timer = 0;
+		
+		damage = 5;
 
 		//float distance = (float) Math.sqrt((x-player.getX())*(x-player.getX()) + (y-player.getY())*(y-player.getY()));
 

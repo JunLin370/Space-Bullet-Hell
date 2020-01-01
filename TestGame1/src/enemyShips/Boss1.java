@@ -12,17 +12,18 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import GameClass.Game;
-import GameClass.GameObject;
 import GameClass.Handler;
 import GameClass.Level1;
 import GameClass.ObjectID;
-import GameClass.Ship;
+import abstrackSuperClasses.GameObject;
+import abstrackSuperClasses.Ship;
+import playerItems.Rifle;
 
 public class Boss1 extends Ship{
 	
 	private final int  RECTANGLEWIDTH = 300, RECTANGLEHEIGHT = 150;		//size of the boss
-	private int attack, angle, timer2;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
-	private boolean on, buffer;	
+	private int attack, angle, timer2, bombTimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
+	private boolean on, buffer, phase2;	
 	private Random r;	
 
 	/* constructor takes in the pre-requisite x and y starting location of the object, and object id, the
@@ -35,9 +36,11 @@ public class Boss1 extends Ship{
 		
 		on = false;		//on and buffer are variables used in the AI of this boss
 		buffer = false;
+		phase2 = false;
 		
 		r = new Random();
 		velY = 1;
+		bombTimer = 4;
 
 	}
 	
@@ -52,7 +55,7 @@ public class Boss1 extends Ship{
 			
 			if(tempObject.getId() == ObjectID.Gun1) {	//if object's id is Gun1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
-					health -= 5;		//if yes then remove a certain amount of health
+					health -= Rifle.damage;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
 				}
 			}
@@ -71,8 +74,14 @@ public class Boss1 extends Ship{
 	 */
 	public void tick() {
 		if (health <= 0) {
-			handler.removeObject(this);
-			Level1.score += 1000;
+			if (phase2 == false) {
+				phase2 = true;
+				health = 1500;
+				attack = r.nextInt(2) + 1;
+			} else {
+				handler.removeObject(this);
+				Level1.score += 1000;
+			}
 		}
 		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
 			GameObject tempObject = handler.object.get(i);	
@@ -88,10 +97,36 @@ public class Boss1 extends Ship{
 					if (timer == 60 && on != true) {
 						on = true;
 						timer = 0;
-						attack = 1;
+						attack = r.nextInt(3) + 1;
 					}
 				}
-				if (on == true) {	///attack part of the boss ai
+				if (on == true && phase2 != true) {	///attack part of the boss ai
+					if (buffer == true) {
+						if (attack != 0)	//sets attack to 0 
+							attack = 0;
+						timer2 ++;
+						if(timer2 == 60 * 2) {	//if buffer is on and it's been 2 seconds, set 
+							attack = r.nextInt(3) + 1;
+							buffer = false;
+							timer2 = 0;
+							timer = 0;
+						}
+					}
+					switch (attack) {
+					case 1:
+						spinAttack();
+						break;
+					case 2:
+						miniGunAttack();
+						break;
+					case 3: 
+						tripleBombAttack();
+						break;
+					default:
+						break;
+
+					}
+				}else if (phase2 == true){ //-----------PHASE 2 AI of Boss------------
 					if (buffer == true) {
 						if (attack != 0)	//sets attack to 0 
 							attack = 0;
@@ -103,21 +138,13 @@ public class Boss1 extends Ship{
 							timer = 0;
 						}
 					}
-
+					spinAttackMod();
 					switch (attack) {
 					case 1:
-						spinAttack();
-						break;
-					case 2:
 						miniGunAttack();
 						break;
-					case 3: 
-						// attack 3
-						timer2 ++;
-						if (timer2 == 60 *5) {
-							buffer = true;
-							timer2 = 0;
-						}
+					case 2:
+						tripleBombAttack();
 						break;
 					default:
 						break;
@@ -128,6 +155,35 @@ public class Boss1 extends Ship{
 		}
 
 		collisions();
+	}
+
+	private void spinAttackMod() {
+		if(timer% 15 == 0) {
+			if (angle >= 90)
+				angle = 0;
+			angle += 15;
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle, 2);
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+90, 2);
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+180, 2);
+			basicBullet((int)x +RECTANGLEWIDTH/2, (int)y +RECTANGLEHEIGHT, angle+270, 2);
+		}
+	}
+
+	private void tripleBombAttack() {
+		if (timer == 60) {
+			if (bombTimer == 4)
+				newBomb((int)x + RECTANGLEHEIGHT, (int)y + RECTANGLEWIDTH/2, 90, 2, bombTimer - 1);
+			if (bombTimer == 3)
+				newBomb((int)x + RECTANGLEHEIGHT, (int)y + RECTANGLEWIDTH/2, 120, 2, bombTimer - 1);
+			if (bombTimer == 2)
+				newBomb((int)x + RECTANGLEHEIGHT, (int)y + RECTANGLEWIDTH/2, 60, 2, bombTimer - 1);
+			bombTimer --;
+			timer = 0;
+		}
+		if (bombTimer == 1) {
+			buffer = true;
+			bombTimer = 4;
+		}
 	}
 
 	public void render(Graphics g) {
@@ -149,6 +205,7 @@ public class Boss1 extends Ship{
 		g.drawString("Timer2: " + timer2, 15, 100);
 		g.drawString("Timer: " + timer, 15, 120);
 		g.drawString("attack type: " + attack, 15, 140);
+		g.drawString("Phase: " + phase2, 15, 160);
 	}
 
 	public Rectangle getBounds() {

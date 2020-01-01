@@ -7,10 +7,13 @@ import javax.swing.*;
 import javax.swing.Timer;
 
 import GameClass.Game;
-import GameClass.GameObject;
 import GameClass.Handler;
 import GameClass.ObjectID;
-import GameClass.Ship;
+import abstrackSuperClasses.GameObject;
+import abstrackSuperClasses.Ship;
+import enemyShips.BombBullet;
+import enemyShips.Enemy;
+import enemyShips.HomingBullet;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -70,21 +73,21 @@ public class Player extends Ship  {
 			
 			if(tempObject.getId() == ObjectID.Bullet1) {
 				if(getBounds().intersects(tempObject.getBounds())){
-					health -= 5;
+					health -= Enemy.damage;
 					handler.removeObject(tempObject);
 				}
 			}
 			
 			if(tempObject.getId() == ObjectID.Bullet2) {
 				if(getBounds().intersects(tempObject.getBounds())){
-					health -= 10;
+					health -= HomingBullet.damage;
 					handler.removeObject(tempObject);
 				}
 			}
 			
 			if(tempObject.getId() == ObjectID.Bullet3) {
 				if(getBounds().intersects(tempObject.getBounds())){
-					health -= 20;
+					health -= BombBullet.damage;
 					handler.removeObject(tempObject);
 				}
 			}

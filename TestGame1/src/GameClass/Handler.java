@@ -8,6 +8,8 @@ package GameClass;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import abstrackSuperClasses.GameObject;
+
 public class Handler {
 	
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
