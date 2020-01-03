@@ -9,6 +9,7 @@ import javax.swing.Timer;
 import GameClass.Game;
 import GameClass.Handler;
 import GameClass.ObjectID;
+import GameClass.Game.STATE;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import enemyShips.BombBullet;
@@ -34,10 +35,8 @@ public class Player extends Ship  {
 	
 	public void tick() {	//This updates the x and y coords of the object
 		timer ++;
-		if (health <= 0)
-			handler.object.remove(this);
 		
-		if (timer >= 30) {
+		if (timer >= 3) {
 			Fire(270, 21);
 			Fire(265, 20);
 			Fire(275, 20);

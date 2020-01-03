@@ -1,14 +1,34 @@
 package GameClass;
 
+import GameClass.Game.STATE;
+import abstrackSuperClasses.GameObject;
+import abstrackSuperClasses.Ship;
 import enemyShips.BasicEnemyShip;
 import enemyShips.Boss1;
 import enemyShips.ShotGunEnemyShip;
 
+
 public abstract class Level {
 	protected Handler handler;
+	public static int score;
+	private Game game;
 	
-	public Level(Handler hander) {
+	public Level(Handler hander, Game game) {
 		this.handler = hander;
+		this.game = game;
+		score = 0;
+	}
+	
+	protected void gameOver() {
+		for (int i = 0; i < handler.object.size(); i++) {	//check all objects
+			GameObject tempObject = handler.object.get(i);
+			if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
+				Ship tempShip = (Ship) tempObject;
+				if (tempShip.getHealth() <= 0) {
+					game.gameState = STATE.gameOver;
+				}
+			}
+		}//End for
 	}
 	
 	protected void formationXLine(int number, int placement) {

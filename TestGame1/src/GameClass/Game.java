@@ -13,6 +13,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import abstrackSuperClasses.GameObject;
+import abstrackSuperClasses.Ship;
+
 
 public class Game extends Canvas implements Runnable{	
 	
@@ -29,6 +32,7 @@ public class Game extends Canvas implements Runnable{
 		Game,
 		thing,
 		help,
+		gameOver,
 	};
 	
 	public STATE gameState = STATE.Menu;
@@ -41,6 +45,7 @@ public class Game extends Canvas implements Runnable{
 	public Game() {		// This starts the windows which is called from main
 
 		handler = new Handler();	//This starts the handler class
+		level1 = new Level1(handler, this);	
 		menu = new Menu(this, handler);
 
 		this.addKeyListener(new KeyInput(handler));
@@ -48,7 +53,7 @@ public class Game extends Canvas implements Runnable{
 
 		new Window(WIDTH, HEIGHT, "my Game", this);
 
-		level1 = new Level1(handler);	//This starts level 1 by calling the Level1 class
+
 
 	}
 
@@ -121,8 +126,22 @@ public class Game extends Canvas implements Runnable{
 
 		if (gameState == STATE.Game) { //if gameState is game, then
 			level1.tick(); // run game
+
+			for (int i = 0; i < handler.object.size(); i++) {	//check all objects
+				GameObject tempObject = handler.object.get(i);
+				if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
+					Ship tempShip = (Ship) tempObject;
+					if (tempShip.getHealth() <= 0) {
+						gameState = STATE.gameOver;
+						clearEnemies();
+						this.level1.reset();
+					}
+				}
+
+			}//End for
+
 		}
-		else if (gameState == STATE.Menu) {
+		else if (gameState == STATE.Menu || gameState == STATE.gameOver) {
 			menu.tick();
 		}
 	}
@@ -148,7 +167,7 @@ public class Game extends Canvas implements Runnable{
 		if (gameState == STATE.Game) { // If the state of the game is in Game State, render level1
 			level1.render(g);
 		}
-		else if (gameState == STATE.Menu) {
+		else if (gameState == STATE.Menu || gameState == STATE.gameOver) {
 			menu.render(g);
 		}
 		g.dispose();
@@ -181,6 +200,13 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main (String [] args) {
 		new Game();	//Runs game :)
+	}
+	
+	public void clearEnemies() {
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+			handler.object.clear();
+		}
 	}
 
 }

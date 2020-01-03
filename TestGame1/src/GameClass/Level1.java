@@ -18,12 +18,10 @@ import playerItems.Player;
 public class Level1 extends Level {
 
 	private int timer, adder;
-	public static int score;
 	
-	public Level1(Handler handler) {	//Constructor takes handler and adds new player to handler linked list
-		super(handler);
+	public Level1(Handler handler, Game game) {	//Constructor takes handler and adds new player to handler linked list
+		super(handler, game);
 
-		
 		//Add test objects here to spawn them in main menu
 		//
 	}
@@ -34,20 +32,22 @@ public class Level1 extends Level {
 			adder ++;
 			if (adder == 5 ) {
 				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler));
-				newBoss(Game.WIDTH/2 - 150 , -1*Game.HEIGHT/2, 2500);
 			}
 			if (adder == 10 || adder == 15) {
-			//	formationTri(Game.WIDTH/8, 10);
-			//	formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
+				formationTri(Game.WIDTH/8, 10);
+				formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
 			}
 			if (adder == 20) {
-			//	shotGunEnemy(Game.WIDTH/2, 30);
-			//	formationXLine(5, 500);
-			//	formationXLine(5, 70);
+				shotGunEnemy(Game.WIDTH/2, 30);
+				formationXLine(5, 500);
+				formationXLine(5, 70);
 			}
 			if (adder == 25) {
-			//	formationTri(Game.WIDTH/8, 10);
-			//	formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
+				formationTri(Game.WIDTH/8, 10);
+				formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
+			}
+			if (adder == 35) {
+				newBoss(Game.WIDTH/2 - 150 , -1*Game.HEIGHT/2, 2500);
 			}
 		}
 	}
@@ -64,5 +64,10 @@ public class Level1 extends Level {
 		g.drawString("timer: " + timer, 15, 40);
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
 		g.drawString("Adder: " + adder, 15, 80);
+	}
+	
+	public void reset() {
+		timer = 0;
+		adder = 0;
 	}
 }

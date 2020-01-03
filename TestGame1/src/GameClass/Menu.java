@@ -39,6 +39,11 @@ public class Menu extends MouseAdapter {
 				System.exit(1);
 			}
 		}
+		if (game.gameState == STATE.gameOver) {
+			if (mouseOver(mx, my,145, 550, 400, 64)) {
+				game.gameState = STATE.Menu;
+			}
+		}
 		
 
 	}
@@ -62,28 +67,42 @@ public class Menu extends MouseAdapter {
 	public void render(Graphics g) {
 		Font fnt = new Font("arial", 1, 50);
 		g.setFont(fnt);
-		
-		g.setColor(Color.WHITE);
-		g.drawString("Menu", 290, 150);	
-		
-		g.setColor(Color.WHITE);
-		g.drawString("Start", 290, 300);
-		g.setColor(Color.WHITE);
-		g.drawRect(145, 250, 400, 64);
-		
-		g.setColor(Color.WHITE);
-		g.drawString("Something idk", 175, 450);
-		g.setColor(Color.WHITE);
-		g.drawRect(145, 400, 400, 64);
-		
-		g.setColor(Color.WHITE);
-		g.drawString("Help", 290, 600);
-		g.setColor(Color.WHITE);
-		g.drawRect(145, 550, 400, 64);
-		
-		g.setColor(Color.WHITE);
-		g.drawString("Quit", 290, 750);
-		g.setColor(Color.WHITE);
-		g.drawRect(145, 700, 400, 64);
+		if (game.gameState == STATE.Menu) {
+			g.setColor(Color.WHITE);
+			g.drawString("Menu", 290, 150);	
+
+			g.setColor(Color.WHITE);
+			g.drawString("Start", 290, 300);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 250, 400, 64);
+
+			g.setColor(Color.WHITE);
+			g.drawString("Something idk", 175, 450);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 400, 400, 64);
+
+			g.setColor(Color.WHITE);
+			g.drawString("Help", 290, 600);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 550, 400, 64);
+
+			g.setColor(Color.WHITE);
+			g.drawString("Quit", 290, 750);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 700, 400, 64);
+		} else if (game.gameState == STATE.gameOver) {
+			g.setColor(Color.WHITE);
+			g.drawString("Back To Menu", 180, 600);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 550, 400, 64);
+			
+			g.setColor(Color.WHITE);
+			g.drawString("Game Over", 200, 150);
+			Font fnt2 = new Font("arial", 1, 30);
+			g.setFont(fnt2);
+			g.drawString("Your Final Score is " + Level1.score, 195, 300);
+			
+			
+		}
 	}
 }
