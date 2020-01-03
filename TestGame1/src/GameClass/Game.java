@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable{
 	public enum STATE {
 		Menu,
 		Level1,
-		thing,
+		shop,
 		help,
 		gameOver,
 		levelSelect,
@@ -141,7 +141,7 @@ public class Game extends Canvas implements Runnable{
 
 			}//End for
 		}
-		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect) {	//if the game is in theses states,
+		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop) {	//if the game is in theses states,
 			menu.tick();	//run menu	
 		}
 	}
@@ -167,7 +167,7 @@ public class Game extends Canvas implements Runnable{
 		if (gameState == STATE.Level1) { // If the state of the game is in Game State, render level1
 			level1.render(g);
 		}
-		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect) {
+		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop) {
 			menu.render(g);
 		}
 		g.dispose();

@@ -28,7 +28,7 @@ public class Menu extends MouseAdapter {
 			}
 
 			if(mouseOver(mx, my, 145, 400, 400, 64)) {
-				game.gameState = STATE.thing;
+				game.gameState = STATE.shop;
 			}
 
 			if(mouseOver(mx, my, 145, 550, 400, 64)) {
@@ -48,6 +48,11 @@ public class Menu extends MouseAdapter {
 			if (mouseOver(mx, my,145, 400, 400, 64)) {
 				game.gameState = STATE.Level1;
 			}
+			if (mouseOver(mx, my,145, 550, 400, 64)) {
+				game.gameState = STATE.Menu;
+			}
+		}
+		if (game.gameState == STATE.shop) {
 			if (mouseOver(mx, my,145, 550, 400, 64)) {
 				game.gameState = STATE.Menu;
 			}
@@ -80,7 +85,7 @@ public class Menu extends MouseAdapter {
 			g.drawRect(145, 250, 400, 64);
 
 			g.setColor(Color.WHITE);
-			g.drawString("Something idk", 175, 450);
+			g.drawString("Shop", 280, 450);
 			g.setColor(Color.WHITE);
 			g.drawRect(145, 400, 400, 64);
 
@@ -116,6 +121,12 @@ public class Menu extends MouseAdapter {
 			g.setColor(Color.WHITE);
 			g.drawRect(145, 400, 400, 64);
 			
+			g.setColor(Color.WHITE);
+			g.drawString("Back", 290, 600);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 550, 400, 64);
+		}
+		if (game.gameState == STATE.shop) {
 			g.setColor(Color.WHITE);
 			g.drawString("Back", 290, 600);
 			g.setColor(Color.WHITE);
