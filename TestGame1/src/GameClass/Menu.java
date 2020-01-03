@@ -9,22 +9,22 @@ import java.awt.event.MouseEvent;
 import GameClass.Game.STATE;
 
 public class Menu extends MouseAdapter {
-	
+
 	private Handler handler;
 	private Game game;
-	
+
 	public Menu(Game game, Handler handler) {
 		this.game = game;
 		this.handler = handler;
 	}
-	
+
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		
+
 		if (game.gameState == STATE.Menu) {
 			if(mouseOver(mx, my, 145, 250, 400, 64)) {
-				game.gameState = STATE.Game;
+				game.gameState = STATE.levelSelect;
 			}
 
 			if(mouseOver(mx, my, 145, 400, 400, 64)) {
@@ -44,14 +44,18 @@ public class Menu extends MouseAdapter {
 				game.gameState = STATE.Menu;
 			}
 		}
-		
+		if (game.gameState == STATE.levelSelect) {
+			if (mouseOver(mx, my,145, 400, 400, 64)) {
+				game.gameState = STATE.Level1;
+			}
+			if (mouseOver(mx, my,145, 550, 400, 64)) {
+				game.gameState = STATE.Menu;
+			}
+		}
+	}
 
-	}
-	
-	public void mouseReleased(MouseEvent e) {
-		
-	}
-	
+	public void mouseReleased(MouseEvent e) {}
+
 	public boolean mouseOver(int mx, int my, int x, int y, int width, int height) {
 		if (mx > x && mx < x + width) {
 			if (my > y && my < y + height) {
@@ -61,9 +65,8 @@ public class Menu extends MouseAdapter {
 	}
 
 	public void tick() {
-		
 	}
-	
+
 	public void render(Graphics g) {
 		Font fnt = new Font("arial", 1, 50);
 		g.setFont(fnt);
@@ -90,19 +93,33 @@ public class Menu extends MouseAdapter {
 			g.drawString("Quit", 290, 750);
 			g.setColor(Color.WHITE);
 			g.drawRect(145, 700, 400, 64);
-		} else if (game.gameState == STATE.gameOver) {
+		} 
+		if (game.gameState == STATE.gameOver) {
 			g.setColor(Color.WHITE);
 			g.drawString("Back To Menu", 180, 600);
 			g.setColor(Color.WHITE);
 			g.drawRect(145, 550, 400, 64);
-			
+
 			g.setColor(Color.WHITE);
 			g.drawString("Game Over", 200, 150);
+
 			Font fnt2 = new Font("arial", 1, 30);
 			g.setFont(fnt2);
 			g.drawString("Your Final Score is " + Level1.score, 195, 300);
+		} 
+		if (game.gameState == STATE.levelSelect) {
+			g.setColor(Color.WHITE);
+			g.drawString("Level Select", 210, 300);
+
+			g.setColor(Color.WHITE);
+			g.drawString("Level 1", 270, 450);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 400, 400, 64);
 			
-			
+			g.setColor(Color.WHITE);
+			g.drawString("Back", 290, 600);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 550, 400, 64);
 		}
 	}
 }

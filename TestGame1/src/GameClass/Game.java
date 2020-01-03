@@ -29,10 +29,11 @@ public class Game extends Canvas implements Runnable{
 	
 	public enum STATE {
 		Menu,
-		Game,
+		Level1,
 		thing,
 		help,
 		gameOver,
+		levelSelect,
 	};
 	
 	public STATE gameState = STATE.Menu;
@@ -124,9 +125,9 @@ public class Game extends Canvas implements Runnable{
 	private void tick() {
 		handler.tick();	//this goes to the Handler Class
 
-		if (gameState == STATE.Game) { //if gameState is game, then
+		if (gameState == STATE.Level1) { //if gameState is game, then
 			level1.tick(); // run game
-
+			//resets level if player losses
 			for (int i = 0; i < handler.object.size(); i++) {	//check all objects
 				GameObject tempObject = handler.object.get(i);
 				if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
@@ -139,10 +140,9 @@ public class Game extends Canvas implements Runnable{
 				}
 
 			}//End for
-
 		}
-		else if (gameState == STATE.Menu || gameState == STATE.gameOver) {
-			menu.tick();
+		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect) {	//if the game is in theses states,
+			menu.tick();	//run menu	
 		}
 	}
 	
@@ -164,10 +164,10 @@ public class Game extends Canvas implements Runnable{
 
 		handler.render(g);		// This goes to the HandlerClass
 
-		if (gameState == STATE.Game) { // If the state of the game is in Game State, render level1
+		if (gameState == STATE.Level1) { // If the state of the game is in Game State, render level1
 			level1.render(g);
 		}
-		else if (gameState == STATE.Menu || gameState == STATE.gameOver) {
+		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect) {
 			menu.render(g);
 		}
 		g.dispose();
