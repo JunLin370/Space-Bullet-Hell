@@ -23,10 +23,11 @@ public class Player extends Ship  {
 
 	private static final int OVALWIDTH = 20;
 	private boolean firing;
+	private int weaponLevel;
 
-	public Player(float x, float y, ObjectID id, Handler handler) {
+	public Player(float x, float y, ObjectID id, Handler handler, int weaponLevel) {
 		super(x, y, id,handler, 100);
-		shooting = false;
+		this.weaponLevel = weaponLevel;
 	}
 
 	public Rectangle getBounds() {
@@ -34,16 +35,14 @@ public class Player extends Ship  {
 	}
 	
 	public void tick() {	//This updates the x and y coords of the object
+		if (health == 0) {
+			handler.removeObject(this);
+			Game.playerLive = false;
+		}
+		
 		timer ++;
 		
-		if (timer >= 3) {
-			Fire(270, 21);
-			Fire(265, 20);
-			Fire(275, 20);
-			Fire(280, 20);
-			Fire(260, 20);
-			timer = 0;
-		}
+		machineGun();
 		
 		x += velX;
 		y += velY;
@@ -94,8 +93,11 @@ public class Player extends Ship  {
 		}//end for
 	}
 	
-	public void Fire(float angle, float vel) {
-		handler.addObject(new Rifle(x,y,ObjectID.Gun1, handler, angle, vel));
+	private void machineGun() {
+		if (timer == 4) {
+			handler.addObject(new RifleBullet(x, y, ObjectID.Gun1, handler, 270, 15));
+			timer = 0;
+		}
 	}
 	
 }

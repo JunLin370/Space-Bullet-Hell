@@ -14,7 +14,7 @@ import GameClass.Handler;
 import GameClass.ObjectID;
 import abstrackSuperClasses.GameObject;
 
-public class Rifle extends GameObject{
+public class RifleBullet extends GameObject{
 	
 	
 	private Handler handler;
@@ -23,7 +23,7 @@ public class Rifle extends GameObject{
 	private int timer;
 	public static int damage;
 	
-	public Rifle(float x, float y, ObjectID id, Handler handler, float angle, float vel) {
+	public RifleBullet(float x, float y, ObjectID id, Handler handler, float angle, float vel) {
 		super(x, y, id);
 		this.handler = handler;
 		

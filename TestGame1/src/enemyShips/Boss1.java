@@ -13,11 +13,11 @@ import java.util.Random;
 
 import GameClass.Game;
 import GameClass.Handler;
-import GameClass.Level1;
+import GameClass.Level;
 import GameClass.ObjectID;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
-import playerItems.Rifle;
+import playerItems.RifleBullet;
 
 public class Boss1 extends Ship{
 	
@@ -55,7 +55,7 @@ public class Boss1 extends Ship{
 			
 			if(tempObject.getId() == ObjectID.Gun1) {	//if object's id is Gun1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
-					health -= Rifle.damage;		//if yes then remove a certain amount of health
+					health -= RifleBullet.damage;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
 				}
 			}
@@ -78,9 +78,10 @@ public class Boss1 extends Ship{
 				phase2 = true;
 				health = 1500;
 				attack = r.nextInt(2) + 1;
+				Level.score += 500;
 			} else {
 				handler.removeObject(this);
-				Level1.score += 1000;
+				Level.score += 1000;
 			}
 		}
 		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
@@ -105,7 +106,7 @@ public class Boss1 extends Ship{
 						if (attack != 0)	//sets attack to 0 
 							attack = 0;
 						timer2 ++;
-						if(timer2 == 60 * 2) {	//if buffer is on and it's been 2 seconds, set 
+						if(timer2 >= 60 * 2) {	//if buffer is on and it's been 2 seconds, set 
 							attack = r.nextInt(3) + 1;
 							buffer = false;
 							timer2 = 0;
@@ -131,7 +132,7 @@ public class Boss1 extends Ship{
 						if (attack != 0)	//sets attack to 0 
 							attack = 0;
 						timer2 ++;
-						if(timer2 == 60 * 2) {	//if buffer is on and it's been 2 seconds, set 
+						if(timer2 >= 60 * 2) {	//if buffer is on and it's been 2 seconds, set 
 							attack = r.nextInt(2) + 1;
 							buffer = false;
 							timer2 = 0;
@@ -180,7 +181,7 @@ public class Boss1 extends Ship{
 			bombTimer --;
 			timer = 0;
 		}
-		if (bombTimer == 1) {
+		if (bombTimer <= 1) {
 			buffer = true;
 			bombTimer = 4;
 		}
@@ -231,7 +232,7 @@ public class Boss1 extends Ship{
 			trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);
 			trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
 		}
-		if (timer2 == 60 * 7) {
+		if (timer2 >= 60 * 7) {
 			buffer = true;
 			timer2 = 0;
 		}
@@ -246,7 +247,7 @@ public class Boss1 extends Ship{
 			trackBullet((int)x + RECTANGLEWIDTH/2 + RECTANGLEWIDTH/4 - 10, (int)y + RECTANGLEHEIGHT, 6);
 			timer = 0;
 		}
-		if (timer2 == 60 * 5) {
+		if (timer2 >= 60 * 5) {
 			buffer = true;
 			timer2 = 0;
 		}

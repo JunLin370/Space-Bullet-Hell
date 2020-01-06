@@ -15,6 +15,7 @@ import java.util.Random;
 
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
+import playerItems.Player;
 
 
 public class Game extends Canvas implements Runnable{	
@@ -22,10 +23,12 @@ public class Game extends Canvas implements Runnable{
 	public static final int  HEIGHT = 920, WIDTH = HEIGHT/12*9;	//WIDTH AND HEIGHT of window here 
 	private Thread thread;		
 	private boolean running = false; 
-	
+	public static boolean playerLive = false;
 	private Handler handler;
 	private Level1 level1;
 	private Menu menu;
+	
+	private int weaponLevel;
 	
 	public enum STATE {
 		Menu,
@@ -47,8 +50,10 @@ public class Game extends Canvas implements Runnable{
 
 		handler = new Handler();	//This starts the handler class
 		level1 = new Level1(handler, this);	
+		weaponLevel = 1;
 		menu = new Menu(this, handler);
-
+		
+		
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(menu);
 
@@ -124,8 +129,12 @@ public class Game extends Canvas implements Runnable{
 	 * post: It runs tick from the handler class*/
 	private void tick() {
 		handler.tick();	//this goes to the Handler Class
-
+		
 		if (gameState == STATE.Level1) { //if gameState is game, then
+			if (playerLive == false) {
+				playerLive = true;
+				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler, weaponLevel));
+			}
 			level1.tick(); // run game
 			//resets level if player losses
 			for (int i = 0; i < handler.object.size(); i++) {	//check all objects

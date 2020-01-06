@@ -8,7 +8,7 @@ import abstrackSuperClasses.GameObject;
 
 public class KeyInput extends Object implements KeyListener {
 	
-	private int vel = 5;
+	private int vel = 8;
 	private Handler handler;
 	
 	public KeyInput(Handler handler) {

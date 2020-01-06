@@ -6,11 +6,11 @@ import java.awt.Rectangle;
 
 import GameClass.Game;
 import GameClass.Handler;
-import GameClass.Level1;
+import GameClass.Level;
 import GameClass.ObjectID;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
-import playerItems.Rifle;
+import playerItems.RifleBullet;
 
 public class ShotGunEnemyShip extends Ship{
 	
@@ -32,7 +32,7 @@ public class ShotGunEnemyShip extends Ship{
 			
 			if(tempObject.getId() == ObjectID.Gun1) {	//if object's id is Gun1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
-					health -= Rifle.damage;		//if yes then remove a certain amount of health
+					health -= RifleBullet.damage;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
 				}
 			}
@@ -49,7 +49,7 @@ public class ShotGunEnemyShip extends Ship{
 	public void tick() {
 		if (health <= 0) {
 			handler.removeObject(this);
-			Level1.score += 200;
+			Level.score += 200;
 		}
 		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
 			GameObject tempObject = handler.object.get(i);	

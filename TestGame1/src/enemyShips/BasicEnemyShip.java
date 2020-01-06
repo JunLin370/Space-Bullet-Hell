@@ -11,11 +11,11 @@ import java.awt.Rectangle;
 
 import GameClass.Game;
 import GameClass.Handler;
-import GameClass.Level1;
+import GameClass.Level;
 import GameClass.ObjectID;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
-import playerItems.Rifle;
+import playerItems.RifleBullet;
 
 public class BasicEnemyShip extends Ship{
 	
@@ -47,7 +47,7 @@ public class BasicEnemyShip extends Ship{
 	 */
 	public void tick() {
 		if (health <= 0) {
-			Level1.score += 100;
+			Level.score += 100;
 			handler.removeObject(this);
 		}
 		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
@@ -58,7 +58,7 @@ public class BasicEnemyShip extends Ship{
 				y += velY;
 
 				if (y == Game.HEIGHT / 4) {		//if the ship is a quarter way down the screen then,
-					trackBullet((int) x,(int) y,15);	//make a new homing bullet object
+					trackBullet((int) x,(int) y,8);	//make a new homing bullet object
 				}
 				////
 			}
@@ -81,7 +81,7 @@ public class BasicEnemyShip extends Ship{
 			
 			if(tempObject.getId() == ObjectID.Gun1) {	//if object's id is Gun1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
-					health -= Rifle.damage;		//if yes then remove a certain amount of health
+					health -= RifleBullet.damage;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
 				}
 			}
