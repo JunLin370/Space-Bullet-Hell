@@ -18,10 +18,11 @@ import playerItems.Player;
 public class Level1 extends Level {
 
 	private int timer, adder;
+	private Game game;
 	
 	public Level1(Handler handler, Game game) {	//Constructor takes handler and adds new player to handler linked list
 		super(handler, game);
-
+		this.game = game;
 		//Add test objects here to spawn them in main menu
 		//
 	}
@@ -30,6 +31,9 @@ public class Level1 extends Level {
 		timer ++;                                                                                                                                                
 		if (timer % 60 == 0) {
 			adder ++;
+			if (adder == 1) {
+				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler, game.getWeaponLevel()));
+			}
 			if (adder == 5 || adder == 10) {
 				formationTri(Game.WIDTH/8, 10);
 				formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);

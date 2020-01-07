@@ -21,7 +21,7 @@ import java.awt.event.*;
 
 public class Player extends Ship  {
 
-	private static final int OVALWIDTH = 20;
+	private static final int OVALWIDTH = 30;
 	private boolean firing;
 	private int weaponLevel;
 
@@ -37,7 +37,6 @@ public class Player extends Ship  {
 	public void tick() {	//This updates the x and y coords of the object
 		if (health == 0) {
 			handler.removeObject(this);
-			Game.playerLive = false;
 		}
 		
 		timer ++;
@@ -94,9 +93,36 @@ public class Player extends Ship  {
 	}
 	
 	private void machineGun() {
-		if (timer == 4) {
-			handler.addObject(new RifleBullet(x, y, ObjectID.Gun1, handler, 270, 15));
-			timer = 0;
+		switch (weaponLevel) {
+			case 1:
+				if (timer == 7) {
+					handler.addObject(new RifleBullet(x + OVALWIDTH/2 - 2, y, ObjectID.Gun1, handler, 270, 15));
+					timer = 0;
+				}
+				break;
+			case 2:
+				if (timer == 7) {
+					handler.addObject(new RifleBullet(x + 5, y, ObjectID.Gun1, handler, 270, 15));
+					handler.addObject(new RifleBullet(x + OVALWIDTH - 10, y, ObjectID.Gun1, handler, 270, 15));
+					timer = 0;
+				}
+				break;
+			case 3:
+				if (timer == 7) {
+					handler.addObject(new BigRifleBullet(x + OVALWIDTH/2 - 5,y, ObjectID.Gun2, handler, 270, 15 ));
+					timer = 0;
+				}
+				break;
+			case 4:
+				if (timer == 6) {
+					handler.addObject(new BigRifleBullet(x + OVALWIDTH/2 - 5 ,y, ObjectID.Gun2, handler, 270, 15 ));
+				}
+				if (timer == 7) {
+					handler.addObject(new RifleBullet(x, y, ObjectID.Gun1, handler, 270, 15));
+					handler.addObject(new RifleBullet(x + OVALWIDTH - 5, y, ObjectID.Gun1, handler, 270, 15));
+					timer = 0;
+				}
+				break;
 		}
 	}
 	

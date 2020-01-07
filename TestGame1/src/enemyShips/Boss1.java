@@ -17,6 +17,7 @@ import GameClass.Level;
 import GameClass.ObjectID;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
+import playerItems.BigRifleBullet;
 import playerItems.RifleBullet;
 
 public class Boss1 extends Ship{
@@ -56,6 +57,13 @@ public class Boss1 extends Ship{
 			if(tempObject.getId() == ObjectID.Gun1) {	//if object's id is Gun1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
 					health -= RifleBullet.damage;		//if yes then remove a certain amount of health
+					handler.removeObject(tempObject);	//and remove the bullet
+				}
+			}
+			
+			if(tempObject.getId() == ObjectID.Gun2) {	//if object's id is Gun1
+				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
+					health -= BigRifleBullet.damage;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
 				}
 			}

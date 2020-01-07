@@ -23,12 +23,15 @@ public class Game extends Canvas implements Runnable{
 	public static final int  HEIGHT = 920, WIDTH = HEIGHT/12*9;	//WIDTH AND HEIGHT of window here 
 	private Thread thread;		
 	private boolean running = false; 
-	public static boolean playerLive = false;
 	private Handler handler;
 	private Level1 level1;
 	private Menu menu;
 	
 	private int weaponLevel;
+	
+	public int getWeaponLevel() {
+		return weaponLevel;
+	}
 	
 	public enum STATE {
 		Menu,
@@ -50,7 +53,7 @@ public class Game extends Canvas implements Runnable{
 
 		handler = new Handler();	//This starts the handler class
 		level1 = new Level1(handler, this);	
-		weaponLevel = 1;
+		weaponLevel = 3;
 		menu = new Menu(this, handler);
 		
 		
@@ -129,17 +132,12 @@ public class Game extends Canvas implements Runnable{
 	 * post: It runs tick from the handler class*/
 	private void tick() {
 		handler.tick();	//this goes to the Handler Class
-		
-		if (gameState == STATE.Level1) { //if gameState is game, then
-			if (playerLive == false) {
-				playerLive = true;
-				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler, weaponLevel));
-			}
+		if (gameState == STATE.Level1) {
 			level1.tick(); // run game
 			//resets level if player losses
 			for (int i = 0; i < handler.object.size(); i++) {	//check all objects
 				GameObject tempObject = handler.object.get(i);
-				if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
+				if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Player1
 					Ship tempShip = (Ship) tempObject;
 					if (tempShip.getHealth() <= 0) {
 						gameState = STATE.gameOver;
@@ -150,11 +148,12 @@ public class Game extends Canvas implements Runnable{
 
 			}//End for
 		}
+
 		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop) {	//if the game is in theses states,
 			menu.tick();	//run menu	
 		}
 	}
-	
+
 	/* Des: This will uses bufferstrategy to limit the amount of frames the game will output. It will 
 	 * then output the background for the window. It will then run render inside the handler class.
 	 * (WIP)
