@@ -69,7 +69,7 @@ public abstract class Level {
 	}
 	
 	protected void newBoss(int x, int y, int health) {
-		handler.addObject(new Boss1(x, y, ObjectID.Boss1, handler, health));
+		handler.addObject(new Boss1(x, y, ObjectID.Boss1, handler, health, game));
 	}
 	
 }

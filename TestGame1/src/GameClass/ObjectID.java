@@ -12,6 +12,7 @@ public enum ObjectID {
 	//Player Weapons
 	Gun1(),
 	Gun2(),
+	Gun3(),
 	//Bullet Types
 	Bullet1(),
 	Bullet2(),

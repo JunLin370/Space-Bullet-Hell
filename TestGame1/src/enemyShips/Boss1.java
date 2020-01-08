@@ -15,6 +15,7 @@ import GameClass.Game;
 import GameClass.Handler;
 import GameClass.Level;
 import GameClass.ObjectID;
+import GameClass.Game.STATE;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import playerItems.BigRifleBullet;
@@ -24,20 +25,23 @@ public class Boss1 extends Ship{
 	
 	private final int  RECTANGLEWIDTH = 300, RECTANGLEHEIGHT = 150;		//size of the boss
 	private int attack, angle, timer2, bombTimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
-	private boolean on, buffer, phase2;	
+	private boolean on, buffer, phase2, dying;	
 	private Random r;	
+	private Game game;
 
 	/* constructor takes in the pre-requisite x and y starting location of the object, and object id, the
 	 * handler, and health of the ship. It also initialize many variables used in the tick method.   
 	 * pre: float x, float y, ObjectID (Ship1), handler, health of the ship
 	 * post: supers all the pre variables. sets on and buffer to false. Make a new random object. set velY to 1
 	 */
-	public Boss1(float x, float y, ObjectID id, Handler handler, int newHealth) {
+	public Boss1(float x, float y, ObjectID id, Handler handler, int newHealth, Game game) {
 		super(x, y, id, handler, newHealth);
+		this.game = game;
 		
 		on = false;		//on and buffer are variables used in the AI of this boss
 		buffer = false;
 		phase2 = false;
+		dying = false;
 		
 		r = new Random();
 		velY = 1;
@@ -87,9 +91,13 @@ public class Boss1 extends Ship{
 				health = 1500;
 				attack = r.nextInt(2) + 1;
 				Level.score += 500;
-			} else {
-				handler.removeObject(this);
+			} else if (on == true) {
 				Level.score += 1000;
+				on = false;
+			} else {
+				game.gameState = STATE.gameWin;
+				handler.removeObject(this);
+
 			}
 		}
 		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
@@ -135,7 +143,7 @@ public class Boss1 extends Ship{
 						break;
 
 					}
-				}else if (phase2 == true){ //-----------PHASE 2 AI of Boss------------
+				}else if (on == true && phase2 == true){ //-----------PHASE 2 AI of Boss------------
 					if (buffer == true) {
 						if (attack != 0)	//sets attack to 0 
 							attack = 0;
@@ -198,6 +206,10 @@ public class Boss1 extends Ship{
 	public void render(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.fillRect((int)x, (int)y, RECTANGLEWIDTH, RECTANGLEHEIGHT);
+		
+		if (dying == true) {
+			
+		}
 		
 		
 		g.setColor(Color.WHITE);

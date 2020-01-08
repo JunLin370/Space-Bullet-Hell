@@ -28,17 +28,32 @@ public class Game extends Canvas implements Runnable{
 	private Menu menu;
 	
 	private int weaponLevel;
+	private int weaponType;
+	
+	public int getWeaponType() {
+		return weaponType;
+	}
+	
+	public void setWeaponType(int newWeaponType) {
+		weaponType = newWeaponType;
+	}
 	
 	public int getWeaponLevel() {
 		return weaponLevel;
+	}
+	
+	public void setWeaponLevel(int newWeaponLevel) {
+		weaponLevel = newWeaponLevel;
 	}
 	
 	public enum STATE {
 		Menu,
 		Level1,
 		shop,
+		powerSelect,
 		help,
 		gameOver,
+		gameWin,
 		levelSelect,
 	};
 	
@@ -53,7 +68,8 @@ public class Game extends Canvas implements Runnable{
 
 		handler = new Handler();	//This starts the handler class
 		level1 = new Level1(handler, this);	
-		weaponLevel = 3;
+		weaponLevel = 1;
+		weaponType = 1;
 		menu = new Menu(this, handler);
 		
 		
@@ -61,8 +77,6 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(menu);
 
 		new Window(WIDTH, HEIGHT, "my Game", this);
-
-
 
 	}
 
@@ -149,7 +163,9 @@ public class Game extends Canvas implements Runnable{
 			}//End for
 		}
 
-		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop) {	//if the game is in theses states,
+		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {	//if the game is in theses states,
+			clearEnemies();
+			this.level1.reset();
 			menu.tick();	//run menu	
 		}
 	}
@@ -175,7 +191,7 @@ public class Game extends Canvas implements Runnable{
 		if (gameState == STATE.Level1) { // If the state of the game is in Game State, render level1
 			level1.render(g);
 		}
-		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop) {
+		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {
 			menu.render(g);
 		}
 		g.dispose();

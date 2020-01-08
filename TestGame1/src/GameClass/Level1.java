@@ -32,7 +32,7 @@ public class Level1 extends Level {
 		if (timer % 60 == 0) {
 			adder ++;
 			if (adder == 1) {
-				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler, game.getWeaponLevel()));
+				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler, game.getWeaponLevel(), game.getWeaponType()));
 			}
 			if (adder == 5 || adder == 10) {
 				formationTri(Game.WIDTH/8, 10);

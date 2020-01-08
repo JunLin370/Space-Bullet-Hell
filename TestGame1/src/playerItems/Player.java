@@ -23,11 +23,12 @@ public class Player extends Ship  {
 
 	private static final int OVALWIDTH = 30;
 	private boolean firing;
-	private int weaponLevel;
+	private int weaponLevel, weaponType;
 
-	public Player(float x, float y, ObjectID id, Handler handler, int weaponLevel) {
+	public Player(float x, float y, ObjectID id, Handler handler, int weaponLevel, int weaponType) {
 		super(x, y, id,handler, 100);
 		this.weaponLevel = weaponLevel;
+		this.weaponType = weaponType;
 	}
 
 	public Rectangle getBounds() {
@@ -41,7 +42,15 @@ public class Player extends Ship  {
 		
 		timer ++;
 		
-		machineGun();
+		switch (weaponType) {
+		case 1:
+			machineGun();
+			break;
+		case 2:
+			laserGun();
+			break;
+		}
+
 		
 		x += velX;
 		y += velY;
@@ -92,6 +101,24 @@ public class Player extends Ship  {
 		}//end for
 	}
 	
+	private void laserGun() {
+		switch (weaponLevel) {
+		case 1:
+			if (timer == 40) {
+				handler.addObject(new BlueLaser(x + OVALWIDTH/2 + 5, y, ObjectID.Gun3, handler,180));
+				timer = 0;
+			}
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		}
+	}
 	private void machineGun() {
 		switch (weaponLevel) {
 			case 1:
@@ -123,6 +150,17 @@ public class Player extends Ship  {
 					timer = 0;
 				}
 				break;
+			case 5:
+				if (timer == 6) {
+					handler.addObject(new BigRifleBullet(x + OVALWIDTH/2 + 7 ,y, ObjectID.Gun2, handler, 270, 15 ));
+					handler.addObject(new BigRifleBullet(x + OVALWIDTH/4 - 8 ,y, ObjectID.Gun2, handler, 270, 15 ));
+				}
+				if (timer == 7) {
+					handler.addObject(new RifleBullet(x - 10, y, ObjectID.Gun1, handler, 250, 15));
+					handler.addObject(new RifleBullet(x + OVALWIDTH/2 -3, y, ObjectID.Gun1, handler, 270, 15));
+					handler.addObject(new RifleBullet(x + OVALWIDTH + 5, y, ObjectID.Gun1, handler, 290, 15));
+					timer = 0;
+				}
 		}
 	}
 	

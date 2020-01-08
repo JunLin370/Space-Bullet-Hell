@@ -40,7 +40,7 @@ public class BigRifleBullet extends GameObject {
 	public void render(Graphics g) {
 		g.setColor(Color.ORANGE);
 		g.fillOval((int)x, (int)y, 10, 15);
-		if (timer <= 200) {
+		if (timer <= 60) {
 			g.drawString("Bang", (int)x, (int)y);
 			bang = false;
 			timer++;
