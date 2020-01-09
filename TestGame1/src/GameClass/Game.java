@@ -20,7 +20,6 @@ import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import playerItems.Player;
 
-
 public class Game extends Canvas implements Runnable{	
 	
 	public static final int  HEIGHT = 920, WIDTH = HEIGHT/12*9;	//WIDTH AND HEIGHT of window here 
@@ -37,6 +36,7 @@ public class Game extends Canvas implements Runnable{
 		Menu,
 		Level1,
 		Level2,
+		Level3,
 		shop,
 		powerSelect,
 		help,
