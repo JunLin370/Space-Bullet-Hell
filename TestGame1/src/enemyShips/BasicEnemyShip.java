@@ -11,8 +11,8 @@ import java.awt.Rectangle;
 
 import GameClass.Game;
 import GameClass.Handler;
-import GameClass.Level;
 import GameClass.ObjectID;
+import Levels.Level;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import playerItems.BigRifleBullet;
@@ -23,7 +23,7 @@ public class BasicEnemyShip extends Ship{
 	
 	private int rectangleWidth;		// This two variable will be used whenever the size of the ship is required
 	private int rectangleHeight;
-	
+	private int invincibilityFrames;	
 	/* constructor takes in the pre-requisite x and y starting location of the object, and object id, the
 	 * handler, and health of the ship. Constructor also declares the speed the ship is going, and size of ship
 	 * pre: float x, float y, ObjectID (Ship1), handler, health of the ship
@@ -97,8 +97,13 @@ public class BasicEnemyShip extends Ship{
 			
 			if(tempObject.getId() == ObjectID.Gun3) {	//if object's id is Gun1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
-					health -= BlueLaser.damage;		//if yes then remove a certain amount of health
-					handler.removeObject(tempObject);	//and remove the bullet
+					if (invincibilityFrames == 0) {
+						health -= BlueLaser.damage;		//if yes then remove a certain amount of health
+					}
+					invincibilityFrames++;
+					if (invincibilityFrames == 2) {
+						invincibilityFrames = 0;
+					}
 				}
 			}
 			

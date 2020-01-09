@@ -43,13 +43,8 @@ public class RifleBullet extends GameObject{
 
 
 	public void render(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;		
-		
-		
 		g.setColor(Color.ORANGE);
-		g2d.rotate(Math.toRadians( angle ), x, y);
 		g.fillOval((int)x, (int)y, 5, 15);
-		g2d.rotate(-(Math.toRadians( angle )),x,y);
 		
 		if (timer <= 40) {
 			g.drawString("Bang", (int)x, (int)y);
@@ -57,9 +52,9 @@ public class RifleBullet extends GameObject{
 			timer++;
 		}
 		
-	//	Graphics2D g2d = (Graphics2D) g;		
-	//	g.setColor(Color.WHITE);
-	//	g2d.draw(getBounds());
+		Graphics2D g2d = (Graphics2D) g;		
+		g.setColor(Color.WHITE);
+		g2d.draw(getBounds());
 	}
 
 	public Rectangle getBounds() {

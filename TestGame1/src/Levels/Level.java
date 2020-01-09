@@ -1,5 +1,10 @@
-package GameClass;
+package Levels;
 
+import java.awt.Graphics;
+
+import GameClass.Game;
+import GameClass.Handler;
+import GameClass.ObjectID;
 import GameClass.Game.STATE;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
@@ -9,15 +14,20 @@ import enemyShips.ShotGunEnemyShip;
 
 
 public abstract class Level {
+	
+	protected int timer, adder;
 	protected Handler handler;
+	protected Game game;
 	public static int score;
-	private Game game;
 	
 	public Level(Handler hander, Game game) {
 		this.handler = hander;
 		this.game = game;
 		score = 0;
 	}
+	
+	public abstract void tick();
+	public abstract void render(Graphics g);
 	
 	protected void gameOver() {
 		for (int i = 0; i < handler.object.size(); i++) {	//check all objects
@@ -68,8 +78,9 @@ public abstract class Level {
 		handler.addObject(new ShotGunEnemyShip(x, y, ObjectID.BasicEnemy, handler, health));
 	}
 	
-	protected void newBoss(int x, int y, int health) {
-		handler.addObject(new Boss1(x, y, ObjectID.Boss1, handler, health, game));
+	public void reset() {
+		timer = 0;
+		adder = 0;
 	}
 	
 }

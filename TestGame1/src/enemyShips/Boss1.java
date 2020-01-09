@@ -6,6 +6,7 @@
 package enemyShips;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -13,18 +14,19 @@ import java.util.Random;
 
 import GameClass.Game;
 import GameClass.Handler;
-import GameClass.Level;
 import GameClass.ObjectID;
 import GameClass.Game.STATE;
+import Levels.Level;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import playerItems.BigRifleBullet;
+import playerItems.BlueLaser;
 import playerItems.RifleBullet;
 
 public class Boss1 extends Ship{
 	
 	private final int  RECTANGLEWIDTH = 300, RECTANGLEHEIGHT = 150;		//size of the boss
-	private int attack, angle, timer2, bombTimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
+	private int attack, angle, timer2, bombTimer, invincibilityFrames, dyingtimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
 	private boolean on, buffer, phase2, dying;	
 	private Random r;	
 	private Game game;
@@ -71,6 +73,18 @@ public class Boss1 extends Ship{
 					handler.removeObject(tempObject);	//and remove the bullet
 				}
 			}
+			
+			if(tempObject.getId() == ObjectID.Gun3) {	//if object's id is Gun1
+				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
+					if (invincibilityFrames == 0) {
+						health -= BlueLaser.damage;		//if yes then remove a certain amount of health
+					}
+					invincibilityFrames++;
+					if (invincibilityFrames == 2) {
+						invincibilityFrames = 0;
+					}
+				}
+			}
 
 			if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
@@ -80,6 +94,23 @@ public class Boss1 extends Ship{
 			}
 		}//End for
 	}
+	
+
+	public void render(Graphics g) {
+		g.setColor(Color.GRAY);
+		g.fillRect((int)x, (int)y, RECTANGLEWIDTH, RECTANGLEHEIGHT);
+			g.setColor(Color.WHITE);
+			g.drawRect(89, Game.HEIGHT - 80, 500+1, 35);
+			g.setColor(Color.WHITE);
+
+			g.setColor(Color.RED);
+			g.fillRect(90, Game.HEIGHT - 79, health/5, 34);
+
+			Graphics2D g2d = (Graphics2D) g;		
+			g.setColor(Color.WHITE);
+			g2d.draw(getBounds());
+	}
+
 
 	/*
 	 * 
@@ -94,10 +125,11 @@ public class Boss1 extends Ship{
 			} else if (on == true) {
 				Level.score += 1000;
 				on = false;
-			} else {
+			} else if (dyingtimer == 60 * 6){
 				game.gameState = STATE.gameWin;
 				handler.removeObject(this);
-
+			} else {
+				dyingtimer++;
 			}
 		}
 		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
@@ -111,7 +143,7 @@ public class Boss1 extends Ship{
 					if (velY != 0) {
 						velY = 0;
 						timer = 0;}
-					if (timer == 60 && on != true) {
+					if (timer == 60 && on != true && health != 0) {
 						on = true;
 						timer = 0;
 						attack = r.nextInt(3) + 1;
@@ -201,32 +233,6 @@ public class Boss1 extends Ship{
 			buffer = true;
 			bombTimer = 4;
 		}
-	}
-
-	public void render(Graphics g) {
-		g.setColor(Color.GRAY);
-		g.fillRect((int)x, (int)y, RECTANGLEWIDTH, RECTANGLEHEIGHT);
-		
-		if (dying == true) {
-			
-		}
-		
-		
-		g.setColor(Color.WHITE);
-		g.drawRect(89, Game.HEIGHT - 80, 500+1, 35);
-		g.setColor(Color.WHITE);
-		
-		g.setColor(Color.RED);
-		g.fillRect(90, Game.HEIGHT - 79, health/5, 34);
-		
-		Graphics2D g2d = (Graphics2D) g;		
-		g.setColor(Color.WHITE);
-		g2d.draw(getBounds());
-		
-		g.drawString("Timer2: " + timer2, 15, 100);
-		g.drawString("Timer: " + timer, 15, 120);
-		g.drawString("attack type: " + attack, 15, 140);
-		g.drawString("Phase: " + phase2, 15, 160);
 	}
 
 	public Rectangle getBounds() {

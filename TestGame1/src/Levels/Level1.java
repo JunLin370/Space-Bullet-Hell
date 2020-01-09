@@ -5,7 +5,7 @@
  * when timer = respawn, it spawns a new enemy and set timer back to 0
  * Every tick, it also adds 1 to score. This displays both score and timer as text on the window
  * DATE: 2019-12-11 */
-package GameClass;
+package Levels;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,18 +13,16 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import GameClass.Game;
+import GameClass.Handler;
+import GameClass.ObjectID;
+import enemyShips.Boss1;
 import playerItems.Player;
 
 public class Level1 extends Level {
-
-	private int timer, adder;
-	private Game game;
 	
 	public Level1(Handler handler, Game game) {	//Constructor takes handler and adds new player to handler linked list
 		super(handler, game);
-		this.game = game;
-		//Add test objects here to spawn them in main menu
-		//
 	}
 
 	public void tick() {
@@ -32,6 +30,7 @@ public class Level1 extends Level {
 		if (timer % 60 == 0) {
 			adder ++;
 			if (adder == 1) {
+				score = 0;
 				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler, game.getWeaponLevel(), game.getWeaponType()));
 			}
 			if (adder == 5 || adder == 10) {
@@ -48,7 +47,7 @@ public class Level1 extends Level {
 				formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
 			}
 			if (adder == 30) {
-				newBoss(Game.WIDTH/2 - 150 , -1*Game.HEIGHT/2, 2500);
+				handler.addObject(new Boss1(Game.WIDTH/2 - 150 , -1*Game.HEIGHT/2, ObjectID.Boss1, handler, 2500, game));
 			}
 		}
 	}
@@ -65,10 +64,5 @@ public class Level1 extends Level {
 		g.drawString("timer: " + timer, 15, 40);
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
 		g.drawString("Adder: " + adder, 15, 80);
-	}
-	
-	public void reset() {
-		timer = 0;
-		adder = 0;
 	}
 }

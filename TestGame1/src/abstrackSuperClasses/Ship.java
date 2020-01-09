@@ -3,6 +3,7 @@ package abstrackSuperClasses;
 import GameClass.Handler;
 import GameClass.ObjectID;
 import enemyShips.BombBullet;
+import enemyShips.BombBullet2;
 import enemyShips.Enemy;
 import enemyShips.HomingBullet;
 
@@ -30,6 +31,10 @@ public abstract class Ship extends GameObject{
 	
 	protected void newBomb(int x, int y, int angle, int vel, int time) {
 		handler.addObject(new BombBullet(x, y, ObjectID.Bullet3, handler, angle, vel, time));
+	}
+	
+	protected void newBombPlus(int x, int y, int angle, int vel, int time) {
+		handler.addObject(new BombBullet2(x, y, ObjectID.Bullet3, handler, angle, vel, time));
 	}
 	
 	public void setHealth(int newHealth) {

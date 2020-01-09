@@ -7,6 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import GameClass.Game.STATE;
+import Levels.Level;
+import Levels.Level1;
 
 public class Menu extends MouseAdapter {
 
@@ -48,7 +50,10 @@ public class Menu extends MouseAdapter {
 			if (mouseOver(mx, my,145, 400, 400, 64)) {
 				game.gameState = STATE.Level1;
 			}
-			if (mouseOver(mx, my,145, 550, 400, 64)) {
+			if (mouseOver(mx, my,145, 525, 400, 64)) {
+				game.gameState = STATE.Level2;
+			}
+			if (mouseOver(mx, my,145, 650, 400, 64)) {
 				game.gameState = STATE.Menu;
 			}
 		}
@@ -58,6 +63,16 @@ public class Menu extends MouseAdapter {
 			}
 			if (mouseOver(mx, my,30, 200, 200, 64)) {
 				game.gameState = STATE.powerSelect;
+				game.setWeaponType(1);
+			}
+			if (mouseOver(mx, my,30, 300, 200, 64)) {
+				game.gameState = STATE.powerSelect;
+				game.setWeaponType(2);
+			}
+		}
+		if (game.gameState == STATE.help) {
+			if (mouseOver(mx, my,145, 700, 400, 64)) {
+				game.gameState = STATE.Menu;
 			}
 		}
 		if (game.gameState == STATE.powerSelect) {
@@ -153,7 +168,7 @@ public class Menu extends MouseAdapter {
 			
 			g.setFont(fnt2);
 			
-			g.drawString("Your Final Score is " + Level1.score, 195, 300);
+			g.drawString("Your Final Score is " + Level.score, 195, 300);
 		} 
 		if (game.gameState == STATE.levelSelect) {
 			g.setColor(Color.WHITE);
@@ -165,55 +180,82 @@ public class Menu extends MouseAdapter {
 			g.drawRect(145, 400, 400, 64);
 			
 			g.setColor(Color.WHITE);
-			g.drawString("Back", 290, 600);
+			g.drawString("Level 2", 270, 575);
 			g.setColor(Color.WHITE);
-			g.drawRect(145, 550, 400, 64);
+			g.drawRect(145, 525, 400, 64);
+			
+			g.setColor(Color.WHITE);
+			g.drawString("Back", 290, 700);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 650, 400, 64);
 		}
 		if (game.gameState == STATE.shop) {
 			g.setColor(Color.WHITE);
 			g.drawString("Back", 290, 600);
 			g.setColor(Color.WHITE);
 			g.drawRect(145, 550, 400, 64);
-			
+
 			g.setColor(Color.WHITE);
 			g.drawString("Armory", 260, 150);	
-			
+
 			g.setFont(fnt2);
-			
+
+			if(game.getWeaponType() == 1) {
+				g.setColor(Color.GRAY);
+				g.fillRect(30, 200, 200, 64);
+			}
 			g.setColor(Color.WHITE);
 			g.drawString("Machine Gun ", 37, 240);
 			g.setColor(Color.WHITE);
 			g.drawRect(30, 200, 200, 64);
+			
+			if(game.getWeaponType() == 2) {
+				g.setColor(Color.GRAY);
+				g.fillRect(30, 300, 200, 64);
+			}
+			g.setColor(Color.WHITE);
+			g.drawString("Laser Rifle", 37, 340);
+			g.setColor(Color.WHITE);
+			g.drawRect(30, 300, 200, 64);
+		}
+		if (game.gameState == STATE.help) {
+			g.setColor(Color.WHITE);
+			g.drawString("Help", 260, 150);	
+			
+			g.setColor(Color.WHITE);
+			g.drawString("Back", 290, 750);
+			g.setColor(Color.WHITE);
+			g.drawRect(145, 700, 400, 64);
 		}
 		if (game.gameState == STATE.powerSelect) {
 			g.setFont(fnt);
-			
+
 			g.setColor(Color.WHITE);
 			g.drawString("Armory", 260, 150);	
-			
+
 			g.setColor(Color.WHITE);
 			g.drawString("Power Level", 200, 250);	
-			
+
 			if(game.getWeaponLevel() == 1) {
-				g.setColor(Color.GREEN);
+				g.setColor(Color.GRAY);
 				g.fillRect(10, 350, 100, 100);
 			}
 			g.setColor(Color.WHITE);
 			g.drawString(" 1 ", 33 , 420);
 			g.setColor(Color.WHITE);
 			g.drawRect(10, 350, 100, 100);
-			
+
 			if(game.getWeaponLevel() == 2) {
-				g.setColor(Color.GREEN);
+				g.setColor(Color.CYAN);
 				g.fillRect(150, 350, 100, 100);
 			}
 			g.setColor(Color.WHITE);
 			g.drawString(" 2 ", 173, 420);
 			g.setColor(Color.WHITE);
 			g.drawRect(150, 350, 100, 100);
-			
+
 			if(game.getWeaponLevel() == 3) {
-				g.setColor(Color.GREEN);
+				g.setColor(Color.MAGENTA);
 				g.fillRect(290, 350, 100, 100);
 			}
 			g.setColor(Color.WHITE);
@@ -222,7 +264,7 @@ public class Menu extends MouseAdapter {
 			g.drawRect(290, 350, 100, 100);
 			
 			if(game.getWeaponLevel() == 4) {
-				g.setColor(Color.GREEN);
+				g.setColor(Color.ORANGE);
 				g.fillRect(430, 350, 100, 100);
 			}
 			g.setColor(Color.WHITE);
@@ -231,7 +273,7 @@ public class Menu extends MouseAdapter {
 			g.drawRect(430, 350, 100, 100);
 			
 			if(game.getWeaponLevel() == 5) {
-				g.setColor(Color.GREEN);
+				g.setColor(Color.RED);
 				g.fillRect(570, 350, 100, 100);
 			}
 			g.setColor(Color.WHITE);

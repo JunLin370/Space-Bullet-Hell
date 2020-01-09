@@ -6,17 +6,19 @@ import java.awt.Rectangle;
 
 import GameClass.Game;
 import GameClass.Handler;
-import GameClass.Level;
 import GameClass.ObjectID;
+import Levels.Level;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import playerItems.BigRifleBullet;
+import playerItems.BlueLaser;
 import playerItems.RifleBullet;
 
 public class ShotGunEnemyShip extends Ship{
 	
 	private int rectangleWidth;
 	private int rectangleHeight;
+	private int invincibilityFrames;
 	private int shots, j, vel;
 
 	public ShotGunEnemyShip(float x, float y, ObjectID id, Handler handler, int newHealth) {
@@ -42,6 +44,18 @@ public class ShotGunEnemyShip extends Ship{
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
 					health -= BigRifleBullet.damage;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
+				}
+			}
+			
+			if(tempObject.getId() == ObjectID.Gun3) {	//if object's id is Gun1
+				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
+					if (invincibilityFrames == 0) {
+						health -= BlueLaser.damage;		//if yes then remove a certain amount of health
+					}
+					invincibilityFrames++;
+					if (invincibilityFrames == 2) {
+						invincibilityFrames = 0;
+					}
 				}
 			}
 			

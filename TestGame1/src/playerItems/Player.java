@@ -104,18 +104,34 @@ public class Player extends Ship  {
 	private void laserGun() {
 		switch (weaponLevel) {
 		case 1:
-			if (timer == 40) {
-				handler.addObject(new BlueLaser(x + OVALWIDTH/2 + 5, y, ObjectID.Gun3, handler,180));
+			if (timer == 50) {
+				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 3, 5));
 				timer = 0;
 			}
 			break;
 		case 2:
+			if (timer == 50) {
+				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 4, 10));
+				timer = 0;
+			}
 			break;
 		case 3:
+			if (timer == 50) {
+				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 5, 15));
+				timer = 0;
+			}
 			break;
 		case 4:
+			if (timer == 50) {
+				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 7, 20));
+				timer = 0;
+			}
 			break;
 		case 5:
+			if (timer == 50) {
+				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 15, 50));
+				timer = 0;
+			}
 			break;
 		}
 	}

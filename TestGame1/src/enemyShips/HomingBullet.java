@@ -39,11 +39,6 @@ public class HomingBullet extends GameObject{
 		
 		damage = 5;
 
-		//float distance = (float) Math.sqrt((x-player.getX())*(x-player.getX()) + (y-player.getY())*(y-player.getY()));
-
-		//velX =  ((-1/distance)*(x - player.getXs() - 20) * 10);
-		//velY =  ((-1/distance)*(y - player.getYs() - 20) * 10);
-
 		for (int i = 0; i < handler.object.size(); i++) {	//Goes through every object in game
 			GameObject tempObject = handler.object.get(i);	
 			if(tempObject.getId() == ObjectID.Player1) {	//If player object exists
@@ -65,7 +60,7 @@ public class HomingBullet extends GameObject{
 		x += velX;
 		y += velY;
 		
-		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100))  {
+		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT))  {
 			handler.removeObject(this);
 		}
 	}

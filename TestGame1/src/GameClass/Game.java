@@ -13,6 +13,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import Levels.Level;
+import Levels.Level1;
+import Levels.Level2;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import playerItems.Player;
@@ -24,31 +27,16 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;		
 	private boolean running = false; 
 	private Handler handler;
-	private Level1 level1;
+	private Level level1, level2;
 	private Menu menu;
 	
 	private int weaponLevel;
 	private int weaponType;
 	
-	public int getWeaponType() {
-		return weaponType;
-	}
-	
-	public void setWeaponType(int newWeaponType) {
-		weaponType = newWeaponType;
-	}
-	
-	public int getWeaponLevel() {
-		return weaponLevel;
-	}
-	
-	public void setWeaponLevel(int newWeaponLevel) {
-		weaponLevel = newWeaponLevel;
-	}
-	
 	public enum STATE {
 		Menu,
 		Level1,
+		Level2,
 		shop,
 		powerSelect,
 		help,
@@ -68,6 +56,7 @@ public class Game extends Canvas implements Runnable{
 
 		handler = new Handler();	//This starts the handler class
 		level1 = new Level1(handler, this);	
+		level2 = new Level2(handler, this);
 		weaponLevel = 1;
 		weaponType = 1;
 		menu = new Menu(this, handler);
@@ -146,8 +135,17 @@ public class Game extends Canvas implements Runnable{
 	 * post: It runs tick from the handler class*/
 	private void tick() {
 		handler.tick();	//this goes to the Handler Class
-		if (gameState == STATE.Level1) {
-			level1.tick(); // run game
+		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.help|| gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {	//if the game is in theses states,
+			menu.tick();	//run menu	
+			clearEnemies();
+			this.level1.reset();
+			this.level2.reset();
+		}
+		if (gameState == STATE.Level1 || gameState == STATE.Level2) {
+			if (gameState == STATE.Level1)
+				level1.tick(); // run game
+			if (gameState == STATE.Level2)
+				level2.tick();
 			//resets level if player losses
 			for (int i = 0; i < handler.object.size(); i++) {	//check all objects
 				GameObject tempObject = handler.object.get(i);
@@ -155,18 +153,9 @@ public class Game extends Canvas implements Runnable{
 					Ship tempShip = (Ship) tempObject;
 					if (tempShip.getHealth() <= 0) {
 						gameState = STATE.gameOver;
-						clearEnemies();
-						this.level1.reset();
 					}
 				}
-
 			}//End for
-		}
-
-		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {	//if the game is in theses states,
-			clearEnemies();
-			this.level1.reset();
-			menu.tick();	//run menu	
 		}
 	}
 
@@ -188,10 +177,13 @@ public class Game extends Canvas implements Runnable{
 
 		handler.render(g);		// This goes to the HandlerClass
 
-		if (gameState == STATE.Level1) { // If the state of the game is in Game State, render level1
-			level1.render(g);
+		if (gameState == STATE.Level1 || gameState == STATE.Level2) {
+			if (gameState == STATE.Level1)
+				level1.render(g); // run game
+			if (gameState == STATE.Level2)
+				level2.render(g);
 		}
-		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {
+		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.help|| gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {
 			menu.render(g);
 		}
 		g.dispose();
@@ -202,35 +194,74 @@ public class Game extends Canvas implements Runnable{
 	 * pre:	float pos, float min, float max
 	 * post: returns the value of min or max depending on which the pos is equal or greater then*/
 	public static float fborder(float pos, float min, float max) {
-		if (pos >= max)
-			return pos = max;
-		else if (pos <= min)
-			return pos = min;
+		if (pos >= max)	//if the position is greater than or equal maximum
+			return pos = max;	//returns the max number
+		else if (pos <= min)	//if the position is less than or equal minimum
+			return pos = min;	//return minimum
 		else
-			return pos;
+			return pos;		//else return the position
 	}
 	
 	/* Des: This checks if a value is between two values. If it is, return True, if its not, return false
 	 * pre:	float pos, float min, float max
 	 * post: boolean determining whether its in whiten parameters or not*/
 	public static boolean inBorder(float pos, float min, float max) {
-		if (pos >= max)
-			return true;
-		else if (pos <= min)
-			return true;
+		if (pos >= max)			//if the position is greater than or equal maximum
+			return true;	//return true
+		else if (pos <= min)	//if the position is less than or equal minimum
+			return true;	//return true
 		else
-			return false;
+			return false;	//else return false 
 	}
 	
-	public static void main (String [] args) {
-		new Game();	//Runs game :)
-	}
-	
+	/* This method clears every object in the handler class
+	 * pre:
+	 * post: removes every object from the handler linkedlist
+	 */
 	public void clearEnemies() {
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			handler.object.clear();
 		}
+	}
+	
+	//------------------------ Getter Setters ------------------------//
+	/* returns weapon type
+	 * pre:
+	 * post:int
+	 */
+	public int getWeaponType() {
+		return weaponType;
+	}
+	
+	/* sets the weaponType variable, have to be valid weapon type int
+	 * pre:	int
+	 * post: weaponType = int
+	 */
+	public void setWeaponType(int newWeaponType) {
+		weaponType = newWeaponType;
+	}
+	
+	/* returns the weapon level
+	 * pre:
+	 * post: int
+	 */
+	public int getWeaponLevel() {
+		return weaponLevel;
+	}
+	
+	/* sets the weaponLevel, has the be a valid weapon level int
+	 * pre: int
+	 * post: weaponLevel = int
+	 */
+	public void setWeaponLevel(int newWeaponLevel) {
+		weaponLevel = newWeaponLevel;
+	}
+	
+	//------------------------ MAIN ------------------------//
+	//This is main
+	public static void main (String [] args) {
+		new Game();	//Runs game :)
 	}
 
 }
