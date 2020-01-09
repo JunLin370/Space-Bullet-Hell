@@ -18,7 +18,7 @@ import playerItems.BigRifleBullet;
 import playerItems.BlueLaser;
 import playerItems.RifleBullet;
 
-public class Boss2 extends Ship{
+public class BossGod extends Ship{
 	
 	private final int  RECTANGLEWIDTH = 100, RECTANGLEHEIGHT = 125;		//size of the boss
 	private int attack, invincibilityFrames, dyingtimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
@@ -31,7 +31,7 @@ public class Boss2 extends Ship{
 	 * pre: float x, float y, ObjectID (Ship1), handler, health of the ship
 	 * post: supers all the pre variables. sets on and buffer to false. Make a new random object. set velY to 1
 	 */
-	public Boss2(float x, float y, ObjectID id, Handler handler, int newHealth, Game game) {
+	public BossGod(float x, float y, ObjectID id, Handler handler, int newHealth, Game game) {
 		super(x, y, id, handler, newHealth);
 		this.game = game;
 		
