@@ -27,7 +27,7 @@ public class Boss1 extends Ship{
 	
 	private final int  RECTANGLEWIDTH = 300, RECTANGLEHEIGHT = 150;		//size of the boss
 	private int attack, angle, timer2, bombTimer, invincibilityFrames, dyingtimer, oHealth;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
-	private boolean on, buffer, phase2, dying;	
+	private boolean on, buffer, phase2;	
 	private Random r;	
 	private Level level;
 
@@ -44,7 +44,6 @@ public class Boss1 extends Ship{
 		on = false;		//on and buffer are variables used in the AI of this boss
 		buffer = false;
 		phase2 = false;
-		dying = false;
 		
 		r = new Random();
 		velY = 1;
@@ -96,7 +95,6 @@ public class Boss1 extends Ship{
 		}//End for
 	}
 	
-
 	public void render(Graphics g) {
 		g.setColor(Color.GRAY);
 		g.fillRect((int)x, (int)y, RECTANGLEWIDTH, RECTANGLEHEIGHT);
@@ -129,7 +127,6 @@ public class Boss1 extends Ship{
 
 			g.drawString("BOSS HEALTH: " + health, 15, 80);
 	}
-
 
 	/*
 	 * 
@@ -258,7 +255,7 @@ public class Boss1 extends Ship{
 		return new Rectangle ((int)x,(int)y,RECTANGLEWIDTH,RECTANGLEHEIGHT);
 	}
 
-	public void spinAttack() {
+	private void spinAttack() {
 		//attack 1
 		timer2 ++;
 		if(timer == 15) {
@@ -283,7 +280,7 @@ public class Boss1 extends Ship{
 		}
 	}
 	
-	public void miniGunAttack() {
+	private void miniGunAttack() {
 		timer2 ++;
 		if (timer == 15) {
 			trackBullet((int)x + RECTANGLEWIDTH/4 + 10, (int)y + RECTANGLEHEIGHT, 6);

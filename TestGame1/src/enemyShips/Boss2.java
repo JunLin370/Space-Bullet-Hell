@@ -90,7 +90,6 @@ public class Boss2 extends Ship{
 			}
 		}//End for
 	}
-	
 
 	public void render(Graphics g) {
 	
@@ -141,7 +140,6 @@ public class Boss2 extends Ship{
 		g2d.draw(getBounds());
 	}
 
-
 	/*
 	 * 
 	 */
@@ -154,7 +152,7 @@ public class Boss2 extends Ship{
 					velY = 8;
 					on = false;
 				}
-				health = oHealth /4;
+				health = oHealth /4 - 100;
 				attack = r.nextInt(2) + 1;
 				Level.score += 500;
 			} else {
@@ -173,7 +171,7 @@ public class Boss2 extends Ship{
 				if (phase2 == false) {
 					if (y > tempObject.getYs()) {
 						machineGunTimer++;
-						backTurrentAttack();
+						backTurretAttack();
 					}
 
 					//Opening attack
@@ -188,7 +186,7 @@ public class Boss2 extends Ship{
 					if (movepattern == true) {
 						// Movement of boss ship
 						if (moving == false) {
-							velX = 9;
+							velX = 7;
 							moving = true;
 							velY = 2;
 						}
@@ -249,7 +247,7 @@ public class Boss2 extends Ship{
 		collisions();
 	}
 
-	public int shotGunRecursive(int angle) {
+	private int shotGunRecursive(int angle) {
 		if (angle == 120)
 			return 0;
 		else {
@@ -258,7 +256,7 @@ public class Boss2 extends Ship{
 		}
 	}
 
-	public void ShotGunAttack() {
+	private void ShotGunAttack() {
 		//attack 1
 		timer2 ++;
 		if(timer == 15) {
@@ -271,7 +269,7 @@ public class Boss2 extends Ship{
 		}
 	}
 
-	public void laserAttack() {
+	private void laserAttack() {
 		timer2 ++;
 		if (timer == 60 * 1) {
 			handler.addObject(new EnemyLaser(x, y, ObjectID.Bullet5, handler, 5, 11, -26, 61));
@@ -325,7 +323,7 @@ public class Boss2 extends Ship{
 		}
 	}
 
-	private void backTurrentAttack() {
+	private void backTurretAttack() {
 		if (machineGunTimer >= 20) {
 			trackBullet((int)x + 15, (int)y, 15);
 			trackBullet((int)x + RECTANGLEWIDTH - 15, (int)y, 15);

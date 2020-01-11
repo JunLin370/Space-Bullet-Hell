@@ -18,11 +18,7 @@ import abstrackSuperClasses.Ship;
 
 public class HomingBullet extends GameObject{
 	
-	
 	private Handler handler;	
-	private float vel;
-	private boolean bang;
-	private float angle;
 	private int timer;
 	public static int damage;
 	
@@ -34,7 +30,6 @@ public class HomingBullet extends GameObject{
 	public HomingBullet(float x, float y, ObjectID id, Handler handler, float vel) {
 		super(x, y, id);
 		this.handler = handler;
-		bang = true;
 		timer = 0;
 		
 		damage = 5;
@@ -74,7 +69,6 @@ public class HomingBullet extends GameObject{
 		g.fillOval((int)x, (int)y, 10, 10);
 		if (timer <= 200) {
 			g.drawString("Bang", (int)x, (int)y);
-			bang = false;
 			timer++;
 		}
 

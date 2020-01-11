@@ -13,8 +13,6 @@ import abstrackSuperClasses.GameObject;
 public class BigRifleBullet extends GameObject {
 	
 	private Handler handler;
-	private int vel;
-	private boolean bang;
 	private int timer;
 	public static final int damage = 15;
 	
@@ -36,13 +34,11 @@ public class BigRifleBullet extends GameObject {
 		}
 	}
 
-
 	public void render(Graphics g) {
 		g.setColor(Color.ORANGE);
 		g.fillOval((int)x, (int)y, 10, 15);
 		if (timer <= 60) {
 			g.drawString("Bang", (int)x, (int)y);
-			bang = false;
 			timer++;
 		}
 

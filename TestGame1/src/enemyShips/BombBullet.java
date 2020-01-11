@@ -16,7 +16,7 @@ import abstrackSuperClasses.Ship;
 
 public class BombBullet extends GameObject{
 	
-	private final int bombWidth = 30;	//size of the bomb (oval)
+	private final int BOMBWIDTH = 30;	//size of the bomb (oval)
 	private Handler handler;	//new handler instance
 	private int timer, ticker;	//variables used in the timing of the bomb
 	public static int damage;
@@ -59,10 +59,10 @@ public class BombBullet extends GameObject{
 	 */
 	public void render(Graphics g) {
 		g.setColor(Color.RED);		//inside of bomb
-		g.fillOval((int)x, (int)y, bombWidth, bombWidth);
+		g.fillOval((int)x, (int)y, BOMBWIDTH, BOMBWIDTH);
 		
 		g.setColor(Color.YELLOW);	//out line of bomb
-		g.drawOval((int)x-2, (int) y-2, bombWidth+4, bombWidth+4);
+		g.drawOval((int)x-2, (int) y-2, BOMBWIDTH+4, BOMBWIDTH+4);
 		
 		Graphics2D g2d = (Graphics2D) g;	//this is hitbox of bomb
 		g.setColor(Color.WHITE);
@@ -114,7 +114,7 @@ public class BombBullet extends GameObject{
 	 * post: a new Rectangle
 	 */
 	public Rectangle getBounds() {
-		return new Rectangle ((int)x,(int)y,bombWidth,bombWidth);
+		return new Rectangle ((int)x,(int)y,BOMBWIDTH,BOMBWIDTH);
 	}
 
 }

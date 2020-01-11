@@ -19,12 +19,10 @@ public class ShotGunEnemyShip extends Ship{
 	private int rectangleWidth;
 	private int rectangleHeight;
 	private int invincibilityFrames;
-	private int shots, j, vel;
 
 	public ShotGunEnemyShip(float x, float y, ObjectID id, Handler handler, int newHealth) {
 		super(x, y, id, handler, 100);
 		velY = 1;
-		vel = 2;
 		rectangleWidth = 40;
 		rectangleHeight = 40;
 	}

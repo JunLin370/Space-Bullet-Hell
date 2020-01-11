@@ -14,7 +14,7 @@ import playerItems.Player;
 
 public class Level3 extends Level{
 	
-	private int basicEnemyHealth, shotGunEnemyHealth, heavyBossHealth, lightBossHealth, spawnTimer;
+	private int basicEnemyHealth, shotGunEnemyHealth, heavyBossHealth, lightBossHealth, spawnTimer, wave;
 	private boolean start;
 	private Random r;
 	
@@ -26,6 +26,7 @@ public class Level3 extends Level{
 		shotGunEnemyHealth = 50;
 		heavyBossHealth = 2500;
 		lightBossHealth = 750;
+		wave = 1;
 		
 		r = new Random();
 	}
@@ -40,34 +41,54 @@ public class Level3 extends Level{
 				handler.addObject(new Player(Game.WIDTH/2, Game.HEIGHT/2 + Game.HEIGHT/4, ObjectID.Player1, handler, game.getWeaponLevel(), game.getWeaponType()));
 			}
 			if (adder == 6) {
-				formationTri(10, basicEnemyHealth);
-				formationTri(Game.WIDTH/2 - 50, basicEnemyHealth);
-				formationTri(Game.WIDTH/4, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
 			}
 			if (adder == 8) {
-				formationXLine(7, 200, basicEnemyHealth);
-				shotGunEnemy(70, shotGunEnemyHealth);
-				shotGunEnemy(Game.WIDTH - 70, shotGunEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				shotGunEnemy(r.nextInt(Game.WIDTH - 1) + 1, shotGunEnemyHealth);
+				shotGunEnemy(r.nextInt(Game.WIDTH - 1) + 1, shotGunEnemyHealth);
 			}
 			if (adder == 10) {
 				formationTri(10, basicEnemyHealth);
-				formationTri(Game.WIDTH/2 - 50, basicEnemyHealth);
-				formationTri(Game.WIDTH/4, basicEnemyHealth);
+				formationTri(Game.WIDTH/2, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				shotGunEnemy(r.nextInt(Game.WIDTH - 1) + 1, shotGunEnemyHealth);
 			}
 			if (adder == 14 || adder == 18) {
 				formationTri(Game.WIDTH/8, basicEnemyHealth);
-				shotGunEnemy(Game.WIDTH/2, shotGunEnemyHealth);
+				shotGunEnemy(r.nextInt(Game.WIDTH - 1) + 1, shotGunEnemyHealth);
 				formationTri(Game.WIDTH/2 + Game.WIDTH/4, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
 			}
 			if (adder == 21) {
-				shotGunEnemy(Game.WIDTH/2, shotGunEnemyHealth);
+				shotGunEnemy(r.nextInt(Game.WIDTH - 1) + 1, shotGunEnemyHealth);
 				formationXLine(5, 500, basicEnemyHealth);
 				formationXLine(5, 70, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
 			}
 			if (adder == 25) {
 				formationTri(Game.WIDTH/8, basicEnemyHealth);
-				shotGunEnemy(Game.WIDTH/2, shotGunEnemyHealth);
 				formationTri(Game.WIDTH/2 + Game.WIDTH/4, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
+				basicEnemy(r.nextInt(Game.WIDTH - 1) + 1, basicEnemyHealth);
 			}
 			if (adder == 30) {
 				switch (r.nextInt(2) + 1) {
@@ -92,6 +113,7 @@ public class Level3 extends Level{
 			
 			if (gameWin == true) {
 				adder = 0;
+				wave ++;
 				gameWin = false;
 				if (basicEnemyHealth <= 100)
 					basicEnemyHealth += 5;
@@ -114,6 +136,7 @@ public class Level3 extends Level{
 		}
 		g.setColor(Color.WHITE);
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
+		g.drawString("Wave: " + wave, 15, 80);
 	}
 
 	public void reset() {

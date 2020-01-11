@@ -125,7 +125,7 @@ public class Menu extends MouseAdapter {
 		
 		if (game.gameState == STATE.Menu) {
 			g.setColor(Color.WHITE);
-			g.drawString("Menu", 290, 150);	
+			g.drawString("AlphLite", 250, 150);	
 
 			g.setColor(Color.WHITE);
 			g.drawString("Start", 290, 300);
@@ -133,7 +133,7 @@ public class Menu extends MouseAdapter {
 			g.drawRect(145, 250, 400, 64);
 
 			g.setColor(Color.WHITE);
-			g.drawString("Shop", 280, 450);
+			g.drawString("Armory", 260, 450);
 			g.setColor(Color.WHITE);
 			g.drawRect(145, 400, 400, 64);
 
@@ -188,7 +188,7 @@ public class Menu extends MouseAdapter {
 			g.drawRect(145, 525, 400, 64);
 			
 			g.setColor(Color.WHITE);
-			g.drawString("Level 3", 270, 700);
+			g.drawString("Endless Mode", 183, 700);
 			g.setColor(Color.WHITE);
 			g.drawRect(145, 650, 400, 64);
 			
@@ -245,6 +245,12 @@ public class Menu extends MouseAdapter {
 			g.drawString("Power Level", 200, 250);	
 
 			if(game.getWeaponLevel() == 1) {
+				
+				g.setFont(fnt2);
+				g.setColor(Color.WHITE);
+				g.drawString("Extra hard", 270, 300);	
+				g.setFont(fnt);
+				
 				g.setColor(Color.GRAY);
 				g.fillRect(10, 350, 100, 100);
 			}
@@ -254,6 +260,12 @@ public class Menu extends MouseAdapter {
 			g.drawRect(10, 350, 100, 100);
 
 			if(game.getWeaponLevel() == 2) {
+				
+				g.setFont(fnt2);
+				g.setColor(Color.WHITE);
+				g.drawString("Hard", 305, 300);	
+				g.setFont(fnt);
+				
 				g.setColor(Color.CYAN);
 				g.fillRect(150, 350, 100, 100);
 			}
@@ -263,6 +275,12 @@ public class Menu extends MouseAdapter {
 			g.drawRect(150, 350, 100, 100);
 
 			if(game.getWeaponLevel() == 3) {
+				
+				g.setFont(fnt2);
+				g.setColor(Color.WHITE);
+				g.drawString("Normal", 290, 300);	
+				g.setFont(fnt);
+				
 				g.setColor(Color.MAGENTA);
 				g.fillRect(290, 350, 100, 100);
 			}
@@ -272,6 +290,12 @@ public class Menu extends MouseAdapter {
 			g.drawRect(290, 350, 100, 100);
 			
 			if(game.getWeaponLevel() == 4) {
+				
+				g.setFont(fnt2);
+				g.setColor(Color.WHITE);
+				g.drawString("Easy", 305, 300);	
+				g.setFont(fnt);
+				
 				g.setColor(Color.ORANGE);
 				g.fillRect(430, 350, 100, 100);
 			}
@@ -281,6 +305,12 @@ public class Menu extends MouseAdapter {
 			g.drawRect(430, 350, 100, 100);
 			
 			if(game.getWeaponLevel() == 5) {
+				
+				g.setFont(fnt2);
+				g.setColor(Color.WHITE);
+				g.drawString("Baby Mode", 265, 300);	
+				g.setFont(fnt);
+				
 				g.setColor(Color.RED);
 				g.fillRect(570, 350, 100, 100);
 			}

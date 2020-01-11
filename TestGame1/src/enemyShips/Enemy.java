@@ -38,8 +38,6 @@ public class Enemy extends GameObject{
 		}
 	}
 
-
-
 	public void render(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillOval((int)x, (int)y, 10, 10);

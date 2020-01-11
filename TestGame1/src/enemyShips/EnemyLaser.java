@@ -59,7 +59,6 @@ public class EnemyLaser extends GameObject {
 		}
 	}
 
-
 	public void render(Graphics g) {
 		if (active == true) {
 			Graphics2D g2d = (Graphics2D) g;	

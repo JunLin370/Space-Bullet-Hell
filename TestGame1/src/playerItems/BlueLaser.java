@@ -12,7 +12,6 @@ import abstrackSuperClasses.GameObject;
 
 public class BlueLaser extends GameObject{
 	
-	
 	private Handler handler;
 	private int laserWidth;
 	private int timer, even;
@@ -47,7 +46,6 @@ public class BlueLaser extends GameObject{
 		}
 	}
 
-
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;	
 		g.setColor(Color.WHITE);
@@ -55,10 +53,6 @@ public class BlueLaser extends GameObject{
 
 		g.setColor(Color.CYAN);
 		g.fillRect((int)x, 0, laserWidth, (int)y);
-		
-		g.drawString("X pos: " + x, 15, 100);
-		g.drawString("Y pos: " + y, 15, 120);
-
 	}
 
 	public Rectangle getBounds() {

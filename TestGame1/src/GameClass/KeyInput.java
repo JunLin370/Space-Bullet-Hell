@@ -9,12 +9,10 @@ import playerItems.Player;
 
 public class KeyInput extends Object implements KeyListener {
 	
-	private int vel = 8;
 	private Handler handler;
 	private boolean[] keys;
 	private int fastSpeed;
 
-	
 	public KeyInput(Handler handler) {
 		
 		fastSpeed = 8;

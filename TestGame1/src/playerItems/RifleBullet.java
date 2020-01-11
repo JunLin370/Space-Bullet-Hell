@@ -18,16 +18,12 @@ public class RifleBullet extends GameObject{
 	
 	
 	private Handler handler;
-	private int vel;
-	private boolean bang;
 	private int timer;
 	public static final int damage = 5;
-	private float angle;
 	
 	public RifleBullet(float x, float y, ObjectID id, Handler handler, float angle, float vel) {
 		super(x, y, id);
 		this.handler = handler;
-		this.angle = angle;
 		velX = (float) (vel * Math.cos(Math.toRadians( angle )));
 		velY = (float) (vel * Math.sin(Math.toRadians( angle )));
 	}
@@ -48,7 +44,6 @@ public class RifleBullet extends GameObject{
 		
 		if (timer <= 40) {
 			g.drawString("Bang", (int)x, (int)y);
-			bang = false;
 			timer++;
 		}
 		

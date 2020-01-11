@@ -23,6 +23,6 @@ public enum ObjectID {
 	BasicEnemy(),
 	ShotEnemy(),
 	// Enemy Ship Types (BOSS)
-	Boss1,
-	Boss2;
+	Boss1(),
+	Boss2();
 }

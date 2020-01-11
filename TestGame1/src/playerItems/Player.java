@@ -170,7 +170,7 @@ public class Player extends Ship  {
 						health -= EnemyLaser.damage;		//if yes then remove a certain amount of health
 					}
 					invincibilityFrames++;
-					if (invincibilityFrames == 2) {
+					if (invincibilityFrames == 10) {
 						invincibilityFrames = 0;
 					}
 				}
@@ -249,6 +249,7 @@ public class Player extends Ship  {
 	public void setFire(boolean firing) {
 		this.firing = firing;
 	}
+
 	public boolean getFire() {
 		return firing;
 	}

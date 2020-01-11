@@ -21,11 +21,11 @@ public abstract class Ship extends GameObject{
 	
 	protected abstract void collisions();
 
-	public void basicBullet(int x, int y, float angle, int vel) {
+	protected void basicBullet(int x, int y, float angle, int vel) {
 		handler.addObject(new Enemy(x, y, ObjectID.Bullet1, handler, angle, vel));
 	}
 	
-	public void trackBullet(int x, int y, int vel) {
+	protected void trackBullet(int x, int y, int vel) {
 		handler.addObject(new HomingBullet(x, y, ObjectID.Bullet2, handler, vel));
 	}
 	
