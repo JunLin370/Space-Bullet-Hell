@@ -130,9 +130,6 @@ public class Player extends Ship  {
 			g.setColor(Color.CYAN);
 			g.fillRect(10, 31, energyLevel*3/2, 14);
 		}
-		
-
-
 	}
 	
 	protected void collisions() {
