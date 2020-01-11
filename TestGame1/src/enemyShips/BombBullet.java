@@ -51,9 +51,6 @@ public class BombBullet extends GameObject{
 
 		// Bomb Ai end
 		collisions();
-		if (Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100)) {	//and if the object is out of the screen, 
-			handler.removeObject(this);	//remove it from the list
-		}
 	}
 
 	/* This method is ran from the handler class. It will put the shape of the bomb bullet on screen (wip). going to be sprite in future.

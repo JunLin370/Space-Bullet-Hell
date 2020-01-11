@@ -36,12 +36,9 @@ public class Level2 extends Level{
 	public void render(Graphics g) {
 		if (adder <= 5) {
 			g.setColor(Color.RED);
-			g.drawString( String.valueOf(adder), Game.WIDTH/2, Game.HEIGHT/2);
-		}else {
-			g.setColor(Color.WHITE);
-			g.drawRect(10, 10, 300, 15);
-			g.setColor(Color.WHITE);
+			g.drawString( String.valueOf(6 - adder), Game.WIDTH/2, Game.HEIGHT/2);
 		}
+		g.setColor(Color.WHITE);
 		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
 	}
 

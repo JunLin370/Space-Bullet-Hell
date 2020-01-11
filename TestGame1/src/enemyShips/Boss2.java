@@ -21,7 +21,7 @@ import playerItems.RifleBullet;
 public class Boss2 extends Ship{
 	
 	private final int  RECTANGLEWIDTH = 100, RECTANGLEHEIGHT = 125;		//size of the boss
-	private int attack, invincibilityFrames, dyingtimer, timer2, angle, bombTimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
+	private int attack, invincibilityFrames, machineGunTimer, timer2, oHealth;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
 	private boolean on, opener, engines, movepattern, phase2, buffer, moving;	
 	private Random r;	
 	private Level level;
@@ -35,6 +35,7 @@ public class Boss2 extends Ship{
 		super(x, y, id, handler, newHealth);
 		this.level = level;
 		
+		oHealth = health;
 		on = false;		//on and buffer are variables used in the AI of this boss
 		phase2 = false;
 		opener = true;
@@ -134,8 +135,6 @@ public class Boss2 extends Ship{
 
 		g.setColor(Color.RED);
 		g.fillRect(90, Game.HEIGHT - 79, health/3, 34);
-		
-		g.drawString("BOSS HEALTH: " + health, 15, 80);
 
 		Graphics2D g2d = (Graphics2D) g;		
 		g.setColor(Color.WHITE);
@@ -150,11 +149,15 @@ public class Boss2 extends Ship{
 		if (health <= 0) {
 			if (phase2 == false) {
 				phase2 = true;
-				health = 500;
+				if (on == true) {
+					velX = 0;
+					velY = 8;
+					on = false;
+				}
+				health = oHealth /4;
 				attack = r.nextInt(2) + 1;
 				Level.score += 500;
-			} else if (phase2 == true) {
-				Level.score += 1000;
+			} else {
 				level.setGameWin(true);
 				handler.removeObject(this);
 			}
@@ -166,62 +169,86 @@ public class Boss2 extends Ship{
 				x+= velX;
 				y += velY;
 				timer ++;
-				//Opening attack
-				if (y >= 140 && opener == false) {
-					velY = 0;
-					engines = false;
-					on = true;
-					movepattern =true;
-				}
-				if (opener == true) {
-					strafeAttackOpen();
-				}
-				if (movepattern == true) {
-					// Movement of boss ship
-					if (moving == false) {
-						velX = 9;
-						moving = true;
+
+				if (phase2 == false) {
+					if (y > tempObject.getYs()) {
+						machineGunTimer++;
+						backTurrentAttack();
 					}
-					if (Game.inBorder(x, 0, Game.WIDTH - RECTANGLEWIDTH)){
-						velX = velX *-1;
+
+					//Opening attack
+					if (y >= 140 && opener == false) {
+						engines = false;
+						on = true;
+						movepattern =true;
 					}
-				}
-				//Attack of boss ship
-				if (on == true) {
-					if (buffer == true) {
-						if (attack != 0)	//sets attack to 0 
-							attack = 0;
-						timer2 ++;
-						if(timer2 >= 60 * 1) {	//if buffer is on and it's been 2 seconds, set 
-							attack = r.nextInt(3) + 1;
-							buffer = false;
-							timer2 = 0;
-							timer = 0;
-							attack = 2;
+					if (opener == true) {
+						strafeAttackOpen();
+					}
+					if (movepattern == true) {
+						// Movement of boss ship
+						if (moving == false) {
+							velX = 9;
+							moving = true;
+							velY = 2;
+						}
+						if (Game.inBorder(x, 10, Game.WIDTH - RECTANGLEWIDTH - 10)){
+							velX = velX *-1;
+						}
+						if (Game.inBorder(y, 10, 200)){
+							velY = velY *-1;
 						}
 					}
-					switch (attack) {
-					case 1:
-						ShotGunAttack();
-						break;
-					case 2:
-						laserAttack();
-						break;
-					case 3: 
-						tripleBombAttack();
-						break;
-					default:
-						break;
-
+					//Attack of boss ship
+					if (on == true) {
+						if (buffer == true) {
+							if (attack != 0)	//sets attack to 0 
+								attack = 0;
+							timer2 ++;
+							if(timer2 >= 60 * 1) {	//if buffer is on and it's been 2 seconds, set 
+								attack = r.nextInt(7) + 1;
+								buffer = false;
+								timer2 = 0;
+								timer = 0;
+							}
+						}
+						if (attack >= 1 && attack <= 4)
+							ShotGunAttack();
+						if (attack >= 5 && attack <= 6)
+							laserAttack();
+						if (attack == 7)
+							strafeAttack();
+					}
+				} else {//Phase two Boss Ai
+					if (timer >= 20) {
+						attack = r.nextInt(3) + 1;
+						switch (attack) {
+						case 1:
+							newBombPlus((int)x, (int)y, 90, 3, 2);
+							break;
+						case 2:
+							newBombPlus((int)x, (int)y, 100, 3, 2);
+							break;
+						case 3:
+							newBombPlus((int)x, (int)y, 80, 3, 2);
+							break;
+						}
+						timer = 0;
+					}
+					if (y >= Game.HEIGHT) {
+						//Opening end
+						x = r.nextInt(Game.WIDTH - 100);
+						y = -1*Game.HEIGHT;
 					}
 				}
+
 			}
 			////Action end
 		}
 
 		collisions();
 	}
-	
+
 	public int shotGunRecursive(int angle) {
 		if (angle == 120)
 			return 0;
@@ -230,11 +257,11 @@ public class Boss2 extends Ship{
 			return shotGunRecursive(angle + 10);
 		}
 	}
-	
+
 	public void ShotGunAttack() {
 		//attack 1
 		timer2 ++;
-		if(timer == 30) {
+		if(timer == 15) {
 			shotGunRecursive(70);
 			timer = 0;
 		}
@@ -243,7 +270,7 @@ public class Boss2 extends Ship{
 			timer2 = 0;
 		}
 	}
-	
+
 	public void laserAttack() {
 		timer2 ++;
 		if (timer == 60 * 1) {
@@ -256,56 +283,25 @@ public class Boss2 extends Ship{
 			timer2 = 0;
 		}
 	}
-	
-	private void tripleBombAttack() {
-		if (timer == 60) {
-			if (bombTimer == 4)
-				newBomb((int)x + RECTANGLEHEIGHT, (int)y + RECTANGLEWIDTH/2, 90, 2, bombTimer - 1);
-			if (bombTimer == 3)
-				newBomb((int)x + RECTANGLEHEIGHT, (int)y + RECTANGLEWIDTH/2, 120, 2, bombTimer - 1);
-			if (bombTimer == 2)
-				newBomb((int)x + RECTANGLEHEIGHT, (int)y + RECTANGLEWIDTH/2, 60, 2, bombTimer - 1);
-			bombTimer --;
-			timer = 0;
-		}
-		if (bombTimer <= 1) {
-			buffer = true;
-			bombTimer = 4;
-		}
-	}
-	
-	private void strafeAttack() {
-		velY = 8;
-		if (timer == 20) {
-			attack = r.nextInt(3) + 1;
-			switch (attack) {
-			case 1:
-				newBombPlus((int)x + 30, (int)y, 90, 3, 2);
-				break;
-			case 2:
-				newBombPlus((int)x + 30, (int)y, 100, 3, 2);
-				break;
-			case 3:
-				newBombPlus((int)x + 30, (int)y, 80, 3, 2);
-				break;
-			}
-			timer = 0;
-		}
-		if (y >= Game.HEIGHT) {
-			buffer = true;
-			opener = false;
-			y = -1*Game.HEIGHT;
-			velY = 4;
-		}
-	}
-	
+
 	public Rectangle getBounds() {
 		return new Rectangle ((int)x,(int)y,RECTANGLEWIDTH,RECTANGLEHEIGHT);
 	}
 
+	private void strafeAttack() {
+		velX = 0;
+		engines = true;
+		on = false;
+		movepattern =false;
+		opener = true;
+		velY = 8;
+		moving = false;
+		timer = 19;
+	}
+
 	private void strafeAttackOpen() {
 		velY = 8;
-		if (timer == 20) {
+		if (timer >= 20) {
 			attack = r.nextInt(3) + 1;
 			switch (attack) {
 			case 1:
@@ -325,6 +321,15 @@ public class Boss2 extends Ship{
 			opener = false;
 			y = -1*Game.HEIGHT;
 			velY = 4;
+			buffer = true;
+		}
+	}
+
+	private void backTurrentAttack() {
+		if (machineGunTimer >= 20) {
+			trackBullet((int)x + 15, (int)y, 15);
+			trackBullet((int)x + RECTANGLEWIDTH - 15, (int)y, 15);
+			machineGunTimer = 0;
 		}
 	}
 }

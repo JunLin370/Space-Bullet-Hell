@@ -14,6 +14,7 @@ import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import enemyShips.BombBullet;
 import enemyShips.Enemy;
+import enemyShips.EnemyLaser;
 import enemyShips.HomingBullet;
 
 import java.awt.*;
@@ -23,7 +24,7 @@ public class Player extends Ship  {
 
 	private static final int OVALWIDTH = 30;
 	private boolean firing;
-	private int weaponLevel, weaponType, energyLevel;
+	private int weaponLevel, weaponType, energyLevel, invincibilityFrames;
 
 	public Player(float x, float y, ObjectID id, Handler handler, int weaponLevel, int weaponType) {
 		super(x, y, id,handler, 100);
@@ -111,11 +112,10 @@ public class Player extends Ship  {
 		g.setColor(Color.WHITE);
 		
 		g.setColor(Color.RED);
-		g.fillRect(10, 10, health*3, 15);
+		g.fillRect(11, 11, health*3 -1, 14);
 		
 		g.setColor(Color.WHITE);
 		g.drawRect(10, 30, 300, 15);
-		g.setColor(Color.WHITE);
 		
 		if (weaponType == 1) {
 			g.setColor(Color.YELLOW);
@@ -131,6 +131,9 @@ public class Player extends Ship  {
 			g.setColor(Color.CYAN);
 			g.fillRect(10, 31, energyLevel*3/2, 14);
 		}
+		
+
+
 	}
 	
 	protected void collisions() {
@@ -155,6 +158,25 @@ public class Player extends Ship  {
 				if(getBounds().intersects(tempObject.getBounds())){
 					health -= BombBullet.damage;
 					handler.removeObject(tempObject);
+				}
+			}
+			
+			if(tempObject.getId() == ObjectID.Bullet4) {
+				if(getBounds().intersects(tempObject.getBounds())){
+					health -= BombBullet.damage;
+					handler.removeObject(tempObject);
+				}
+			}
+			
+			if(tempObject.getId() == ObjectID.Bullet5) {
+				if(getBounds().intersects(tempObject.getBounds())){
+					if (invincibilityFrames == 0) {
+						health -= EnemyLaser.damage;		//if yes then remove a certain amount of health
+					}
+					invincibilityFrames++;
+					if (invincibilityFrames == 2) {
+						invincibilityFrames = 0;
+					}
 				}
 			}
 			

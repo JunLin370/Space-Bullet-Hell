@@ -16,6 +16,7 @@ import java.util.Random;
 import Levels.Level;
 import Levels.Level1;
 import Levels.Level2;
+import Levels.Level3;
 import abstrackSuperClasses.GameObject;
 import abstrackSuperClasses.Ship;
 import playerItems.Player;
@@ -26,7 +27,7 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;		
 	private boolean running = false; 
 	private Handler handler;
-	private Level level1, level2;
+	private Level level1, level2, level3;
 	private Menu menu;
 	
 	private int weaponLevel;
@@ -57,6 +58,7 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();	//This starts the handler class
 		level1 = new Level1(handler, this);	
 		level2 = new Level2(handler, this);
+		level3 = new Level3(handler, this);
 		weaponLevel = 1;
 		weaponType = 1;
 		menu = new Menu(this, handler);
@@ -140,12 +142,15 @@ public class Game extends Canvas implements Runnable{
 			clearEnemies();
 			this.level1.reset();
 			this.level2.reset();
+			this.level3.reset();
 		}
-		if (gameState == STATE.Level1 || gameState == STATE.Level2) {
+		if (gameState == STATE.Level1 || gameState == STATE.Level2 || gameState == STATE.Level3) {
 			if (gameState == STATE.Level1)
 				level1.tick(); // run game
 			if (gameState == STATE.Level2)
 				level2.tick();
+			if (gameState == STATE.Level3)
+				level3.tick();
 			//resets level if player losses
 			for (int i = 0; i < handler.object.size(); i++) {	//check all objects
 				GameObject tempObject = handler.object.get(i);
@@ -177,11 +182,13 @@ public class Game extends Canvas implements Runnable{
 
 		handler.render(g);		// This goes to the HandlerClass
 
-		if (gameState == STATE.Level1 || gameState == STATE.Level2) {
+		if (gameState == STATE.Level1 || gameState == STATE.Level2 || gameState == STATE.Level3) {
 			if (gameState == STATE.Level1)
 				level1.render(g); // run game
 			if (gameState == STATE.Level2)
 				level2.render(g);
+			if (gameState == STATE.Level3)
+				level3.render(g);
 		}
 		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.help|| gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {
 			menu.render(g);

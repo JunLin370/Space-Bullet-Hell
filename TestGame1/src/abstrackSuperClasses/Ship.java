@@ -34,7 +34,7 @@ public abstract class Ship extends GameObject{
 	}
 	
 	protected void newBombPlus(int x, int y, int angle, int vel, int time) {
-		handler.addObject(new BombBullet2(x, y, ObjectID.Bullet3, handler, angle, vel, time));
+		handler.addObject(new BombBullet2(x, y, ObjectID.Bullet4, handler, angle, vel, time));
 	}
 	
 	public void setHealth(int newHealth) {

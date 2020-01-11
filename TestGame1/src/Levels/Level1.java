@@ -40,8 +40,8 @@ public class Level1 extends Level {
 			}
 			if (adder == 15) {
 				shotGunEnemy(Game.WIDTH/2, 30);
-				formationXLine(5, 500);
-				formationXLine(5, 70);
+				formationXLine(5, 500, 10);
+				formationXLine(5, 70, 10);
 			}
 			if (adder == 20) {
 				formationTri(Game.WIDTH/8, 10);
@@ -59,9 +59,9 @@ public class Level1 extends Level {
 	public void render(Graphics g) {
 		if (adder <= 5) {
 			g.setColor(Color.RED);
-			g.drawString( String.valueOf(adder), Game.WIDTH/2, Game.HEIGHT/2);
+			g.drawString( String.valueOf(6 - adder), Game.WIDTH/2, Game.HEIGHT/2);
 		}
 		g.setColor(Color.WHITE);
-		g.drawString("Score: " + score, 15, 60);//displays score (for bragging rights)
+		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
 	}
 }

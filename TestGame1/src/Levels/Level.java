@@ -42,15 +42,15 @@ public abstract class Level {
 		}//End for
 	}
 	
-	protected void formationXLine(int number, int placement) {
+	protected void formationXLine(int number, int placement, int health) {
 		for (int i = 0; i < number; i++) {
-			handler.addObject(new BasicEnemyShip( (placement + (i*30) - 10), -1 * (Game.HEIGHT/4), ObjectID.BasicEnemy, handler, 10));
+			handler.addObject(new BasicEnemyShip( (placement + (i*30) - 10), -1 * (Game.HEIGHT/4), ObjectID.BasicEnemy, handler, health));
 		}
 	}
 	
-	protected void formationYLine(int number, int placement) {
+	protected void formationYLine(int number, int placement, int health) {
 		for (int i = 0; i < number; i++) {
-			handler.addObject(new BasicEnemyShip( placement - 10, -1 * (Game.HEIGHT/4) - (i*40), ObjectID.BasicEnemy, handler, 10));
+			handler.addObject(new BasicEnemyShip( placement - 10, -1 * (Game.HEIGHT/4) - (i*40), ObjectID.BasicEnemy, handler, health));
 		}
 	}
 	

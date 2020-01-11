@@ -26,7 +26,7 @@ import playerItems.RifleBullet;
 public class Boss1 extends Ship{
 	
 	private final int  RECTANGLEWIDTH = 300, RECTANGLEHEIGHT = 150;		//size of the boss
-	private int attack, angle, timer2, bombTimer, invincibilityFrames, dyingtimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
+	private int attack, angle, timer2, bombTimer, invincibilityFrames, dyingtimer, oHealth;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
 	private boolean on, buffer, phase2, dying;	
 	private Random r;	
 	private Level level;
@@ -40,6 +40,7 @@ public class Boss1 extends Ship{
 		super(x, y, id, handler, newHealth);
 		this.level = level;
 		
+		oHealth = health;
 		on = false;		//on and buffer are variables used in the AI of this boss
 		buffer = false;
 		phase2 = false;
@@ -137,7 +138,7 @@ public class Boss1 extends Ship{
 		if (health <= 0) {
 			if (phase2 == false) {
 				phase2 = true;
-				health = 1500;
+				health = oHealth/4;
 				attack = r.nextInt(2) + 1;
 				Level.score += 500;
 			} else if (on == true) {

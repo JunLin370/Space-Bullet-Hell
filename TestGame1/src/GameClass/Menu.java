@@ -56,7 +56,6 @@ public class Menu extends MouseAdapter {
 			if (mouseOver(mx, my,145, 650, 400, 64)) {
 				game.gameState = STATE.Level3;
 			}
-			
 			if (mouseOver(mx, my,145, 775, 400, 64)) {
 				game.gameState = STATE.Menu;
 			}
