@@ -92,6 +92,7 @@ public class Level3 extends Level{
 			
 			if (gameWin == true) {
 				adder = 0;
+				gameWin = false;
 				if (basicEnemyHealth <= 100)
 					basicEnemyHealth += 5;
 				if (shotGunEnemyHealth <= 1000) 
