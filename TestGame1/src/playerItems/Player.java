@@ -89,7 +89,6 @@ public class Player extends Ship  {
 			}
 		}
 
-
 		x += velX;
 		y += velY;
 		
