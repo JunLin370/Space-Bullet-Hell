@@ -73,16 +73,21 @@ public class BombBullet extends GameObject{
 		
 	}
 	
-	/* This method is ran when the object wants to explode. This will make 6 new Enemy objects and send then in 6 different directions. (not random). It will then remove this object
+	private int explodeRecursive(int angle) {
+		if (angle >= 360) {
+			return angle;
+		}else {
+			handler.addObject(new Enemy(x, y, ObjectID.Bullet1, handler, angle, 5));
+			return explodeRecursive(angle + 45);
+		}
+	}
+	
+	/* This method is ran when the object wants to explode. This will make 6 new Enemy objects and send then in 6 different directions by using a recursive method. (not random). It will then remove this object
 	 * pre: 
 	 * post: removes this object. Makes 6 new enemy objects
 	 */
 	private void explode() {
-		int angle = 0;
-		for (int i = 0; i <= 7; i++) {
-			angle += 45;
-			handler.addObject(new Enemy(x, y, ObjectID.Bullet1, handler, angle, 5));
-		}
+		explodeRecursive(0);
 		handler.removeObject(this);
 	}
 	

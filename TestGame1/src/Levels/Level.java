@@ -19,6 +19,7 @@ public abstract class Level {
 	protected Handler handler;
 	protected Game game;
 	public static int score;
+	protected boolean gameWin;
 	
 	public Level(Handler hander, Game game) {
 		this.handler = hander;
@@ -81,6 +82,15 @@ public abstract class Level {
 	public void reset() {
 		timer = 0;
 		adder = 0;
+		gameWin = false;
+	}
+	
+	public boolean getGameWin() {
+		return gameWin;
+	}
+
+	public void setGameWin(boolean gameWin) {
+		this.gameWin = gameWin;
 	}
 	
 }

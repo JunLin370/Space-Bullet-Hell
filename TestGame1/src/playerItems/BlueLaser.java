@@ -45,8 +45,6 @@ public class BlueLaser extends GameObject{
 		if (laserWidth <= 0) {
 			handler.removeObject(this);
 		}
-		
-
 	}
 
 

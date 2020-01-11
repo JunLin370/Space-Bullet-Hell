@@ -29,16 +29,16 @@ public class Boss1 extends Ship{
 	private int attack, angle, timer2, bombTimer, invincibilityFrames, dyingtimer;	// these 5 types of variables are used for the tracking and selecting of the attacks from the boss
 	private boolean on, buffer, phase2, dying;	
 	private Random r;	
-	private Game game;
+	private Level level;
 
 	/* constructor takes in the pre-requisite x and y starting location of the object, and object id, the
 	 * handler, and health of the ship. It also initialize many variables used in the tick method.   
 	 * pre: float x, float y, ObjectID (Ship1), handler, health of the ship
 	 * post: supers all the pre variables. sets on and buffer to false. Make a new random object. set velY to 1
 	 */
-	public Boss1(float x, float y, ObjectID id, Handler handler, int newHealth, Game game) {
+	public Boss1(float x, float y, ObjectID id, Handler handler, int newHealth, Level level) {
 		super(x, y, id, handler, newHealth);
-		this.game = game;
+		this.level = level;
 		
 		on = false;		//on and buffer are variables used in the AI of this boss
 		buffer = false;
@@ -109,6 +109,24 @@ public class Boss1 extends Ship{
 			Graphics2D g2d = (Graphics2D) g;		
 			g.setColor(Color.WHITE);
 			g2d.draw(getBounds());
+			
+			if(dyingtimer > 60*4 && dyingtimer < 60*6) {
+				g.drawString("Boom", RECTANGLEWIDTH, RECTANGLEHEIGHT);
+				g.drawString("Boom", RECTANGLEWIDTH +20, RECTANGLEHEIGHT+100);
+				g.drawString("Boom", RECTANGLEWIDTH +140, RECTANGLEHEIGHT+80);
+			}
+			if(dyingtimer > 60*2 && dyingtimer < 60*6) {
+				g.drawString("Boom", RECTANGLEWIDTH, RECTANGLEHEIGHT);
+				g.drawString("Boom", RECTANGLEWIDTH +120, RECTANGLEHEIGHT+10);
+				g.drawString("Boom", RECTANGLEWIDTH +10, RECTANGLEHEIGHT+70);
+			}
+			if(dyingtimer > 60 && dyingtimer < 60*6) {
+				g.drawString("Boom", RECTANGLEWIDTH, RECTANGLEHEIGHT);
+				g.drawString("Boom", RECTANGLEWIDTH +50, RECTANGLEHEIGHT);
+				g.drawString("Boom", RECTANGLEWIDTH +75, RECTANGLEHEIGHT+20);
+			}
+
+			g.drawString("BOSS HEALTH: " + health, 15, 80);
 	}
 
 
@@ -126,7 +144,7 @@ public class Boss1 extends Ship{
 				Level.score += 1000;
 				on = false;
 			} else if (dyingtimer == 60 * 6){
-				game.gameState = STATE.gameWin;
+				level.setGameWin(true);
 				handler.removeObject(this);
 			} else {
 				dyingtimer++;

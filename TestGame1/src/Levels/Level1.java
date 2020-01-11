@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import GameClass.Game;
+import GameClass.Game.STATE;
 import GameClass.Handler;
 import GameClass.ObjectID;
 import enemyShips.Boss1;
@@ -47,7 +48,10 @@ public class Level1 extends Level {
 				formationTri(Game.WIDTH/2 + Game.WIDTH/4, 10);
 			}
 			if (adder == 30) {
-				handler.addObject(new Boss1(Game.WIDTH/2 - 150 , -1*Game.HEIGHT/2, ObjectID.Boss1, handler, 2500, game));
+				handler.addObject(new Boss1(Game.WIDTH/2 - 150 , -1*Game.HEIGHT/2, ObjectID.Boss1, handler, 2500, this));
+			}
+			if (gameWin == true) {
+				game.gameState = STATE.gameWin;
 			}
 		}
 	}
@@ -56,13 +60,8 @@ public class Level1 extends Level {
 		if (adder <= 5) {
 			g.setColor(Color.RED);
 			g.drawString( String.valueOf(adder), Game.WIDTH/2, Game.HEIGHT/2);
-		}else {
-			g.setColor(Color.WHITE);
-			g.drawRect(10, 10, 300, 15);
-			g.setColor(Color.WHITE);
 		}
-		g.drawString("timer: " + timer, 15, 40);
-		g.drawString("Score: " + score, 15, 60);		//displays score (for bragging rights)
-		g.drawString("Adder: " + adder, 15, 80);
+		g.setColor(Color.WHITE);
+		g.drawString("Score: " + score, 15, 60);//displays score (for bragging rights)
 	}
 }

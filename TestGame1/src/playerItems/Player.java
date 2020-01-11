@@ -23,35 +23,72 @@ public class Player extends Ship  {
 
 	private static final int OVALWIDTH = 30;
 	private boolean firing;
-	private int weaponLevel, weaponType;
+	private int weaponLevel, weaponType, energyLevel;
 
 	public Player(float x, float y, ObjectID id, Handler handler, int weaponLevel, int weaponType) {
 		super(x, y, id,handler, 100);
 		this.weaponLevel = weaponLevel;
 		this.weaponType = weaponType;
+		energyLevel = 200;
+		switch (weaponType) {
+		case 1:
+			timer = 6;
+			break;
+		case 2:
+			timer = 49;
+			break;
+		}
 	}
 
 	public Rectangle getBounds() {
 		return new Rectangle ((int)x,(int)y,OVALWIDTH,OVALWIDTH);
 	}
-	
+
 	public void tick() {	//This updates the x and y coords of the object
 		if (health == 0) {
 			handler.removeObject(this);
 		}
-		
-		timer ++;
-		
 		switch (weaponType) {
 		case 1:
-			machineGun();
+			if (energyLevel > 0 && firing == true) {
+				timer ++;
+				machineGun();
+				energyLevel --;
+			}else if (energyLevel <= 0 && firing == true){
+				energyLevel ++;
+				timer = 0;
+			}else if (energyLevel <= 200) {
+				energyLevel ++;
+				timer = 6;
+			}
 			break;
 		case 2:
-			laserGun();
-			break;
+			if (energyLevel >= 190 && firing == true) {
+				laserGun();
+				energyLevel -= energyLevel;
+			}else if (energyLevel <= 200) {
+				switch (weaponLevel) {
+				case 1:
+					energyLevel += 3;
+					break;
+				case 2:
+					energyLevel += 3;
+					break;
+				case 3:
+					energyLevel += 2;
+					break;
+				case 4:
+					energyLevel += 2;
+					break;
+				case 5:
+					energyLevel += 1;
+					break;
+				}
+				timer = 6;
+			}
 		}
 
-		
+
 		x += velX;
 		y += velY;
 		
@@ -69,8 +106,31 @@ public class Player extends Ship  {
 		g.setColor(Color.WHITE);
 		g2d.draw(getBounds());
 		
+		g.setColor(Color.WHITE);
+		g.drawRect(10, 10, 300, 15);
+		g.setColor(Color.WHITE);
+		
 		g.setColor(Color.RED);
 		g.fillRect(10, 10, health*3, 15);
+		
+		g.setColor(Color.WHITE);
+		g.drawRect(10, 30, 300, 15);
+		g.setColor(Color.WHITE);
+		
+		if (weaponType == 1) {
+			g.setColor(Color.YELLOW);
+			g.fillRect(11, 31, energyLevel*3/2 -2, 14);
+			
+			for (int i = 11; i < 310; i+= 10) {
+				g.setColor(Color.BLACK);
+				g.fillRect(i, 31, 2, 14);
+			}
+		}
+
+		if (weaponType == 2) {
+			g.setColor(Color.CYAN);
+			g.fillRect(10, 31, energyLevel*3/2, 14);
+		}
 	}
 	
 	protected void collisions() {
@@ -104,34 +164,21 @@ public class Player extends Ship  {
 	private void laserGun() {
 		switch (weaponLevel) {
 		case 1:
-			if (timer == 50) {
-				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 3, 5));
-				timer = 0;
-			}
+			handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 3, 5));
 			break;
 		case 2:
-			if (timer == 50) {
-				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 4, 10));
-				timer = 0;
-			}
+			handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 4, 10));
 			break;
 		case 3:
-			if (timer == 50) {
-				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 5, 15));
-				timer = 0;
-			}
+			handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 5, 15));
+
 			break;
 		case 4:
-			if (timer == 50) {
-				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 7, 20));
-				timer = 0;
-			}
+			handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 7, 20));
+
 			break;
 		case 5:
-			if (timer == 50) {
-				handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 15, 50));
-				timer = 0;
-			}
+			handler.addObject(new BlueLaser(x + 10, y, ObjectID.Gun3, handler, 15, 50));
 			break;
 		}
 	}
@@ -180,4 +227,10 @@ public class Player extends Ship  {
 		}
 	}
 	
+	public void setFire(boolean firing) {
+		this.firing = firing;
+	}
+	public boolean getFire() {
+		return firing;
+	}
 }
