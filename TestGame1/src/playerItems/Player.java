@@ -200,6 +200,7 @@ public class Player extends Ship  {
 			break;
 		}
 	}
+	
 	private void machineGun() {
 		switch (weaponLevel) {
 			case 1:
