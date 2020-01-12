@@ -4,6 +4,7 @@
 
 package GameClass;
 
+//these are enum names for possible Objects in this game
 public enum ObjectID {
 
 	//Players

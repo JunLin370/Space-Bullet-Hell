@@ -1,9 +1,6 @@
 /* Jun Lin
- * DESC: This class contains the the behaviors for the first level of the game (WIP)
- * For now it just spawns many red blocks as they go downwards and the player avoids it
- * This class adds the Player object to the handler. Every tick, the it will add 1 to timer
- * when timer = respawn, it spawns a new enemy and set timer back to 0
- * Every tick, it also adds 1 to score. This displays both score and timer as text on the window
+ * DESC: This Class spawns enemies every 5 seconds and at 30 seconds, it spawns the boss of the stage. A very simple set up
+ * in the first second, it sets score to 0 and spawns player
  * DATE: 2019-12-11 */
 package Levels;
 
@@ -22,10 +19,20 @@ import playerItems.Player;
 
 public class Level1 extends Level {
 	
+	/* Constructor, supers handler and game
+	 * pre: Handler handler, Game game
+	 * post: supers handler and game
+	 */
 	public Level1(Handler handler, Game game) {	//Constructor takes handler and adds new player to handler linked list
 		super(handler, game);
 	}
 
+	/* Every second, adder ++. use adder to determine when enemies spawn
+	 * The level is 30 seconds of the basic enemy and one shotgun enemy in simple formations. At the end, boss1 is spawned
+	 * if the boss is defeated. gameWin is set to true. When gameWin is set to true, game.gameState is set to STATE.gameWin
+	 * pre:
+	 * post: Spawns enemies. at 30 seconds, spawn boss, if gameWin == true, gameState = gameWin
+	 */
 	public void tick() {
 		timer ++;                                                                                                                                                
 		if (timer % 60 == 0) {
@@ -56,6 +63,10 @@ public class Level1 extends Level {
 		}
 	}
 
+	/* Displays a countdown at the begining of level. Then it renders the score under the ammo and health
+	 * pre: Graphics
+	 * post: renders score and countdown
+	 */
 	public void render(Graphics g) {
 		if (adder <= 5) {
 			g.setColor(Color.RED);

@@ -25,14 +25,17 @@ public class Game extends Canvas implements Runnable{
 	
 	public static final int  HEIGHT = 920, WIDTH = HEIGHT/12*9;	//WIDTH AND HEIGHT of window here 
 	private Thread thread;		
-	private boolean running = false; 
-	private Handler handler;
-	private Level level1, level2, level3;
-	private Menu menu;
+	private boolean running = false; 	
+	private Handler handler; 	//initialize handler class that will control all objects in game
+	private Level level1, level2, level3;	//initialize level classes in the game
+	private Menu menu;	//initialize menu, which will render all screens outside of the levels
 	
-	private int weaponLevel;
-	private int weaponType;
+	private int weaponLevel; //This is the variable that remembers how powerful the weapon will be when the player enters the game
+	private int weaponType;	//this is the variable that remebers which weapon the player will use when he enters a game
 	
+	/* this is the different States a menu can be in called STATE
+	 * it contains States for the menu, the levels, the shop, the powerSelect screen, the help Screen, gameover screen and win screen, and level select screen
+	 */
 	public enum STATE {
 		Menu,
 		Level1,
@@ -46,11 +49,13 @@ public class Game extends Canvas implements Runnable{
 		levelSelect,
 	};
 	
+	//instantiate a new instance of STATE to be used in the menu and in game
 	public STATE gameState = STATE.Menu;
 	
 	
 	/* Des: Constructor method. It initializes the handler class, the keyListener, the window, and all the
-	 * objects in the game. This is also where most of the game will be put (WIP) 
+	 * objects in the game. This is also where the levels are initialize. the weapon level and type are set to 1 by default. 
+	 * menu is initialize, adding mouseListener to the menu, and keyListener to handler 
 	 * pre:
 	 * post: Runs the game itself */
 	public Game() {		// This starts the windows which is called from main
@@ -67,7 +72,7 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(menu);
 
-		new Window(WIDTH, HEIGHT, "my Game", this);
+		new Window(WIDTH, HEIGHT, "AlphaLite", this);
 
 	}
 
@@ -84,9 +89,9 @@ public class Game extends Canvas implements Runnable{
 		running = true;
 	}
 	
-	/* Des: (WIP) cause i dont really know what it does besides stop the run method by turing running to false
+	/* Des: This is to stop the thread when you want to close the game.
 	 * pre:
-	 * post: */
+	 * post: joins thread and then set running to false */
 	public synchronized void stop() {	// To stop the game and tell program game is not running
 		if (!running)	//if the game is not running, leave method cause there is nothing to stop
 			return;
@@ -100,9 +105,9 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	/* Des: This behaviour is holds the loop which the game will be placed in. It limits the amount of frames using
-	 * math. It will run forever untill running is set to false. It will repeatedly run tick and render(see below)
+	 * math. It will run forever until running is set to false. It will repeatedly run tick and render(see below)
 	 * pre:
-	 * post: */
+	 * post: while loops the tick and render. run tick 60 times a second */
 	public void run() { // Popular game loop system, to stop flicking in Java and maintain tick rate
 		this.requestFocus();	//Auto Focus the game when launched
 		long lastTime = System.nanoTime();
@@ -132,18 +137,20 @@ public class Game extends Canvas implements Runnable{
 		stop();
 	}
 	
-	/* Des: This behavior will run tick from the handler class
+	/* Des: This behavior will run tick from the handler class. Depending on the state, it will run different tick methods
 	 * pre:	
 	 * post: It runs tick from the handler class*/
 	private void tick() {
 		handler.tick();	//this goes to the Handler Class
+		//if the games state is any of the states below, run the menu
 		if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.help|| gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {	//if the game is in theses states,
 			menu.tick();	//run menu	
 			clearEnemies();
-			this.level1.reset();
+			this.level1.reset();	//these will reset the timer and adder in the levels so that the player can play them again
 			this.level2.reset();
 			this.level3.reset();
 		}
+		//if the game state is one of the levels, run that respective level
 		if (gameState == STATE.Level1 || gameState == STATE.Level2 || gameState == STATE.Level3) {
 			if (gameState == STATE.Level1)
 				level1.tick(); // run game
@@ -156,17 +163,17 @@ public class Game extends Canvas implements Runnable{
 				GameObject tempObject = handler.object.get(i);
 				if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Player1
 					Ship tempShip = (Ship) tempObject;
-					if (tempShip.getHealth() <= 0) {
-						gameState = STATE.gameOver;
+					if (tempShip.getHealth() <= 0) {	//if player health = 0
+						gameState = STATE.gameOver;		//set gamestate to gameOver
 					}
 				}
 			}//End for
 		}
 	}
 
-	/* Des: This will uses bufferstrategy to limit the amount of frames the game will output. It will 
-	 * then output the background for the window. It will then run render inside the handler class.
-	 * (WIP)
+	/* Des: This will uses bufferstrategy to help fix the flickering problom at the cost of some fps, though that doesn't really matter.
+	 * It does this by creating another frame after the first one has been rendered, and then displays it when the first one has been show. It then disposes
+	 * the frame when its done
 	 * pre:
 	 * post: disposes frames with bufferStrategy and g.dispose. Will show frames with bs.show */
 	private void render() {		//Creates buffers in game to limit frames the game will run
@@ -182,6 +189,7 @@ public class Game extends Canvas implements Runnable{
 
 		handler.render(g);		// This goes to the HandlerClass
 
+		//if state is one of the levels, output run the respective levels render
 		if (gameState == STATE.Level1 || gameState == STATE.Level2 || gameState == STATE.Level3) {
 			if (gameState == STATE.Level1)
 				level1.render(g); // run game
@@ -190,6 +198,7 @@ public class Game extends Canvas implements Runnable{
 			if (gameState == STATE.Level3)
 				level3.render(g);
 		}
+		//else render menu if one of states below
 		else if (gameState == STATE.Menu || gameState == STATE.gameOver || gameState == STATE.help|| gameState == STATE.levelSelect || gameState == STATE.shop || gameState == STATE.powerSelect || gameState == STATE.gameWin) {
 			menu.render(g);
 		}

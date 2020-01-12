@@ -60,7 +60,7 @@ public class HomingBullet extends GameObject{
 		}
 	}
 
-	/* This draws the object. It is an orange oval which is 10 by 10. (WIP)
+	/* This draws the object. It is an orange oval which is 10 by 10.
 	 * pre:
 	 * post: Draws object on screen
 	 */
@@ -72,14 +72,11 @@ public class HomingBullet extends GameObject{
 			timer++;
 		}
 
-		Graphics2D g2d = (Graphics2D) g;		
-		g.setColor(Color.WHITE);
-		g2d.draw(getBounds());
 	}
 
-	/* returns a rectangle which is approximate the size of the object in question
-	 * pre:
-	 * post: Rectangle with x y positions, and size, both width and height
+	/* This returns a rectangle that has the same dimensions as the render of this ship. used as the bullet hit box
+	 * pre: 
+	 * post: a new Rectangle
 	 */
 	public Rectangle getBounds() {
 		return new Rectangle ((int)x,(int)y,10,10);

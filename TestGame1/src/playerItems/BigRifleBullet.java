@@ -16,15 +16,22 @@ public class BigRifleBullet extends GameObject {
 	private int timer;
 	public static final int damage = 15;
 	
+	/* Constructor. Gets origin x and y position. Object id, the handler. Angle its will move in, and speed. It then uses angle and speed to determine
+	 * the velX and velY
+	 * pre: float x, float y. ObjectID id, Handler handler, float 0 < angle < 360, float vel > 0
+	 */
 	public BigRifleBullet(float x, float y, ObjectID id, Handler handler, float angle, float vel) {
 		super(x, y, id);
 		this.handler = handler;
 		
 		velX = (float) (vel * Math.cos(Math.toRadians( angle )));
 		velY = (float) (vel * Math.sin(Math.toRadians( angle )));
-		
 	}
 
+	/* Ai for the Big Rifle Bullet, really simple. Move bullet with velX and velY. if the object leaves screen, remove this object
+	 * pre:
+	 * post: x and y is updated by velX and velY
+	 */
 	public void tick() {
 		x += velX;
 		y += velY;
@@ -34,6 +41,10 @@ public class BigRifleBullet extends GameObject {
 		}
 	}
 
+	/* This draws a bang on the bullet for one second. It also draws the bullet as a yellow oval.
+	 * pre: Graphics
+	 * post: draws oval on screen
+	 */
 	public void render(Graphics g) {
 		g.setColor(Color.ORANGE);
 		g.fillOval((int)x, (int)y, 10, 15);
@@ -41,12 +52,11 @@ public class BigRifleBullet extends GameObject {
 			g.drawString("Bang", (int)x, (int)y);
 			timer++;
 		}
-
-		Graphics2D g2d = (Graphics2D) g;		
-		g.setColor(Color.WHITE);
-		g2d.draw(getBounds());
 	}
-
+	/* This returns a rectangle that has the same dimensions as the render of this ship. used as the bullet hit box
+	 * pre: 
+	 * post: a new Rectangle
+	 */
 	public Rectangle getBounds() {
 		return new Rectangle ((int)x,(int)y,10,15);
 	}

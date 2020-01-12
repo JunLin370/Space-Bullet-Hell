@@ -54,7 +54,7 @@ public class BombBullet2 extends GameObject{
 	}
 
 	/* This method is ran from the handler class. It will put the shape of the bomb bullet on screen (wip). going to be sprite in future.
-	 * pre:
+	 * pre: Graphics
 	 * post: puts shapes on screen
 	 */
 	public void render(Graphics g) {
@@ -74,6 +74,11 @@ public class BombBullet2 extends GameObject{
 		
 	}
 	
+	/* This will create 6 new Enemy objects in a circle pattern recursively. this is done by checking if the angle is equal to 360, if not, make a new object
+	 * and added 45 to it
+	 * pre: int angle = 0
+	 * post: makes 6 new EnemyObjects to handler linked list
+	 */
 	private int explodeRecursive(int angle) {
 		if (angle >= 360) {
 			return angle;
@@ -83,9 +88,9 @@ public class BombBullet2 extends GameObject{
 		}
 	}
 	
-	/* This method is ran when the object wants to explode. This will make 6 new Enemy objects and send then in 18 different directions by using recursive method. (not random). It will then remove this object
-	 * pre: 
-	 * post: removes this object. Makes 6 new enemy objects
+	/* this calls the explodeRecursive method to make the bullets, and then removes this object	 
+ 	 * pre: 
+	 * post: removes this object. Makes 18 new enemy objects
 	 */
 	private void explode() {
 		explodeRecursive(0);
@@ -113,7 +118,7 @@ public class BombBullet2 extends GameObject{
 		}//End for
 	}
 	
-	/* This returns a rectangle that has the same dimensions as the render of this ship. used as the ships hit box
+	/* This returns a rectangle that has the same dimensions as the render of this ship. used as the bombs hit box
 	 * pre: 
 	 * post: a new Rectangle
 	 */

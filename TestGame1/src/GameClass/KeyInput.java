@@ -13,6 +13,11 @@ public class KeyInput extends Object implements KeyListener {
 	private boolean[] keys;
 	private int fastSpeed;
 
+	/* Constructor, this initialize a boolean array used to keep track of player controls and make the controls mores smooth, also sets the speed the
+	 * player will move at
+	 * pre: Handler handler
+	 * post: initialize boolean array and sets all of it to false. sets fastSpeed to 8
+	 */
 	public KeyInput(Handler handler) {
 		
 		fastSpeed = 8;
@@ -25,6 +30,11 @@ public class KeyInput extends Object implements KeyListener {
 		keys[3] = false;
 	}
 	
+	/* This listens for if a key is Pressed. If WASD is pressed, set the speed appropriately, and change that keys boolean slot to true
+	 * Also listen for L, if L is pressed, setFire to true. Do this only if the player object exists
+	 * pre: KeyEvent
+	 * post: changes velY and velX for the player depending on which WASD keys pressed. also sets fire to true if L key is pressed. Sets keys[] to true depending on which key is pressed
+	 */
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		
@@ -45,6 +55,11 @@ public class KeyInput extends Object implements KeyListener {
 		}
 	}
 	
+	/*When a key is released, set the respective keys[] to false. If WS is false. velY = 0, if AD is false, velX = 0
+	 * also if L is released, setFire(false)
+	 * pre: KeyEvent
+	 * post: sets keys[] to false depending on WASD keys released. setsFire(false) if L key is released. if If WS is false, velY = 0. if AD is false, velX = 0
+	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		
@@ -65,9 +80,6 @@ public class KeyInput extends Object implements KeyListener {
 		}
 	}
 
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent arg0) {}
 
 }

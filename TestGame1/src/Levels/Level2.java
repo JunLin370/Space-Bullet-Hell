@@ -1,3 +1,6 @@
+/*This level simply spawns the player, reset the score, and spawns the second boss. There is no enemies beside the boss on this stage
+ * 
+ */
 package Levels;
 
 import java.awt.Color;
@@ -12,10 +15,15 @@ import playerItems.Player;
 
 public class Level2 extends Level{
 
+	//Same as Level1
 	public Level2(Handler hander, Game game) {
 		super(hander, game);
 	}
 	
+	/*tick method works similarly to Level one. Major difference is that the boss is spawned after 5 seconds. there are no normal enemies in this stage
+	 * pre:
+	 * post: spawns player, score = 0, spawns Boss2, if gameWin == true, gameState = gameWin
+	 */
 	public void tick() {
 		timer ++;                                                                                                                                                
 		if (timer % 60 == 0) {
@@ -33,6 +41,7 @@ public class Level2 extends Level{
 		}
 	}
 
+	//Same as Level 1
 	public void render(Graphics g) {
 		if (adder <= 5) {
 			g.setColor(Color.RED);

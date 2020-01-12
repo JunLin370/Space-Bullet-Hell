@@ -40,12 +40,12 @@ public class BasicEnemyShip extends Ship{
 	/* This tick method will run 60 times a second from the handler method. It will do so with every other
 	 * game object at the same time before each frame. 
 	 * This tick method specifically will first check if the objects health is 0, if yes, remove the object
-	 * and add 100 to score (wip).
+	 * and add 100 to score
 	 * Then if the player object exists, the ship will move, then if its a fourth the way down the screen,
 	 * make a tracking bullet at its current location. Then check if its outside the screen, if yes then remove the object
 	 * then run the collisions method (see below) 
 	 * pre:
-	 * post: moves x and y according to velX and velY. Makes bullet at certain place. removes object at edge of screen. checks for collision
+	 * post: moves x and y according to velX and velY. Makes new bullet object at certain place. removes object at edge of screen. checks for collision
 	 */
 	public void tick() {
 		if (health <= 0) {
@@ -65,7 +65,7 @@ public class BasicEnemyShip extends Ship{
 				////
 			}
 		}//end for
-		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT - 100)) {	// if object is outside screen of game
+		if(Game.inBorder(x, 0, Game.WIDTH)|| Game.inBorder(y,  Game.HEIGHT * (-1), Game.HEIGHT)) {	// if object is outside screen of game
 			handler.removeObject(this); //remove object
 		}
 
@@ -88,26 +88,26 @@ public class BasicEnemyShip extends Ship{
 				}
 			}
 			
-			if(tempObject.getId() == ObjectID.Gun2) {	//if object's id is Gun1
+			if(tempObject.getId() == ObjectID.Gun2) {	//if object's id is Gun2
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
 					health -= BigRifleBullet.damage;		//if yes then remove a certain amount of health
 					handler.removeObject(tempObject);	//and remove the bullet
 				}
 			}
 			
-			if(tempObject.getId() == ObjectID.Gun3) {	//if object's id is Gun1
+			if(tempObject.getId() == ObjectID.Gun3) {	//if object's id is Gun3
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
-					if (invincibilityFrames == 0) {
+					if (invincibilityFrames == 0) {		//if the invincibilityFrames is 0,
 						health -= BlueLaser.damage;		//if yes then remove a certain amount of health
 					}
-					invincibilityFrames++;
-					if (invincibilityFrames == 2) {
-						invincibilityFrames = 0;
+					invincibilityFrames++;	//added one to invincibilityFrames
+					if (invincibilityFrames == 2) {		//if invincibilityFrames is two,
+						invincibilityFrames = 0;	// set invincibilityFrames to 0 so that i can take damage again
 					}
 				}
 			}
 			
-			if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Gun1
+			if(tempObject.getId() == ObjectID.Player1) {	//if object's id is Player1
 				if(getBounds().intersects(tempObject.getBounds())){		//check if their bounds touch
 					Ship tempShip = (Ship) tempObject;	
 					tempShip.setHealth(tempShip.getHealth() - 50);	//remove player health
@@ -118,8 +118,7 @@ public class BasicEnemyShip extends Ship{
 	}
 	
 	/* This is the render method, and is ran from the handler class. This will output the image of the ship on screen
-	 * (WIP) is going to be sprite model/ animation, not just a gray square but thats what it is for now.
-	 * pre: 
+	 * pre: Graphics
 	 * post: puts shape on screen
 	 */
 	public void render(Graphics g) {
