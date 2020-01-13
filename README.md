@@ -40,7 +40,7 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 * Player.java
 * RifleBullet.java
 
-Name of Bat file would go here
+Lin_Jun_ISU_AlplaLite
 
 The game uses no images or audio files
 
