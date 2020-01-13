@@ -3,10 +3,39 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 
 ### Prerequisites
 
-** Abstract Package
+** Abstract Package 
 * GameObject.java
 * Ship.java
-** enemyShips
+** enemyShips Package
+* BasicEnemyShip.java
+* BombBullet.java
+* BombBullet2.java
+* Boss1.java
+* Boss2.java
+* BossGod.java
+* Enemy.java
+* EnemyLaser.java
+* HomingBullet.java
+* ShotGunEnemyShip
+** GameClass Package
+* Game.java
+* Handler.java
+* KeyInput.java
+* Menu.java
+* MouseMotionAdapter.java
+* ObjectID.java
+* Window.java
+** Levels Package
+* Level.java
+* Level1.java
+* Level2.java
+* Level3.java
+** playerItems
+* BigRifleBullet.java
+* BlueLaser.java
+* Player.java
+* RifleBullet.java
+
 Name of Bat file would go here
 
 The game uses no images or audio files
