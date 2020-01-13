@@ -3,7 +3,7 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 
 ## Prerequisites
 
-** Abstract Package 
+### JavaFiles
 * GameObject.java
 * Ship.java
 * BasicEnemyShip.java
@@ -31,8 +31,7 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 * BlueLaser.java
 * Player.java
 * RifleBullet.java
-
-AlphaLite_LinJun
+* AlphaLite_LinJun.bat
 
 The game uses no images or audio files
 
