@@ -6,7 +6,8 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 ** Abstract Package 
 * GameObject.java
 * Ship.java
-###enemyShips Package
+
+### enemyShips Package
 * BasicEnemyShip.java
 * BombBullet.java
 * BombBullet2.java
@@ -17,7 +18,8 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 * EnemyLaser.java
 * HomingBullet.java
 * ShotGunEnemyShip
-###GameClass Package
+
+### GameClass Package
 * Game.java
 * Handler.java
 * KeyInput.java
@@ -25,11 +27,13 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 * MouseMotionAdapter.java
 * ObjectID.java
 * Window.java
+
 ### Levels Package
 * Level.java
 * Level1.java
 * Level2.java
 * Level3.java
+
 ### playerItems
 * BigRifleBullet.java
 * BlueLaser.java
