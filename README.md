@@ -3,7 +3,10 @@ This game is a space shooter from the bullet hell or light em up genre. In this 
 
 ### Prerequisites
 
-Necessary Java files would go here
+** Abstract Package
+* GameObject.java
+* Ship.java
+** enemyShips
 Name of Bat file would go here
 
 The game uses no images or audio files
